@@ -1,0 +1,90 @@
+.home-container {
+  width: 100px;
+  display: grid;
+  grid-template-columns: 15vw 85vw;
+}
+.home-container .left-section {
+  height: 100vh;
+  width: 15vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 60vh;
+  border-right: 2px solid gray;
+}
+.home-container .right-section {
+  width: 85vw;
+}
+.left-section .left-section {
+  width: max-content;
+}
+.left-section .routes-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  row-gap: 1rem;
+}
+.left-section .routes-container .route-section {
+  display: flex;
+  justify-content: start;
+  column-gap: 1rem;
+  align-items: center;
+  cursor: pointer;
+}
+.left-section .section-down {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.left-section .section-down .logout-icon {
+  font-size: 1.6rem;
+  color: red;
+}
+.left-section .section-down .logout-text {
+  font-size: 1rem;
+  color: red;
+  font-weight: 500;
+  padding-bottom: 0.3rem;
+}
+.left-section .section-down .logout-section {
+  color: red;
+  display: flex;
+  justify-content: start;
+  column-gap: 0.6rem;
+  align-items: center;
+  width: max-content;
+}
+.left-section .section-down {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.route-section .route-icon {
+  font-size: 1.4rem;
+}
+
+.route-section .route-text {
+  font-weight: 500;
+  font-size: 1rem;
+  padding-bottom: 0.3rem;
+}
+.routes-container .select-section {
+  background: #4391ed1a;
+}
+
+.brand-name-section .brand-name {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  column-gap: 0.7rem;
+
+  margin-bottom: 1.5rem;
+}
+.brand-name .brand-icon {
+  font-size: 1.2rem;
+}
+.brand-name .brand-text {
+  font-size: 1rem;
+  font-weight: 500;
+}
