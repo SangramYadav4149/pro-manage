@@ -1,7 +1,12 @@
 import React from "react";
+import Anyalytics from "../../Components/Anyalytics/Anyalytics";
 
 const AnyalyticsPage = () => {
-  return <h1>AnyalyticsPage</h1>;
+  return (
+    <div>
+      <Anyalytics />
+    </div>
+  );
 };
 
 export default AnyalyticsPage;

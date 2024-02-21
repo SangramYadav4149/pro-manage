@@ -1,0 +1,46 @@
+.anyalytics-container {
+  width: 100%;
+}
+.anyalytics-container .anyalytics-section {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  column-gap: 1rem;
+}
+.anyalytics-container .anyalytics-box {
+  width: 300px;
+  height: 130px;
+  background-color: #f9fcff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.anyalytics-container .anyalytics-box .dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #90c4cc;
+}
+.anyalytics-container .anyalytics-box .detail-sec {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.anyalytics-container .anyalytics-box .detail-box {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  column-gap: 0.6rem;
+}
+.anyalytics-container .anyalytics-box .anyalytics-info {
+  font-weight: 500;
+}
+
+.anyalytics-container .anyalytics-box .detail-box .task-title {
+  font-weight: 400;
+}

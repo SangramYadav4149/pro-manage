@@ -6,15 +6,17 @@ import Register from "./Components/Register/Register";
 import Homepage from "./Pages/HomePage/Homepage";
 function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Homepage />} />
+    <div className="app-container">
+      <div className="app-section">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
 
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
     </div>
   );
 }

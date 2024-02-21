@@ -1,20 +1,22 @@
 .home-container {
-  width: 100px;
+  width: 85rem;
   display: grid;
-  grid-template-columns: 15vw 85vw;
+  grid-template-columns: 10rem 72rem;
+  position: relative;
+  z-index: 15;
 }
 .home-container .left-section {
   height: 100vh;
-  width: 15vw;
+  width: 10rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  row-gap: 60vh;
+  row-gap: 21rem;
   border-right: 2px solid gray;
 }
 .home-container .right-section {
-  width: 85vw;
+  width: 72rem;
 }
 .left-section .left-section {
   width: max-content;
@@ -87,4 +89,23 @@
 .brand-name .brand-text {
   font-size: 1rem;
   font-weight: 500;
+}
+.crate-task-on {
+  filter: blur(2px);
+}
+.note-sec {
+  left: 32%;
+  top: 10%;
+
+  width: max-content;
+  position: absolute;
+  z-index: 20;
+}
+.delete-sec {
+  left: 40%;
+  top: 35%;
+
+  width: max-content;
+  position: absolute;
+  z-index: 20;
 }

@@ -1,0 +1,164 @@
+.done-card-container {
+  width: 245px;
+  border-radius: 1rem;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.7rem 0rem;
+}
+.done-card-section {
+  width: 225px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 1rem;
+  align-items: center;
+}
+.done-card-container .done-card-section-up {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+.done-card-section-up .sec-left {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+.sec-left .priority-sec {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  column-gap: 0.3rem;
+}
+.sec-left .color {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  border-radius: 50%;
+}
+.sec-left .task-priority {
+  font-size: 9px;
+  font-weight: 500;
+  color: #707070;
+}
+.sec-left .task-title {
+  font-size: 15px;
+  font-weight: 500;
+}
+.done-card-container .done-card-section-middle {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 0.5rem;
+}
+.done-card-container .done-card-section-middle .sec-up {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.done-card-container .done-card-section-middle .sec-up .expand {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+  background-color: #eeecec;
+  font-size: 1.4rem;
+}
+.done-card-container .done-card-section-middle .sec-up .checklist {
+  font-size: 14px;
+}
+.done-card-container .done-card-section-down {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.done-card-container .done-card-section-down .btn-left {
+  width: max-content;
+}
+.done-card-container .done-card-section-down .btn-left > button {
+  width: max-content;
+  padding: 0.4rem 0.5rem;
+  background-color: #dbdbdb;
+  color: #5a5a5a;
+
+  font-size: 0.5rem;
+  border-radius: 0.5rem;
+
+  border: none;
+}
+.done-card-container .done-card-section-down .btn-right {
+  width: 100%;
+  text-align: end;
+}
+
+.done-card-container .done-card-section-down .btn-right > button {
+  width: max-content;
+  padding: 0.4rem 0.5rem;
+  background-color: #eeecec;
+  color: #5a5a5a;
+  font-size: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  margin-left: 0.2rem;
+}
+.done-card-container .sec-down {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+.done-card-container .task-sec {
+  width: 90%;
+  display: flex;
+  border: 1px solid #e2e2e2;
+  border-radius: 0.6rem;
+  justify-content: start;
+  align-items: center;
+  padding: 0.5rem;
+}
+.done-card-container .task-sec .check-box {
+  padding-left: 4rem;
+  display: inline-block;
+}
+.done-card-container .task-sec .task {
+  display: inline-block;
+  padding-left: 0.5rem;
+}
+.done-card-container .check-box-sec {
+  display: inline-block;
+}
+.done-card-container .sec-right {
+  position: relative;
+}
+
+.done-card-container .sec-right .options-off {
+  display: none;
+}
+.done-card-container .sec-right .options-on {
+  top: 70%;
+  position: absolute;
+  right: 0;
+  z-index: 20;
+  width: 7rem;
+  height: 6rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 0.5rem;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0.5rem 1rem;
+}
+.done-card-container .sec-right .options-on > span {
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.done-card-container .sec-right .options-on .delete {
+  color: #cf3636;
+}
