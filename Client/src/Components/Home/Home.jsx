@@ -13,15 +13,18 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   createTask,
   deleteTask,
+  editTask,
   toggle,
   toggleCreateTask,
 } from "../../Redux/Board/BoardSlice";
 import DeletePopUp from "../DeletePopUp/DeletePopUp";
+import EditTask from "../EditTask/EditTask";
 const Home = () => {
   const [selectSection, setSelectSection] = useState("board");
   const [showCreateTask, setShowCreateTask] = useState(false);
   const taskStatus = useSelector(createTask);
-  const dltTask = useSelector(deleteTask);
+  const userDeleteTask = useSelector(deleteTask);
+  const userEditTask = useSelector(editTask);
   const dispatch = useDispatch();
   const boardToggle = useSelector(toggle);
   const handleClickSection = (section) => {
@@ -33,7 +36,12 @@ const Home = () => {
 
   return (
     <>
-      {dltTask && (
+      {userEditTask?.task?._id && (
+        <div className="edit-sec">
+          <EditTask />
+        </div>
+      )}
+      {userDeleteTask?.id && (
         <div className="delete-sec">
           <DeletePopUp />
         </div>
@@ -45,7 +53,8 @@ const Home = () => {
       )}
       <section
         className={`home-container ${
-          (showCreateTask || dltTask) && "crate-task-on"
+          (showCreateTask || userDeleteTask?.id || userEditTask?.task?._id) &&
+          "crate-task-on"
         }`}
       >
         <div className="left-section">

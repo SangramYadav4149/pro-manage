@@ -4,50 +4,90 @@ import { SlOptions } from "react-icons/sl";
 import { MdExpandMore } from "react-icons/md";
 import { MdExpandLess } from "react-icons/md";
 import { useDispatch } from "react-redux";
+import { BeatLoader } from "react-spinners";
 import {
   backlogCollapse,
   backlogCollapseToggle,
   setDeleteTask,
+  setEditTask,
 } from "../../../Redux/Board/BoardSlice";
 import { useSelector } from "react-redux";
-const BacklogCard = () => {
+import {
+  addToDoneAsync,
+  addToInProgressAsync,
+  addToTodoAsync,
+  reFatchAlltasksToggle,
+} from "../../../Redux/User/UserSlice";
+import { addToInProgress } from "../../../Redux/User/UserAPI";
+const BacklogCard = ({ task }) => {
+  const { title, checklist, priority, colour, dueDate } = task;
   const [showAllTasks, setShowAllTasks] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const toggle = useSelector(backlogCollapseToggle);
   const backLogsStatus = useSelector(backlogCollapse);
+  const [loader, setLoader] = useState(0);
+  const boardReFatchToggle = useSelector(reFatchAlltasksToggle);
   const dispatch = useDispatch();
+
   const handleToggleShowAllTasks = () => {
     setShowAllTasks(!showAllTasks);
   };
   const handleToggleShowOptions = () => {
     setShowOptions(!showOptions);
   };
+
   const handleDeleteTask = (id) => {
-    dispatch(setDeleteTask({ id: id }));
+    dispatch(setDeleteTask({ id: id, from: "BACKLOG" }));
+  };
+
+  const handleAddToToDo = (from) => {
+    setLoader(1);
+    dispatch(addToTodoAsync({ removeFrom: from, task: task }));
+  };
+  const handleAddToDone = (from) => {
+    setLoader(3);
+    dispatch(addToDoneAsync({ removeFrom: from, task: task }));
+  };
+  const handleAddToInProgress = (from) => {
+    setLoader(2);
+    dispatch(addToInProgressAsync({ removeFrom: from, task: task }));
+  };
+
+  const handeEditTask = () => {
+    dispatch(setEditTask({ task: task, from: "BACKLOG" }));
   };
 
   useEffect(() => {
     if (backLogsStatus) {
       setShowAllTasks(false);
     }
-  }, [toggle]);
+    if (loader) {
+      setLoader(0);
+    }
+  }, [toggle, boardReFatchToggle]);
   return (
     <section className="backlog-card-container">
       <div className="backlog-card-section">
         <div className="backlog-card-section-up">
           <div className="sec-left">
             <div className="priority-sec">
-              <span className="color" style={{ background: "red" }}></span>
-              <span className="task-priority">HIGH PRIORITY</span>
+              <span
+                className="color"
+                style={{ background: `${colour}` }}
+              ></span>
+              <span className="task-priority">{priority}</span>
             </div>
-            <div className="task-title">HERO SECTION</div>
+            <div className="task-title">{title}</div>
           </div>
           <div className="sec-right">
             <SlOptions onClick={() => handleToggleShowOptions()} />
             <div className={`${showOptions ? "options-on" : "options-off"}`}>
-              <span>Edit</span>
+              <span onClick={() => handeEditTask()}>Edit</span>
               <span>Share</span>
-              <span onClick={() => handleDeleteTask("55")} className="delete">
+              <span
+                onClick={() => handleDeleteTask(task._id)}
+                className="delete"
+              >
                 Delete
               </span>
             </div>
@@ -65,52 +105,40 @@ const BacklogCard = () => {
             </span>
           </div>
           <div className="sec-down">
-            {showAllTasks && (
-              <>
-                <div className="task-sec">
-                  <span className="check-box-sec">
-                    {" "}
-                    <input className="check-box" type="checkbox" />
-                  </span>
-                  <span className="task">
-                    adipisicing elit. Perferendis, iste!
-                  </span>
-                </div>
-                <div className="task-sec">
-                  <span className="check-box-sec">
-                    {" "}
-                    <input className="check-box" type="checkbox" />
-                  </span>
-                  <span className="task">Perferendis, iste!</span>
-                </div>
-                <div className="task-sec">
-                  <span className="check-box-sec">
-                    {" "}
-                    <input className="check-box" type="checkbox" />
-                  </span>
-                  <span className="task">adipisic</span>
-                </div>
-                <div className="task-sec">
-                  <span className="check-box-sec">
-                    {" "}
-                    <input className="check-box" type="checkbox" />
-                  </span>
-                  <span className="task">
-                    adipisicing elit. Perferendis, iste!
-                  </span>
-                </div>
-              </>
-            )}
+            {showAllTasks &&
+              checklist?.map((task, i) => {
+                return (
+                  <div key={i} className="task-sec">
+                    <span className="check-box-sec">
+                      <input className="check-box" type="checkbox" />
+                    </span>
+                    <span className="task">{task.text}</span>
+                  </div>
+                );
+              })}
           </div>
         </div>
 
         <div className="backlog-card-section-down">
-          <div className="btn-left">
-            <button>Feb 20th</button>
-          </div>
+          {dueDate && (
+            <div className="btn-left">
+              <button>{dueDate}</button>
+            </div>
+          )}
           <div className="btn-right">
-            <button>PROGRESS</button> <button>TO-DO</button>{" "}
-            <button>DONE</button>
+            <button onClick={() => handleAddToToDo("BACKLOG")}>
+              {loader !== 1 ? "TODO" : <BeatLoader size={4} color="black" />}
+            </button>
+            <button onClick={() => handleAddToInProgress("BACKLOG")}>
+              {loader !== 2 ? (
+                "PROGRESS"
+              ) : (
+                <BeatLoader size={4} color="black" />
+              )}
+            </button>
+            <button onClick={() => handleAddToDone("BACKLOG")}>
+              {loader !== 3 ? "DONE" : <BeatLoader size={4} color="black" />}
+            </button>
           </div>
         </div>
       </div>

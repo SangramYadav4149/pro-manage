@@ -1,24 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./TaskCreate.css";
 import { MdDelete } from "react-icons/md";
 import { IoIosAdd } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleCreateTask } from "../../Redux/Board/BoardSlice";
 import { getMonth } from "../../Utils/Date";
+import { BeatLoader } from "react-spinners";
+
+import { toggle } from "../../Redux/Board/BoardSlice";
+import {
+  createTodoAsync,
+  reFatchAlltasksToggle,
+} from "../../Redux/User/UserSlice";
 const TaskCreate = () => {
-  const dispatch = useDispatch();
   const [inputValues, setInputValues] = useState([]);
   let [inputsCount, setInputsCount] = useState(0);
   const [priority, setPriority] = useState("");
-  const [toggle, setToggle] = useState(false);
+  const [taskToggle, setTaskToggle] = useState(false);
   const [date, setDate] = useState("");
   const [title, setTilte] = useState("");
   let [checkList, setCheckList] = useState(0);
   const [enableSaveButton, setEnableSaveButton] = useState(false);
+  const [loader, setLoader] = useState(false);
 
+  const dispatch = useDispatch();
+  const boardReFatchToggle = useSelector(reFatchAlltasksToggle);
   const handleToggleCreateTaskSec = () => {
     dispatch(toggleCreateTask());
   };
+
   const handleSetTitle = (text) => {
     if (inputValues[0]?.id && text && priority) {
       setEnableSaveButton(true);
@@ -35,22 +45,36 @@ const TaskCreate = () => {
     }
     setPriority(priority);
   };
-  const handleSaveTask = () => {
-    const monthNumber =
-      date.split("-")[1][0] === "0"
-        ? date.split("-")[1][1]
-        : date.split("-")[1];
-    const currDate = date.split("-")[2];
 
-    const month = getMonth(monthNumber);
+  const handleSaveTask = () => {
+    setLoader(true);
+    let month = "";
+    let currDate = "";
+    if (date) {
+      const monthNumber =
+        date?.split("-")[1][0] === "0"
+          ? date?.split("-")[1][1]
+          : date?.split("-")[1];
+      currDate = date.split("-")[2];
+
+      month = date ? getMonth(monthNumber) : "";
+    }
+
     const taskInfo = {
       title: title,
-      tasks: inputValues,
+      checklist: inputValues,
       priority: priority,
-      dueDate: `${month} ${currDate}th`,
+      dueDate: date ? `${month} ${currDate}th` : "",
+      pureDate: date,
+      colour:
+        priority === "low-priority"
+          ? "green"
+          : priority === "high-priority"
+          ? "red"
+          : "blue",
     };
-    //handleToggleCreateTaskSec();
-    console.log(taskInfo);
+
+    dispatch(createTodoAsync(taskInfo));
   };
 
   const handleSetTick = (index) => {
@@ -63,7 +87,7 @@ const TaskCreate = () => {
       inputValues[taskIndex].tick = true;
       setCheckList(checkList + 1);
     }
-    setToggle(!toggle);
+    setTaskToggle(!taskToggle);
   };
   const handleDeleteInput = (index) => {
     const filterInputValues = inputValues.filter(({ id }) => id !== index);
@@ -99,13 +123,17 @@ const TaskCreate = () => {
   };
   const handleSetText = (index, text) => {
     inputValues[index].text = text;
-    setToggle(!toggle);
+    setTaskToggle(!taskToggle);
   };
+
+  useEffect(() => {
+    if (loader) {
+      setLoader(false);
+      handleToggleCreateTaskSec();
+    }
+  }, [boardReFatchToggle]);
   return (
-    <section
-      // onMouseLeave={() => handleToggleCreateTaskSec()}
-      className="task-container"
-    >
+    <section className="task-container">
       <div className="task-container-sec">
         <div className="task-sec-up">
           <div className="task-input-sec">
@@ -228,7 +256,7 @@ const TaskCreate = () => {
               disabled={!enableSaveButton ? true : false}
               className={`save-btn ${!enableSaveButton && "disable-btn"}`}
             >
-              Save
+              {!loader ? "Save" : <BeatLoader size={10} color="white" />}
             </button>
           </div>
         </div>

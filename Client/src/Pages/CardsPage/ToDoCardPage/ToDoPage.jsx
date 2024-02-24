@@ -1,10 +1,10 @@
 import React from "react";
 import ToDoCard from "../../../Components/Cards/ToDoCard/ToDoCard";
 
-const ToDoCardPage = () => {
+const ToDoCardPage = ({ task }) => {
   return (
     <div>
-      <ToDoCard />
+      <ToDoCard task={task} />
     </div>
   );
 };

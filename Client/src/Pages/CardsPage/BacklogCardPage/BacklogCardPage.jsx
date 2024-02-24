@@ -2,10 +2,10 @@ import React from "react";
 
 import BacklogCard from "../../../Components/Cards/BacklogCard/BacklogCard";
 
-const BacklogCardPage = () => {
+const BacklogCardPage = ({ task }) => {
   return (
     <div>
-      <BacklogCard />
+      <BacklogCard task={task} />
     </div>
   );
 };

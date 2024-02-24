@@ -47,6 +47,7 @@
 .sec-left .task-title {
   font-size: 15px;
   font-weight: 500;
+  text-transform: uppercase;
 }
 .done-card-container .done-card-section-middle {
   width: 100%;
@@ -83,8 +84,8 @@
 .done-card-container .done-card-section-down .btn-left > button {
   width: max-content;
   padding: 0.4rem 0.5rem;
-  background-color: #dbdbdb;
-  color: #5a5a5a;
+  background-color: green;
+  color: white;
 
   font-size: 0.5rem;
   border-radius: 0.5rem;
@@ -105,6 +106,7 @@
   border-radius: 0.5rem;
   border: none;
   margin-left: 0.2rem;
+  cursor: pointer;
 }
 .done-card-container .sec-down {
   width: 100%;

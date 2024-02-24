@@ -1,42 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.css";
 import icon from "../../Images/Login/Art.png";
 import { FiEye } from "react-icons/fi";
 import { CiMail } from "react-icons/ci";
 import { CiLock } from "react-icons/ci";
 import { FiEyeOff } from "react-icons/fi";
+import { BeatLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUserAsync, toggle, user } from "../../Redux/User/UserSlice";
 const Login = () => {
-  const [showMailPlaceHolder, setShowMailPlaceHolder] = useState(true);
-  const [showPasswordPlaceHolder, setShowPasswordPlaceHolder] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [mailError, setMailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
+  const [loader, setLoader] = useState(false);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userToggle = useSelector(toggle);
+  const userInfo = useSelector(user);
   const handleTypingMail = (event) => {
-    if (event.target.value) {
-      setShowMailPlaceHolder(false);
-    }
     setMail(event.target.value);
   };
   const handleTypingPassword = (event) => {
-    if (event.target.value) {
-      setShowPasswordPlaceHolder(false);
-    }
     setPassword(event.target.value);
   };
-  const setMailPlaceHolder = (mail) => {
-    if (!mail) {
-      setShowMailPlaceHolder(true);
-    }
+  const handleNavigateToSignUpPage = (route) => {
+    navigate(route);
   };
 
-  const setPasswordPlaceHolder = (password) => {
-    if (!password) {
-      setShowPasswordPlaceHolder(true);
-    }
-  };
-  const handleLogin = () => {
+  const handleLogin = async () => {
     try {
       setMailError("");
       setPasswordError("");
@@ -48,19 +43,26 @@ const Login = () => {
       } else if (!password) {
         setPasswordError("Please insert a valid password!");
       } else {
+        setLoader(true);
         const userInfo = {
-          userEmail: mail,
-          userPassword: password,
+          email: mail,
+          password: password,
         };
-        setMail("");
-        setPassword("");
-        setShowMailPlaceHolder(true);
-        setShowPasswordPlaceHolder(true);
+        dispatch(loginUserAsync(userInfo));
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (userInfo?.name) {
+      setMail("");
+      setPassword("");
+      setLoader(false);
+      navigate("/");
+    }
+  }, [userToggle]);
   return (
     <section className="login-container">
       <div className="left-container">
@@ -83,47 +85,37 @@ const Login = () => {
           <div className="form">
             <div className="login-form">
               <div className="input-box">
-                {showMailPlaceHolder && (
-                  <div className="input-placeholder">
-                    <span className="mail-icon">
-                      <CiMail />
-                    </span>
+                <div className="input-placeholder">
+                  <span className="mail-icon">
+                    <CiMail />
+                  </span>
+                </div>
 
-                    <span className="label">Email</span>
-                  </div>
-                )}
                 <input
                   onChange={(e) => handleTypingMail(e)}
-                  onMouseDownCapture={() => setShowMailPlaceHolder(false)}
-                  onMouseLeave={() => setMailPlaceHolder(mail)}
-                  type="text"
+                  type="mail"
                   className="input"
+                  placeholder="Email"
                   value={mail}
                 />
                 <span className="input-error-msg ">{mailError}</span>
               </div>
               <div className="input-box">
-                {showPasswordPlaceHolder && (
-                  <div className="input-placeholder">
-                    <span className="mail-icon">
-                      <CiLock />
-                    </span>
+                <span className="lock-icon">
+                  <CiLock />
+                </span>
 
-                    <span className="password">Password</span>
-                  </div>
-                )}
                 <span
                   onClick={() => setShowPassword(!showPassword)}
                   className="eye"
                 >
-                  {showPassword ? <FiEyeOff /> : <FiEye />}
+                  {!showPassword ? <FiEyeOff /> : <FiEye />}
                 </span>
                 <input
                   onChange={(e) => handleTypingPassword(e)}
-                  onMouseDownCapture={() => setShowPasswordPlaceHolder(false)}
-                  onMouseLeave={() => setPasswordPlaceHolder(password)}
                   type={`${showPassword ? "text" : "password"}`}
                   className="input"
+                  placeholder="Password"
                   value={password}
                 />
                 <span className="input-error-msg">{passwordError}</span>
@@ -133,10 +125,15 @@ const Login = () => {
         </div>
         <div className="container-down">
           <button onClick={() => handleLogin()} className="login-btn">
-            Login
+            {!loader ? "Login" : <BeatLoader size={13} color="white" />}
           </button>
           <span className="no-account">have no account yet?</span>
-          <button className="register-btn">Register</button>
+          <button
+            onClick={() => handleNavigateToSignUpPage("/register")}
+            className="register-btn"
+          >
+            Register
+          </button>
         </div>
       </div>
     </section>

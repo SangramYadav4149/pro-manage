@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import icon from "../../Images/Login/Art.png";
 import { FiEye } from "react-icons/fi";
 import { CiMail } from "react-icons/ci";
 import { CiLock } from "react-icons/ci";
 import { FiEyeOff } from "react-icons/fi";
 import { CiUser } from "react-icons/ci";
+import { BeatLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import "./Register.css";
+import { registerUserAsync, toggle, user } from "../../Redux/User/UserSlice";
 const Register = () => {
-  const [showMailPlaceHolder, setShowMailPlaceHolder] = useState(true);
-  const [showPasswordPlaceHolder, setShowPasswordPlaceHolder] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [mailError, setMailError] = useState("");
@@ -18,57 +20,31 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
-  const [showConfirmPasswordPlaceholder, setShowConfirmPasswordPlaceholder] =
-    useState(true);
-  const [showNamePlaceholder, setShowNamePlaceholder] = useState(true);
   const [nameErorr, setNameError] = useState("");
+  const [loader, setLoader] = useState(false);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userToggle = useSelector(toggle);
+  const registerUser = useSelector(user);
 
   const handleTypingMail = (event) => {
-    if (event.target.value) {
-      setShowMailPlaceHolder(false);
-    }
     setMail(event.target.value);
   };
   const handleTypingName = (event) => {
-    if (event.target.value) {
-      setShowNamePlaceholder(false);
-    }
     setName(event.target.value);
   };
   const handleTypingConfirmPassword = (event) => {
-    if (event.target.value) {
-      setShowConfirmPasswordPlaceholder(false);
-    }
     setConfirmPassword(event.target.value);
   };
   const handleTypingPassword = (event) => {
-    if (event.target.value) {
-      setShowPasswordPlaceHolder(false);
-    }
     setPassword(event.target.value);
   };
-  const setMailPlaceHolder = (mail) => {
-    if (!mail) {
-      setShowMailPlaceHolder(true);
-    }
-  };
-  const setNamePlaceHolder = (name) => {
-    if (!name) {
-      setShowNamePlaceholder(true);
-    }
+  const handleNavigateToLoinPage = (route) => {
+    navigate(route);
   };
 
-  const setPasswordPlaceHolder = (password) => {
-    if (!password) {
-      setShowPasswordPlaceHolder(true);
-    }
-  };
-  const setConfirmPasswordPlaceHolder = (confirmPassword) => {
-    if (!confirmPassword) {
-      setShowConfirmPasswordPlaceholder(true);
-    }
-  };
-  const handleRegister = () => {
+  const handleRegister = async () => {
     try {
       setMailError("");
       setPasswordError("");
@@ -88,23 +64,28 @@ const Register = () => {
           "Confirm password doesn't match with password!"
         );
       } else {
+        setLoader(true);
         const userInfo = {
-          userEmail: mail,
-          userPassword: password,
+          name: name,
+          email: mail,
+          password: password,
         };
-        setMail("");
-        setPassword("");
-        setName("");
-        setConfirmPassword("");
-        setShowMailPlaceHolder(true);
-        setShowPasswordPlaceHolder(true);
-        setShowConfirmPasswordPlaceholder(true);
-        setShowNamePlaceholder(true);
+        dispatch(registerUserAsync(userInfo));
       }
     } catch (error) {
       console.log(error);
     }
   };
+  useEffect(() => {
+    if (registerUser?.name) {
+      setMail("");
+      setPassword("");
+      setName("");
+      setConfirmPassword("");
+      navigate("/");
+      setLoader(false);
+    }
+  }, [userToggle]);
   return (
     <section className="register-container">
       <div className="left-container">
@@ -127,55 +108,40 @@ const Register = () => {
           <div className="form">
             <div className="register-form">
               <div className="input-box">
-                {showNamePlaceholder && (
-                  <div className="input-placeholder">
-                    <span className="name-icon">
-                      <CiUser />
-                    </span>
+                <span className="user-icon">
+                  <CiUser />
+                </span>
 
-                    <span className="label">Name</span>
-                  </div>
-                )}
                 <input
                   onChange={(e) => handleTypingName(e)}
-                  onMouseDownCapture={() => setShowNamePlaceholder(false)}
-                  onMouseLeave={() => setNamePlaceHolder(name)}
                   type="text"
+                  placeholder="Name"
                   className="input"
                   value={name}
                 />
                 <span className="input-error-msg ">{nameErorr}</span>
               </div>
               <div className="input-box">
-                {showMailPlaceHolder && (
-                  <div className="input-placeholder">
-                    <span className="mail-icon">
-                      <CiMail />
-                    </span>
-
-                    <span className="label">Email</span>
-                  </div>
-                )}
+                <span className="mail-icon">
+                  <CiMail />
+                </span>
 
                 <input
                   onChange={(e) => handleTypingMail(e)}
-                  onMouseDownCapture={() => setShowMailPlaceHolder(false)}
-                  onMouseLeave={() => setMailPlaceHolder(mail)}
+                  type="text"
+                  placeholder="Email"
                   className="input"
                   value={mail}
                 />
-                <span className="input-error-msg">{mailError}</span>
+                <span className="input-error-msg ">{mailError}</span>
               </div>
               <div className="input-box">
-                {showPasswordPlaceHolder && (
-                  <div className="input-placeholder">
-                    <span className="password-icon">
-                      <CiLock />
-                    </span>
+                <div className="input-placeholder">
+                  <span className="password-icon">
+                    <CiLock />
+                  </span>
+                </div>
 
-                    <span className="label">Password</span>
-                  </div>
-                )}
                 <span
                   onClick={() => setShowPassword(!showPassword)}
                   className="eye"
@@ -184,24 +150,20 @@ const Register = () => {
                 </span>
                 <input
                   onChange={(e) => handleTypingPassword(e)}
-                  onMouseDownCapture={() => setShowPasswordPlaceHolder(false)}
-                  onMouseLeave={() => setPasswordPlaceHolder(password)}
                   type={`${showPassword ? "text" : "password"}`}
                   className="input"
+                  placeholder="Password"
                   value={password}
                 />
                 <span className="input-error-msg">{passwordError}</span>
               </div>
               <div className="input-box">
-                {showConfirmPasswordPlaceholder && (
-                  <div className="input-placeholder">
-                    <span className="confirmpassword-icon">
-                      <CiLock />
-                    </span>
+                <div className="input-placeholder">
+                  <span className="confirmpassword-icon">
+                    <CiLock />
+                  </span>
+                </div>
 
-                    <span className="label">Confirm password</span>
-                  </div>
-                )}
                 <span
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   className="eye"
@@ -210,14 +172,9 @@ const Register = () => {
                 </span>
                 <input
                   onChange={(e) => handleTypingConfirmPassword(e)}
-                  onMouseDownCapture={() =>
-                    setShowConfirmPasswordPlaceholder(false)
-                  }
-                  onMouseLeave={() =>
-                    setConfirmPasswordPlaceHolder(confirmPassword)
-                  }
                   type={`${showConfirmPassword ? "text" : "password"}`}
                   className="input"
+                  placeholder="Confirm Password"
                   value={confirmPassword}
                 />
                 <span className="input-error-msg">{confirmPasswordError}</span>
@@ -227,10 +184,15 @@ const Register = () => {
         </div>
         <div className="container-down">
           <button onClick={() => handleRegister()} className="register-btn">
-            Register
+            {!loader ? "Register" : <BeatLoader size={13} color="white" />}
           </button>
           <span className="no-account">Have an account?</span>
-          <button className="login-btn">Login</button>
+          <button
+            onClick={() => handleNavigateToLoinPage("/login")}
+            className="login-btn"
+          >
+            Login
+          </button>
         </div>
       </div>
     </section>

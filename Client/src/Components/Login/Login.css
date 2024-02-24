@@ -49,18 +49,30 @@
 }
 .login-container .input {
   height: 2.2rem;
-  width: 20rem;
+  width: 18rem;
   border: 2px solid gray;
   border-radius: 0.4rem;
 }
 .login-container .mail-icon {
+  position: absolute;
   font-size: 1.4rem;
+  width: max-content;
+  left: 0rem;
+  top: -1px;
 }
 .login-container .lock-icon {
+  position: absolute;
   font-size: 1.4rem;
+  width: max-content;
+  left: 0.5rem;
+  top: 0.3rem;
 }
-.input-box {
+.login-container .input-box {
   position: relative;
+}
+.login-container .input {
+  padding-left: 2rem;
+  font-size: 1rem;
 }
 .login-container .left-container {
   width: 60vw;
@@ -81,7 +93,7 @@
   align-items: center;
   margin-top: -0.5rem;
 }
-.container-down .login-btn {
+.login-container .container-down .login-btn {
   width: 20rem;
   height: 2.5rem;
   background-color: #17a2b8;
@@ -91,6 +103,9 @@
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .container-up .eye {
   position: absolute;
@@ -100,7 +115,7 @@
   color: gray;
   cursor: pointer;
 }
-.container-down .register-btn {
+.login-container .container-down .register-btn {
   width: 20rem;
   height: 2.5rem;
   color: #17a2b8;

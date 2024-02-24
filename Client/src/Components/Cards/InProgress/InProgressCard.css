@@ -91,11 +91,18 @@
 
   border: none;
 }
+.inprogress-container .inprogress-section-down .btn-right {
+  width: 100%;
+  display: flex;
+  column-gap: 0.3rem;
+  justify-content: end;
+}
 .inprogress-container .inprogress-section-down .btn-right > button {
   width: max-content;
   padding: 0.4rem 0.5rem;
   background-color: #eeecec;
   color: #5a5a5a;
+  cursor: pointer;
 
   font-size: 0.5rem;
   border-radius: 0.5rem;

@@ -1,5 +1,5 @@
 .delete-popup-container {
-  width: 19rem;
+  width: 20rem;
   height: 12rem;
   background-color: white;
   border-radius: 1rem;
@@ -11,7 +11,7 @@
   align-items: center;
 }
 .delete-popup-section {
-  width: 16rem;
+  width: 17rem;
   height: 10rem;
   display: flex;
   flex-direction: column;
@@ -34,6 +34,7 @@
   height: 2.5rem;
   font-weight: 600;
   cursor: pointer;
+  color: white;
 }
 .delete-popup-section .buttons .cancel {
   border: 1px solid #cf3636;

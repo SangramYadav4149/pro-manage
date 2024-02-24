@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   createTask: false,
@@ -7,11 +7,12 @@ const initialState = {
   toDoCollapseToggle: false,
   inProgressCollapseToggle: false,
   doneCollapseToggle: false,
-  deleteTask: "",
+  editTask: {},
   backlogCollapse: false,
   toDoCollapse: false,
   inProgressCollapse: false,
   doneCollapse: false,
+  deleteTask: {},
 };
 
 const BoardSlice = createSlice({
@@ -22,15 +23,7 @@ const BoardSlice = createSlice({
       state.createTask = state.createTask ? false : true;
       state.toggle = state.toggle ? false : true;
     },
-    setDeleteTask: (state, action) => {
-      const { id } = action.payload;
-      state.deleteTask = id;
-      state.toggle = state.toggle ? false : true;
-    },
-    clearDeleteTask: (state) => {
-      state.deleteTask = "";
-      state.toggle = state.toggle ? false : true;
-    },
+
     setBackLogCollapse: (state, action) => {
       const { status } = action.payload;
       state.backlogCollapse = status;
@@ -53,6 +46,23 @@ const BoardSlice = createSlice({
       state.doneCollapse = status;
       state.doneCollapseToggle = state.doneCollapseToggle ? false : true;
     },
+    setEditTask: (state, action) => {
+      state.editTask = action.payload;
+      state.toggle = state.toggle ? false : true;
+    },
+    clearEditTask: (state) => {
+      state.editTask = {};
+      state.toggle = state.toggle ? false : true;
+    },
+    setDeleteTask: (state, action) => {
+      state.deleteTask = action.payload;
+
+      state.toggle = state.toggle ? false : true;
+    },
+    clearDeleteTask: (state) => {
+      state.deleteTask = {};
+      state.toggle = state.toggle ? false : true;
+    },
   },
 });
 
@@ -64,6 +74,8 @@ export const {
   setToDoCollapse,
   setInProgressCollapse,
   setDoneCollapse,
+  setEditTask,
+  clearEditTask,
 } = BoardSlice.actions;
 export const createTask = (state) => state.board.createTask;
 export const toggle = (state) => state.board.toggle;
@@ -78,4 +90,5 @@ export const backlogCollapse = (state) => state.board.backlogCollapse;
 export const toDoCollapse = (state) => state.board.toDoCollapse;
 export const inProgressCollapse = (state) => state.board.inProgressCollapse;
 export const doneCollapsee = (state) => state.board.doneCollapse;
+export const editTask = (state) => state.board.editTask;
 export default BoardSlice.reducer;

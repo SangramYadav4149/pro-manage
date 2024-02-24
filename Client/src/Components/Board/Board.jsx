@@ -3,7 +3,7 @@ import "./Board.css";
 import { getCurrentDate } from "../../Utils/Date";
 import { VscCollapseAll } from "react-icons/vsc";
 import { IoIosAdd } from "react-icons/io";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   setBackLogCollapse,
   setDoneCollapse,
@@ -16,6 +16,13 @@ import BacklogCardPage from "../../Pages/CardsPage/BacklogCardPage/BacklogCardPa
 import ToDoCardPage from "../../Pages/CardsPage/ToDoCardPage/ToDoPage";
 import DoneCardpage from "../../Pages/CardsPage/DoneCardPage/DoneCardpage";
 import InProgressCardPage from "../../Pages/CardsPage/InProgressCardPage/InProgressCardPage";
+import {
+  backlog,
+  done,
+  inProgress,
+  todo,
+  user,
+} from "../../Redux/User/UserSlice";
 const Board = () => {
   const taskBoxes = {
     1: "backlogs",
@@ -23,8 +30,12 @@ const Board = () => {
     3: "inprogress",
     4: "done",
   };
-
+  const userTodoTasks = useSelector(todo);
+  const userBacklogTasks = useSelector(backlog);
+  const userInProgressTasks = useSelector(inProgress);
+  const userDoneTasks = useSelector(done);
   const dispatch = useDispatch();
+  const userInfo = useSelector(user);
   const date = getCurrentDate();
   const handleToggleCreateTaskSec = () => {
     dispatch(toggleCreateTask());
@@ -44,7 +55,7 @@ const Board = () => {
   return (
     <section className="board-container">
       <div className="borad-sec-1">
-        <span className="board-welcome">Welcome! Kumar</span>
+        <span className="board-welcome">Welcome! {userInfo?.name}</span>
         <span className="board-date">{date}</span>
       </div>
       <div className="board-sec-2">
@@ -68,10 +79,10 @@ const Board = () => {
             </div>
           </div>
           <div className="tasks-sec">
-            {[1, 2, 3, 4, 5, 6].map(() => {
+            {userBacklogTasks?.map((task, i) => {
               return (
-                <div className="task-box">
-                  <BacklogCardPage />
+                <div key={i} className="task-box">
+                  <BacklogCardPage task={task} />
                 </div>
               );
             })}
@@ -93,10 +104,10 @@ const Board = () => {
             </div>
           </div>
           <div className="tasks-sec">
-            {[1, 2, 3, 4, 5, 6].map(() => {
+            {userTodoTasks.map((task) => {
               return (
                 <div className="task-box">
-                  <ToDoCardPage />
+                  <ToDoCardPage task={task} />
                 </div>
               );
             })}
@@ -112,10 +123,10 @@ const Board = () => {
             </div>
           </div>
           <div className="tasks-sec">
-            {[1, 2, 3, 4, 5, 6].map(() => {
+            {userInProgressTasks.map((task, i) => {
               return (
-                <div className="task-box">
-                  <InProgressCardPage />
+                <div key={i} className="task-box">
+                  <InProgressCardPage task={task} />
                 </div>
               );
             })}
@@ -131,10 +142,10 @@ const Board = () => {
             </div>
           </div>
           <div className="tasks-sec">
-            {[1, 2, 3, 4, 5, 6].map(() => {
+            {userDoneTasks.map((task) => {
               return (
                 <div className="task-box">
-                  <DoneCardpage />
+                  <DoneCardpage task={task} />
                 </div>
               );
             })}

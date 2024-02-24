@@ -1,10 +1,10 @@
 import React from "react";
 import DoneCard from "../../../Components/Cards/DoneCard/DoneCard";
 
-const DoneCardpage = () => {
+const DoneCardpage = ({ task }) => {
   return (
     <div>
-      <DoneCard />
+      <DoneCard task={task} />
     </div>
   );
 };

@@ -43,11 +43,14 @@
   font-size: 9px;
   font-weight: 500;
   color: #707070;
+  text-transform: uppercase;
 }
-.sec-left .task-title {
+.todo-card-container .sec-left .task-title {
   font-size: 15px;
   font-weight: 500;
+  text-transform: uppercase;
 }
+
 .todo-card-container .todo-card-section-middle {
   width: 100%;
   display: flex;
@@ -74,11 +77,13 @@
 }
 .todo-card-container .todo-card-section-down {
   width: 100%;
+  height: 1.5rem;
+
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .todo-card-container .todo-card-section-down .btn-left {
-  width: max-content;
 }
 .todo-card-container .todo-card-section-down .btn-left > button {
   width: max-content;
@@ -91,12 +96,19 @@
 
   border: none;
 }
+.todo-card-container .todo-card-section-down .btn-right {
+  width: 100%;
+  margin-bottom: -4px;
+  display: flex;
+  justify-content: end;
+  column-gap: 0.3rem;
+}
 .todo-card-container .todo-card-section-down .btn-right > button {
   width: max-content;
   padding: 0.4rem 0.5rem;
   background-color: #eeecec;
   color: #5a5a5a;
-
+  cursor: pointer;
   font-size: 0.5rem;
   border-radius: 0.5rem;
 

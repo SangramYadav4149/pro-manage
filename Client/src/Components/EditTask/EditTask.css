@@ -1,0 +1,202 @@
+.edit-task {
+  width: 500px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.edit-task-sec {
+  width: 450px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.edit-task-sec .task-sec-up {
+  width: 450px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 1rem;
+}
+.edit-task .task-sec-up .task-input-sec {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.edit-task .red-dot {
+  color: red;
+}
+.edit-task .task-sec-up .task-input-sec > input {
+  height: 2rem;
+  border: 1px solid #4d40551a;
+
+  border-radius: 4px;
+  padding-left: 0.7rem;
+}
+.edit-task .task-input-sec > label {
+  padding-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.edit-task .select-priority {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.edit-task .select-opt {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 0.3rem;
+}
+.edit-task .select-opt .opt .select-text {
+  font-size: 11px;
+}
+.edit-task .select-opt .opt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 0.3rem;
+  border: 1px solid #e2e2e2;
+  width: max-content;
+  border-radius: 4px;
+  padding: 0 5px;
+  cursor: pointer;
+}
+.edit-task .select-opt .opt .red {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: red;
+}
+.edit-task .select-opt .opt .blue {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: blue;
+}
+.edit-task .select-opt .opt .green {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: green;
+}
+.edit-task .select-priority > div {
+  width: max-content;
+}
+.edit-task .task-title {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.edit-task .task-box {
+  position: relative;
+  width: max-content;
+  margin-bottom: 0.7rem;
+}
+.edit-task .task-box .check-box {
+  position: absolute;
+  top: 7px;
+  left: 8px;
+}
+.edit-task .task-write > input {
+  height: 2rem;
+  width: 400px;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e2e2;
+  padding-left: 2rem;
+}
+.edit-task .task-delete {
+  position: absolute;
+  right: 7px;
+  top: 6px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+.edit-task .task-add-box {
+  color: #767575;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-weight: 500;
+}
+
+.edit-task .task-add-box .task-add-icon {
+  font-size: 1.2rem;
+}
+
+.edit-task .task-add-box .task-add-text {
+  font-size: 0.9rem;
+  padding-bottom: 2px;
+  cursor: pointer;
+}
+
+.edit-task .task-inputs {
+  width: 470px;
+
+  max-height: 220px;
+  overflow: auto;
+
+  row-gap: 0.5rem;
+}
+.edit-task .checklist-title {
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+.edit-task .task-sec-down {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.edit-task .task-sec-down .buttons-right {
+  width: max-content;
+  display: flex;
+  justify-content: center;
+  column-gap: 0.5rem;
+}
+.edit-task .date-btn {
+  padding: 0.5rem 1rem;
+  background-color: white;
+  font-weight: 500;
+  border: 1px solid #4d40551a;
+  border-radius: 0.6rem;
+}
+
+.edit-task .cancel-btn {
+  width: 5rem;
+  color: #cf3636;
+  background-color: white;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #cf3636;
+  border-radius: 0.6rem;
+}
+
+.edit-task .save-btn {
+  width: 5rem;
+  color: white;
+  background-color: #17a2b8;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.select-priority-on {
+  background: #eeecec;
+}
+.edit-task .disable-btn {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

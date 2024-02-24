@@ -1,10 +1,10 @@
 import React from "react";
 import InProgressCard from "../../../Components/Cards/InProgress/InProgressCard";
 
-const InProgressCardPage = () => {
+const InProgressCardPage = ({ task }) => {
   return (
     <div>
-      <InProgressCard />
+      <InProgressCard task={task} />
     </div>
   );
 };

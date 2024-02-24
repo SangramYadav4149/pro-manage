@@ -4,21 +4,37 @@ import { SlOptions } from "react-icons/sl";
 import { MdExpandMore } from "react-icons/md";
 import { MdExpandLess } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import { BeatLoader } from "react-spinners";
 import {
   backlogCollapse,
   inProgressCollapse,
   inProgressCollapseToggle,
   setDeleteTask,
+  setEditTask,
   setInProgressCollapse,
   toggle,
 } from "../../../Redux/Board/BoardSlice";
+import {
+  addToBacklogAsync,
+  addToDoneAsync,
+  addToTodoAsync,
+  reFatchAlltasksToggle,
+} from "../../../Redux/User/UserSlice";
 
-const InProgressCard = () => {
+const InProgressCard = ({ task }) => {
+  const { title, checklist, priority, colour, dueDate } = task;
   const [showAllTasks, setShowAllTasks] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
+  const [loader, setLoader] = useState(0);
+  const boardReFatchToggle = useSelector(reFatchAlltasksToggle);
   const Toggle = useSelector(inProgressCollapseToggle);
   const inProgressStatus = useSelector(setInProgressCollapse);
   const dispatch = useDispatch();
+
+  const handeEditTask = () => {
+    dispatch(setEditTask({ task: task, from: "INPROGRESS" }));
+  };
+
   const handleToggleShowAllTasks = () => {
     setShowAllTasks(!showAllTasks);
   };
@@ -28,27 +44,42 @@ const InProgressCard = () => {
   const handleDeleteTask = (id) => {
     dispatch(setDeleteTask({ id: id }));
   };
+  const handleAddToDone = (from) => {
+    dispatch(addToDoneAsync({ removeFrom: from, task: task }));
+    setLoader(3);
+  };
+  const handleAddToBacklog = (from) => {
+    setLoader(1);
+    dispatch(addToBacklogAsync({ removeFrom: from, task: task }));
+  };
+  const handleAddToToDo = (from) => {
+    setLoader(2);
+    dispatch(addToTodoAsync({ removeFrom: from, task: task }));
+  };
 
   useEffect(() => {
     if (inProgressStatus) {
       setShowAllTasks(false);
     }
-  }, [Toggle]);
+  }, [Toggle, boardReFatchToggle]);
   return (
     <section className="inprogress-container">
       <div className="inprogress-section">
         <div className="inprogress-section-up">
           <div className="sec-left">
             <div className="priority-sec">
-              <span className="color" style={{ background: "red" }}></span>
-              <span className="task-priority">HIGH PRIORITY</span>
+              <span
+                className="color"
+                style={{ background: `${colour}` }}
+              ></span>
+              <span className="task-priority">{priority}</span>
             </div>
-            <div className="task-title">HERO SECTION</div>
+            <div className="task-title">{title}</div>
           </div>
           <div className="sec-right">
             <SlOptions onClick={() => handleToggleShowOptions()} />
             <div className={`${showOptions ? "options-on" : "options-off"}`}>
-              <span>Edit</span>
+              <span onClick={() => handeEditTask()}>Edit</span>
               <span>Share</span>
               <span onClick={() => handleDeleteTask("55")} className="delete">
                 Delete
@@ -68,52 +99,36 @@ const InProgressCard = () => {
             </span>
           </div>
           <div className="sec-down">
-            {showAllTasks && (
-              <>
-                <div className="task-sec">
-                  <span className="check-box-sec">
-                    {" "}
-                    <input className="check-box" type="checkbox" />
-                  </span>
-                  <span className="task">
-                    adipisicing elit. Perferendis, iste!
-                  </span>
-                </div>
-                <div className="task-sec">
-                  <span className="check-box-sec">
-                    {" "}
-                    <input className="check-box" type="checkbox" />
-                  </span>
-                  <span className="task">Perferendis, iste!</span>
-                </div>
-                <div className="task-sec">
-                  <span className="check-box-sec">
-                    {" "}
-                    <input className="check-box" type="checkbox" />
-                  </span>
-                  <span className="task">adipisic</span>
-                </div>
-                <div className="task-sec">
-                  <span className="check-box-sec">
-                    {" "}
-                    <input className="check-box" type="checkbox" />
-                  </span>
-                  <span className="task">
-                    adipisicing elit. Perferendis, iste!
-                  </span>
-                </div>
-              </>
-            )}
+            {showAllTasks &&
+              checklist.map((task, i) => {
+                return (
+                  <div key={i} className="task-sec">
+                    <span className="check-box-sec">
+                      <input className="check-box" type="checkbox" />
+                    </span>
+                    <span className="task">{task.text}</span>
+                  </div>
+                );
+              })}
           </div>
         </div>
 
         <div className="inprogress-section-down">
-          <div className="btn-left">
-            <button>Feb 20th</button>
-          </div>
+          {dueDate && (
+            <div className="btn-left">
+              <button>{dueDate}</button>
+            </div>
+          )}
           <div className="btn-right">
-            <button>BACKLOG</button> <button>TO-DO</button>{" "}
-            <button>DONE</button>
+            <button onClick={() => handleAddToBacklog("INPROGRESS")}>
+              {loader !== 1 ? "BACKLOG" : <BeatLoader size={4} color="black" />}
+            </button>
+            <button onClick={() => handleAddToToDo("INPROGRESS")}>
+              {loader !== 2 ? "TODO" : <BeatLoader size={4} color="black" />}
+            </button>
+            <button onClick={() => handleAddToDone("INPROGRESS")}>
+              {loader !== 3 ? "DONE" : <BeatLoader size={4} color="black" />}
+            </button>
           </div>
         </div>
       </div>

@@ -189,6 +189,9 @@
   cursor: pointer;
   border: none;
   border-radius: 0.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .select-priority-on {
   background: #eeecec;

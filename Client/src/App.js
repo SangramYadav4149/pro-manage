@@ -4,7 +4,21 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import Register from "./Components/Register/Register";
 import Homepage from "./Pages/HomePage/Homepage";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getUserAllTasksAsync,
+  getUserAsync,
+  reFatchAlltasksToggle,
+} from "./Redux/User/UserSlice";
+import { useContext, useEffect } from "react";
 function App() {
+  const dispatch = useDispatch();
+  const userToggle = useSelector(reFatchAlltasksToggle);
+  useEffect(() => {
+    dispatch(getUserAsync());
+    dispatch(getUserAllTasksAsync());
+  }, [userToggle]);
+
   return (
     <div className="app-container">
       <div className="app-section">

@@ -101,6 +101,15 @@
   position: absolute;
   z-index: 20;
 }
+
+.edit-sec {
+  left: 32%;
+  top: 10%;
+
+  width: max-content;
+  position: absolute;
+  z-index: 20;
+}
 .delete-sec {
   left: 40%;
   top: 35%;

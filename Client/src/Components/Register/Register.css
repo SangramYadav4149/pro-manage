@@ -2,7 +2,7 @@
   display: flex;
 }
 .right-container {
-  width: 45vw;
+  width: 40vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -59,20 +59,44 @@
   border-radius: 0.4rem;
 }
 .register-container .mail-icon {
+  position: absolute;
   font-size: 1.4rem;
+  width: max-content;
+
+  left: 0.5rem;
+  top: 0.4rem;
 }
-.register-container .name-icon {
+.register-container .user-icon {
+  position: absolute;
   font-size: 1.4rem;
+  width: max-content;
+
+  left: 0.5rem;
+  top: 0.5rem;
 }
 .register-container .confirmpassword-icon {
+  position: absolute;
   font-size: 1.4rem;
+  width: max-content;
+  left: -0.3rem;
+  top: -1px;
 }
 .register-container .password-icon {
+  position: absolute;
   font-size: 1.4rem;
+  width: max-content;
+  left: -0.3rem;
+  top: -1px;
 }
-.input-box {
+.register-container .input-box {
   position: relative;
 }
+.register-container .input-box > input {
+  font-size: 1.1rem;
+  padding-left: 2rem;
+  width: 17.7rem;
+}
+
 .register-container .left-container {
   width: 60vw;
   height: 100vh;
@@ -102,6 +126,9 @@
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .container-up .eye {
   position: absolute;
