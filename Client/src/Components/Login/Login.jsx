@@ -56,7 +56,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (userInfo?.name) {
+    if (userInfo?._id) {
       setMail("");
       setPassword("");
       setLoader(false);

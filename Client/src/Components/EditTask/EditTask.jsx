@@ -23,7 +23,6 @@ const EditTask = () => {
   const allTicks = userEditTask?.task?.checklist.filter(
     ({ tick }) => tick === true
   );
-  console.log(allTicks);
   let [inputsCount, setInputsCount] = useState(
     userEditTask?.task?.checklist[userEditTask?.task?.checklist.length - 1].id
   );
@@ -32,16 +31,13 @@ const EditTask = () => {
   const [date, setDate] = useState(userEditTask?.task?.pureDate);
   const [title, setTilte] = useState(userEditTask?.task?.title);
   let [checkList, setCheckList] = useState(
-    allTicks[0].id ? allTicks.length : 0
+    allTicks[0]?.id ? allTicks?.length : 0
   );
   const [enableSaveButton, setEnableSaveButton] = useState(true);
   const [loader, setLoader] = useState(false);
 
   const dispatch = useDispatch();
   const boardReFatchToggle = useSelector(reFatchAlltasksToggle);
-  const handleToggleCreateTaskSec = () => {
-    //dispatch(toggleCreateTask());
-  };
 
   const handleCloseEditTask = () => {
     dispatch(clearEditTask());
@@ -79,7 +75,8 @@ const EditTask = () => {
     }
 
     const editTaskInfo = {
-      _id: userEditTask.task._id,
+      _id: userEditTask?.task?._id,
+      id: userEditTask?.task?.id,
       title: title,
       checklist: inputValues,
       priority: priority,

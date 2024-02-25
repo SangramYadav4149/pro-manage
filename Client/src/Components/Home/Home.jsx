@@ -19,6 +19,7 @@ import {
 } from "../../Redux/Board/BoardSlice";
 import DeletePopUp from "../DeletePopUp/DeletePopUp";
 import EditTask from "../EditTask/EditTask";
+import { setLogOut } from "../../Redux/User/UserSlice";
 const Home = () => {
   const [selectSection, setSelectSection] = useState("board");
   const [showCreateTask, setShowCreateTask] = useState(false);
@@ -29,6 +30,10 @@ const Home = () => {
   const boardToggle = useSelector(toggle);
   const handleClickSection = (section) => {
     setSelectSection(section);
+  };
+
+  const handleLogOut = () => {
+    dispatch(setLogOut());
   };
   useEffect(() => {
     setShowCreateTask(taskStatus);
@@ -105,7 +110,7 @@ const Home = () => {
             </div>
           </div>
           <div className="section-down">
-            <div className="logout-section">
+            <div onClick={() => handleLogOut()} className="logout-section">
               <span className="logout-icon">
                 <IoLogOutOutline />
               </span>

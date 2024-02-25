@@ -4,10 +4,12 @@ import {
   addToDone,
   addToInProgress,
   addToToDo,
+  changeUserPassword,
   createTodo,
   deleteTask,
   editTask,
   getUser,
+  getUserAllCreatedTasksInfo,
   getUserAllTasks,
   loginUser,
   registerUser,
@@ -20,7 +22,15 @@ const initialState = {
   backlog: [],
   inProgress: [],
   done: [],
+  allTodo: 0,
+  allBacklog: 0,
+  allInProgress: 0,
+  allDone: 0,
   reFatchAlltasksToggle: false,
+  allHighPriority: 0,
+  allModeratePriority: 0,
+  allLowPriority: 0,
+  allDueDateTasks: 0,
 };
 
 export const registerUserAsync = createAsyncThunk(
@@ -142,10 +152,51 @@ export const deleteTaskAsync = createAsyncThunk(
     }
   }
 );
+export const getUserAllCreatedTasksInfoAsync = createAsyncThunk(
+  "user/getUserAllCreatedTasksInfo",
+  async () => {
+    try {
+      const response = await getUserAllCreatedTasksInfo();
+      return response.data;
+    } catch (error) {
+      return Error(error);
+    }
+  }
+);
+
+export const changeUserPasswordAsync = createAsyncThunk(
+  "user/cahngePassword",
+  async (data) => {
+    try {
+      const response = await changeUserPassword(data);
+      return response.data;
+    } catch (error) {
+      return Error(error);
+    }
+  }
+);
 const UserSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setLogOut: (state) => {
+      state.user = {};
+      localStorage.removeItem("TOKEN");
+      state.todo = [];
+      state.backlog = [];
+      state.inProgress = [];
+      state.done = [];
+      state.allBacklog = 0;
+      state.allTodo = 0;
+      state.allInProgress = 0;
+      state.allDone = 0;
+      state.allHighPriority = 0;
+      state.allModeratePriority = 0;
+      state.allLowPriority = 0;
+      state.allDueDateTasks = 0;
+      state.toggle = state.toggle ? false : true;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerUserAsync.pending, (state, action) => {})
@@ -164,6 +215,9 @@ const UserSlice = createSlice({
         localStorage.setItem("TOKEN", token);
         state.user = user;
         state.toggle = state.toggle ? false : true;
+        state.reFatchAlltasksToggle = state.reFatchAlltasksToggle
+          ? false
+          : true;
       })
       .addCase(loginUserAsync.rejected, (state, action) => {})
       .addCase(getUserAsync.pending, (state, action) => {})
@@ -234,11 +288,50 @@ const UserSlice = createSlice({
           ? false
           : true;
       })
-      .addCase(deleteTaskAsync.rejected, (state, action) => {});
+      .addCase(deleteTaskAsync.rejected, (state, action) => {})
+      .addCase(getUserAllCreatedTasksInfoAsync.pending, (state, action) => {})
+      .addCase(getUserAllCreatedTasksInfoAsync.fulfilled, (state, action) => {
+        const {
+          backlog,
+          todo,
+          inProgress,
+          done,
+          highPriority,
+          moderatePriority,
+          lowPriority,
+          dueDate,
+        } = action.payload;
+        state.allBacklog = backlog;
+        state.allTodo = todo;
+        state.allInProgress = inProgress;
+        state.allDone = done;
+        state.allHighPriority = highPriority;
+        state.allModeratePriority = moderatePriority;
+        state.allLowPriority = lowPriority;
+        state.allDueDateTasks = dueDate;
+      })
+      .addCase(getUserAllCreatedTasksInfoAsync.rejected, (state, action) => {})
+      .addCase(changeUserPasswordAsync.pending, (state, action) => {})
+      .addCase(changeUserPasswordAsync.fulfilled, (state, action) => {
+        const { user } = action.payload;
+        state.user = user;
+        state.reFatchAlltasksToggle = state.reFatchAlltasksToggle
+          ? false
+          : true;
+      })
+      .addCase(changeUserPasswordAsync.rejected, (state, action) => {});
   },
 });
 
-export const {} = UserSlice.actions;
+export const { setLogOut } = UserSlice.actions;
+export const allTodo = (state) => state.user.allTodo;
+export const allBacklog = (state) => state.user.allBacklog;
+export const allInProgress = (state) => state.user.allInProgress;
+export const allDone = (state) => state.user.allDone;
+export const allHighPriority = (state) => state.user.allHighPriority;
+export const allModeratePriority = (state) => state.user.allModeratePriority;
+export const allLowPriority = (state) => state.user.allLowPriority;
+export const allDueDateTasks = (state) => state.user.allDueDateTasks;
 export const user = (state) => state.user.user;
 export const toggle = (state) => state.user.toggle;
 export const backlog = (state) => state.user.backlog;

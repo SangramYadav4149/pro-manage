@@ -35,15 +35,17 @@ const InProgressCard = ({ task }) => {
     dispatch(setEditTask({ task: task, from: "INPROGRESS" }));
   };
 
+  const handleDeleteTask = (id) => {
+    dispatch(setDeleteTask({ id: id, from: "INPROGRESS" }));
+  };
+
   const handleToggleShowAllTasks = () => {
     setShowAllTasks(!showAllTasks);
   };
   const handleToggleShowOptions = () => {
     setShowOptions(!showOptions);
   };
-  const handleDeleteTask = (id) => {
-    dispatch(setDeleteTask({ id: id }));
-  };
+
   const handleAddToDone = (from) => {
     dispatch(addToDoneAsync({ removeFrom: from, task: task }));
     setLoader(3);
@@ -81,7 +83,10 @@ const InProgressCard = ({ task }) => {
             <div className={`${showOptions ? "options-on" : "options-off"}`}>
               <span onClick={() => handeEditTask()}>Edit</span>
               <span>Share</span>
-              <span onClick={() => handleDeleteTask("55")} className="delete">
+              <span
+                onClick={() => handleDeleteTask(task._id)}
+                className="delete"
+              >
                 Delete
               </span>
             </div>

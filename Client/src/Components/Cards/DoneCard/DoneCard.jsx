@@ -41,7 +41,7 @@ const DoneCard = ({ task }) => {
     setShowOptions(!showOptions);
   };
   const handleDeleteTask = (id) => {
-    dispatch(setDeleteTask({ id: id }));
+    dispatch(setDeleteTask({ id: id, from: "DONE" }));
   };
   const handleAddToBacklog = (from) => {
     setLoader(1);
@@ -84,7 +84,10 @@ const DoneCard = ({ task }) => {
             <div className={`${showOptions ? "options-on" : "options-off"}`}>
               <span onClick={() => handeEditTask()}>Edit</span>
               <span>Share</span>
-              <span onClick={() => handleDeleteTask("55")} className="delete">
+              <span
+                onClick={() => handleDeleteTask(task._id)}
+                className="delete"
+              >
                 Delete
               </span>
             </div>
@@ -103,13 +106,13 @@ const DoneCard = ({ task }) => {
           </div>
           <div className="sec-down">
             {showAllTasks &&
-              checklist.map((task, i) => {
+              checklist?.map((task, i) => {
                 return (
                   <div key={i} className="task-sec">
                     <span className="check-box-sec">
                       <input className="check-box" type="checkbox" />
                     </span>
-                    <span className="task">{task}</span>
+                    <span className="task">{task.text}</span>
                   </div>
                 );
               })}

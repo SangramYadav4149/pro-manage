@@ -2,93 +2,162 @@ import axios from "axios";
 import { getAxiosConfigToken } from "../../Utils/AxiosConfigToken";
 
 export const registerUser = async (data) => {
-  return await axios.post(
-    "http://localhost:5000/promaneger/api/user/register",
-    data
-  );
+  try {
+    return await axios.post(
+      "http://localhost:5000/promaneger/api/user/register",
+      data
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 export const loginUser = async (data) => {
-  return await axios.post(
-    "http://localhost:5000/promaneger/api/user/login",
-    data
-  );
+  console.log(data);
+  try {
+    return await axios.post(
+      "http://localhost:5000/promaneger/api/user/login",
+      data
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 export const getUser = async () => {
-  const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
+  try {
+    const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
 
-  return await axios.get(
-    "http://localhost:5000/promaneger/api/get/user",
+    return await axios.get(
+      "http://localhost:5000/promaneger/api/get/user",
 
-    config
-  );
+      config
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 export const createTodo = async (data) => {
-  const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
-  return await axios.post(
-    "http://localhost:5000/promaneger/api/tasks/createTodo",
-    data,
-    config
-  );
+  try {
+    const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
+    return await axios.post(
+      "http://localhost:5000/promaneger/api/tasks/createTodo",
+      data,
+      config
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 export const getUserAllTasks = async () => {
-  const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
-  return await axios.get(
-    "http://localhost:5000/promaneger/api/get/user/alltasks",
+  try {
+    const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
+    return await axios.get(
+      "http://localhost:5000/promaneger/api/get/user/alltasks",
 
-    config
-  );
+      config
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 export const addToBacklog = async (data) => {
-  console.log(data);
-  const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
-  return await axios.post(
-    `http://localhost:5000/promaneger/api/tasks/add/backlog/${data.task._id}`,
-    data,
-    config
-  );
+  try {
+    const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
+    return await axios.post(
+      `http://localhost:5000/promaneger/api/tasks/add/backlog/${data.task._id}`,
+      data,
+      config
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 export const addToToDo = async (data) => {
-  const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
-  return await axios.post(
-    `http://localhost:5000/promaneger/api/tasks/add/todo/${data.task._id}`,
-    data,
-    config
-  );
+  try {
+    const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
+    return await axios.post(
+      `http://localhost:5000/promaneger/api/tasks/add/todo/${data.task._id}`,
+      data,
+      config
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 export const addToInProgress = async (data) => {
-  const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
-  return await axios.post(
-    `http://localhost:5000/promaneger/api/tasks/add/inprogress/${data.task._id}`,
-    data,
-    config
-  );
+  try {
+    const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
+    return await axios.post(
+      `http://localhost:5000/promaneger/api/tasks/add/inprogress/${data.task._id}`,
+      data,
+      config
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 export const addToDone = async (data) => {
-  console.log(data);
-  const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
-  return await axios.post(
-    `http://localhost:5000/promaneger/api/tasks/add/done/${data.task._id}`,
-    data,
-    config
-  );
+  try {
+    const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
+    return await axios.post(
+      `http://localhost:5000/promaneger/api/tasks/add/done/${data.task._id}`,
+      data,
+      config
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 export const editTask = async (data) => {
-  const { task } = data;
-  const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
-  return await axios.post(
-    `http://localhost:5000/promaneger/api/tasks/edit/task/${task._id}`,
-    data,
-    config
-  );
+  try {
+    const { task } = data;
+    const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
+    return await axios.post(
+      `http://localhost:5000/promaneger/api/tasks/edit/task/${task._id}`,
+      data,
+      config
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 export const deleteTask = async (data) => {
-  /*  const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
-  return await axios.post(
-    `http://localhost:5000/promaneger/api/tasks/delete/task/${data.id}`,
-    data,
-    config
-  ); */
+  try {
+    const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
+    return await axios.post(
+      `http://localhost:5000/promaneger/api/tasks/delete/task/${data.id}`,
+      data,
+      config
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
 };
+export const getUserAllCreatedTasksInfo = async () => {
+  try {
+    const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
+    return await axios.get(
+      `http://localhost:5000/promaneger/api/tasks/get/user/alltasksinfo/`,
+
+      config
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const changeUserPassword = async (data) => {
+  try {
+    const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
+    return await axios.post(
+      `http://localhost:5000/promaneger/api/getuser/change/password`,
+
+      config
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+////promaneger/api/get

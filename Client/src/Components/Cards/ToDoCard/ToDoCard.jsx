@@ -40,7 +40,7 @@ const ToDoCard = ({ task }) => {
     setShowOptions(!showOptions);
   };
   const handleDeleteTask = (id) => {
-    dispatch(setDeleteTask({ id: id }));
+    dispatch(setDeleteTask({ id: id, from: "TODO" }));
   };
   const handleAddToBacklog = (from) => {
     setloader(1);
@@ -82,7 +82,10 @@ const ToDoCard = ({ task }) => {
             <div className={`${showOptions ? "options-on" : "options-off"}`}>
               <span onClick={() => handeEditTask()}>Edit</span>
               <span>Share</span>
-              <span onClick={() => handleDeleteTask("55")} className="delete">
+              <span
+                onClick={() => handleDeleteTask(task?._id)}
+                className="delete"
+              >
                 Delete
               </span>
             </div>

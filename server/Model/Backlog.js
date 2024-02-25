@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const backlogSchema = new Schema(
   {
+    id: { type: String, required: true, unique: true },
     title: { type: String, required: true },
     priority: { type: String, required: true },
     checklist: { type: Array, required: true, default: [] },

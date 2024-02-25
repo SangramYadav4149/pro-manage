@@ -6,10 +6,12 @@ import Todo from "../Model/ToDo.js";
 const createTodo = async (req, res) => {
   try {
     const { _id } = req.user;
-    const { title, checklist, priority, dueDate, colour, pureDate } = req.body;
+    const { title, checklist, priority, dueDate, colour, pureDate, id } =
+      req.body;
 
     if (title && checklist && priority && _id && colour) {
       const createTodo = new Todo({
+        id,
         title,
         checklist,
         priority,
@@ -41,6 +43,7 @@ const addToBacklog = async (req, res) => {
     };
     if (task && removeFrom && _id && id) {
       const createBacklog = new Backlog({
+        id: task.id,
         title: task.title,
         checklist: task.checklist,
         priority: task.priority,
@@ -80,6 +83,7 @@ const addToToDo = async (req, res) => {
     };
     if (task && removeFrom && _id && id) {
       const createTodo = new Todo({
+        id: task.id,
         title: task.title,
         checklist: task.checklist,
         priority: task.priority,
@@ -118,6 +122,7 @@ const addToInProgress = async (req, res) => {
     };
     if (task && removeFrom && _id && id) {
       const createInProgress = new InProgress({
+        id: task.id,
         title: task.title,
         checklist: task.checklist,
         priority: task.priority,
@@ -157,6 +162,7 @@ const addToDone = async (req, res) => {
     };
     if (task && removeFrom && _id && id) {
       const createDone = new Done({
+        id: task.id,
         title: task.title,
         checklist: task.checklist,
         priority: task.priority,
@@ -201,6 +207,7 @@ const editTask = async (req, res) => {
         const updateTask = await Backlog.findByIdAndUpdate(
           id,
           {
+            id: task.id,
             title: task.title,
             checklist: task.checklist,
             priority: task.priority,
@@ -215,6 +222,7 @@ const editTask = async (req, res) => {
         const updateTask = await Todo.findByIdAndUpdate(
           id,
           {
+            id: task.id,
             title: task.title,
             checklist: task.checklist,
             priority: task.priority,
@@ -229,6 +237,7 @@ const editTask = async (req, res) => {
         const updateTask = await InProgress.findByIdAndUpdate(
           id,
           {
+            id: task.id,
             title: task.title,
             checklist: task.checklist,
             priority: task.priority,
@@ -243,6 +252,7 @@ const editTask = async (req, res) => {
         const updateTask = await Done.findByIdAndUpdate(
           id,
           {
+            id: task.id,
             title: task.title,
             checklist: task.checklist,
             priority: task.priority,
@@ -264,6 +274,152 @@ const editTask = async (req, res) => {
     console.log(`Error : ${error.message}`);
   }
 };
+const deleteTask = async (req, res) => {
+  try {
+    const tasks = {
+      1: "BACKLOG",
+      2: "TODO",
+      3: "INPROGRESS",
+      4: "DONE",
+    };
+    const { id } = req.params;
+    const { _id } = req.user;
+    const { from } = req.body;
+
+    if (id && _id && from) {
+      if (from === tasks["1"]) {
+        const updateTask = await Backlog.findOneAndDelete({
+          $and: [{ _id: id }, { creater: _id }],
+        });
+      } else if (from === tasks["2"]) {
+        const updateTask = await Todo.findOneAndDelete({
+          $and: [{ _id: id }, { creater: _id }],
+        });
+      } else if (from === tasks["3"]) {
+        const updateTask = await InProgress.findOneAndDelete({
+          $and: [{ _id: id }, { creater: _id }],
+        });
+      } else {
+        const updateTask = await Done.findOneAndDelete({
+          $and: [{ _id: id }, { creater: _id }],
+        });
+      }
+
+      res.status(201).json({ mesage: "Deleted succesfully!" });
+    } else {
+      res.status(400).json({ message: "All fields are required!" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+    console.log(`Error : ${error.message}`);
+  }
+};
+
+const getUserAllCreatedTasksInfo = async (req, res) => {
+  try {
+    const { _id } = req.user;
+
+    if (_id) {
+      let userAllHighPriorityTasks;
+      let userAllModeratePriorityTasks;
+      let userAllLowPriorityTasks;
+
+      let userAllDueDatesTasks = 0;
+      const userAllTodoTasks = await Todo.find({ creater: _id });
+      const userAllBacklogsTasks = await Backlog.find({ creater: _id });
+      const userAllInProgressTasks = await InProgress.find({ creater: _id });
+      const userAllDoneTasks = await Done.find({ creater: _id });
+
+      userAllTodoTasks.filter(({ dueDate }) => {
+        if (dueDate) {
+          userAllDueDatesTasks += 1;
+        }
+      });
+      userAllBacklogsTasks.filter(({ dueDate }) => {
+        if (dueDate) {
+          userAllDueDatesTasks += 1;
+        }
+      });
+      userAllInProgressTasks.filter(({ dueDate }) => {
+        if (dueDate) {
+          userAllDueDatesTasks += 1;
+        }
+      });
+      userAllDoneTasks.filter(({ dueDate }) => {
+        if (dueDate) {
+          userAllDueDatesTasks += 1;
+        }
+      });
+      const highProirityTodo = await Todo.find({ priority: "high-priority" });
+      const highProirityBacklog = await Backlog.find({
+        $and: [{ creater: _id }, { priority: "high-priority" }],
+      });
+      const highProirityInProgress = await InProgress.find({
+        $and: [{ creater: _id }, { priority: "high-priority" }],
+      });
+      const highProirityDone = await Done.find({
+        $and: [{ creater: _id }, { priority: "high-priority" }],
+      });
+
+      const moderateProirityTodo = await Todo.find({
+        $and: [{ creater: _id }, { priority: "moderate-priority" }],
+      });
+      const moderateProirityBacklog = await Backlog.find({
+        $and: [{ creater: _id }, { priority: "moderate-priority" }],
+      });
+      const moderateProirityInProgress = await InProgress.find({
+        $and: [{ creater: _id }, { priority: "moderate-priority" }],
+      });
+      const moderateProirityDone = await Done.find({
+        $and: [{ creater: _id }, { priority: "moderate-priority" }],
+      });
+
+      const lowProirityTodo = await Todo.find({
+        $and: [{ creater: _id }, { priority: "low-priority" }],
+      });
+      const lowProirityBacklog = await Backlog.find({
+        $and: [{ creater: _id }, { priority: "low-priority" }],
+      });
+      const lowProirityInProgress = await InProgress.find({
+        $and: [{ creater: _id }, { priority: "low-priority" }],
+      });
+      const lowProirityDone = await Done.find({
+        $and: [{ creater: _id }, { priority: "low-priority" }],
+      });
+      userAllHighPriorityTasks =
+        highProirityTodo.length +
+        highProirityBacklog.length +
+        highProirityInProgress.length +
+        highProirityDone.length;
+
+      userAllModeratePriorityTasks =
+        moderateProirityTodo.length +
+        moderateProirityBacklog.length +
+        moderateProirityInProgress.length +
+        moderateProirityDone.length;
+
+      userAllLowPriorityTasks =
+        lowProirityTodo.length +
+        lowProirityBacklog.length +
+        lowProirityInProgress.length +
+        lowProirityDone.length;
+
+      res.status(200).json({
+        backlog: userAllBacklogsTasks.length,
+        todo: userAllTodoTasks.length,
+        inProgress: userAllInProgressTasks.length,
+        done: userAllDoneTasks.length,
+        highPriority: userAllHighPriorityTasks,
+        moderatePriority: userAllModeratePriorityTasks,
+        lowPriority: userAllLowPriorityTasks,
+        dueDate: userAllDueDatesTasks,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   createTodo,
   addToBacklog,
@@ -271,4 +427,6 @@ export {
   addToInProgress,
   addToDone,
   editTask,
+  deleteTask,
+  getUserAllCreatedTasksInfo,
 };

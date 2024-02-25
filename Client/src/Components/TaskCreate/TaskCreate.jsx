@@ -12,6 +12,7 @@ import {
   createTodoAsync,
   reFatchAlltasksToggle,
 } from "../../Redux/User/UserSlice";
+import { generateUniqueHashedId } from "../../Utils/GenerateHashId";
 const TaskCreate = () => {
   const [inputValues, setInputValues] = useState([]);
   let [inputsCount, setInputsCount] = useState(0);
@@ -46,10 +47,11 @@ const TaskCreate = () => {
     setPriority(priority);
   };
 
-  const handleSaveTask = () => {
+  const handleSaveTask = async () => {
     setLoader(true);
     let month = "";
     let currDate = "";
+    const id = await generateUniqueHashedId(title);
     if (date) {
       const monthNumber =
         date?.split("-")[1][0] === "0"
@@ -61,6 +63,7 @@ const TaskCreate = () => {
     }
 
     const taskInfo = {
+      id: id,
       title: title,
       checklist: inputValues,
       priority: priority,

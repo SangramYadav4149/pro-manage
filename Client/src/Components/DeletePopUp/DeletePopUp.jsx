@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
 import "./DeletePopUp.css";
 import { useDispatch, useSelector } from "react-redux";
-import { clearDeleteTask, setDeleteTask } from "../../Redux/Board/BoardSlice";
+import { clearDeleteTask, deleteTask } from "../../Redux/Board/BoardSlice";
 import {
   deleteTaskAsync,
   reFatchAlltasksToggle,
 } from "../../Redux/User/UserSlice";
-import { deleteTask } from "../../Redux/User/UserAPI";
+
 import { BeatLoader } from "react-spinners";
 
 const DeletePopUp = () => {
   const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
-  const deleteTaskId = useSelector(deleteTask);
+  const deleteTaskInfo = useSelector(deleteTask);
   const boardReFatchToggle = useSelector(reFatchAlltasksToggle);
 
   const handleClearDeleteTask = () => {
     dispatch(clearDeleteTask());
   };
+
   const handleDeleteTask = () => {
-    //dispatch(deleteTaskAsync(deleteTaskId));
+    setLoader(true);
+    dispatch(deleteTaskAsync(deleteTaskInfo));
   };
 
   useEffect(() => {

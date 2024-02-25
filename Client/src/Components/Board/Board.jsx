@@ -104,7 +104,7 @@ const Board = () => {
             </div>
           </div>
           <div className="tasks-sec">
-            {userTodoTasks.map((task) => {
+            {userTodoTasks?.map((task) => {
               return (
                 <div className="task-box">
                   <ToDoCardPage task={task} />
@@ -123,7 +123,7 @@ const Board = () => {
             </div>
           </div>
           <div className="tasks-sec">
-            {userInProgressTasks.map((task, i) => {
+            {userInProgressTasks?.map((task, i) => {
               return (
                 <div key={i} className="task-box">
                   <InProgressCardPage task={task} />
@@ -142,7 +142,7 @@ const Board = () => {
             </div>
           </div>
           <div className="tasks-sec">
-            {userDoneTasks.map((task) => {
+            {userDoneTasks?.map((task) => {
               return (
                 <div className="task-box">
                   <DoneCardpage task={task} />

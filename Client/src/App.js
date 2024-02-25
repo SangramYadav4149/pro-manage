@@ -6,17 +6,20 @@ import Register from "./Components/Register/Register";
 import Homepage from "./Pages/HomePage/Homepage";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getUserAllCreatedTasksInfoAsync,
   getUserAllTasksAsync,
   getUserAsync,
   reFatchAlltasksToggle,
 } from "./Redux/User/UserSlice";
 import { useContext, useEffect } from "react";
+import { getUserAllCreatedTasksInfo } from "./Redux/User/UserAPI";
 function App() {
   const dispatch = useDispatch();
   const userToggle = useSelector(reFatchAlltasksToggle);
   useEffect(() => {
     dispatch(getUserAsync());
     dispatch(getUserAllTasksAsync());
+    dispatch(getUserAllCreatedTasksInfoAsync());
   }, [userToggle]);
 
   return (

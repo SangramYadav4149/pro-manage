@@ -56,6 +56,7 @@
   column-gap: 0.6rem;
   align-items: center;
   width: max-content;
+  cursor: pointer;
 }
 .left-section .section-down {
   width: 100%;
