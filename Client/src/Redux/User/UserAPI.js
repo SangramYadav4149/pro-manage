@@ -147,7 +147,7 @@ export const changeUserPassword = async (data) => {
   try {
     const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
     return await axios.post(
-      `http://localhost:5000/promaneger/api/get/user/change/password`,
+      `https://backend-r1sv.onrender.com/promaneger/api/get/user/change/password`,
       data,
       config
     );
