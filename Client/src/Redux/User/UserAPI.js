@@ -14,7 +14,7 @@ export const registerUser = async (data) => {
 };
 export const loginUser = async (data) => {
   return await axios.post(
-    "http://localhost:5000/promaneger/api/user/login",
+    "https://backend-r1sv.onrender.com/api/user/login",
     data
   );
 };
