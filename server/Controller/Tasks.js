@@ -3,6 +3,34 @@ import Done from "../Model/Done.js";
 import InProgress from "../Model/InProgress.js";
 import Todo from "../Model/ToDo.js";
 
+const getShareTask = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (id) {
+      const backlog = await Backlog.findOne({ id: id });
+      const toDo = await Todo.findOne({ id: id });
+      const inProgeess = await InProgress.findOne({ id: id });
+      const done = await Done.findOne({ id: id });
+
+      if (backlog) {
+        res.status(200).json({ task: backlog });
+      } else if (toDo) {
+        res.status(200).json({ task: toDo });
+      } else if (inProgeess) {
+        res.status(200).json({ task: inProgeess });
+      } else if (done) {
+        res.status(200).json({ task: done });
+      } else {
+        res.status(404).json({ message: "Task not found!" });
+      }
+    } else {
+      res.status(400).json({ message: "Task id is required!" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+    console.log(`Error : ${error.message}`);
+  }
+};
 const createTodo = async (req, res) => {
   try {
     const { _id } = req.user;
@@ -429,4 +457,5 @@ export {
   editTask,
   deleteTask,
   getUserAllCreatedTasksInfo,
+  getShareTask,
 };

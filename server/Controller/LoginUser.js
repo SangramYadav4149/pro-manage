@@ -10,7 +10,11 @@ const loginUser = async (req, res) => {
         password: 1,
       });
       if (foundUser?.password) {
-        const varifyPassword = bcrypt.compare(password, foundUser.password);
+        const varifyPassword = await bcrypt.compare(
+          password,
+          foundUser.password
+        );
+
         if (varifyPassword) {
           const jwt = await generateJwtToken(foundUser._id);
           const user = await User.findOne({ email: email }, { password: 0 });

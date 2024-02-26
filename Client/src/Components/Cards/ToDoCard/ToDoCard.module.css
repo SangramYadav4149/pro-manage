@@ -1,4 +1,4 @@
-.backlog-card-container {
+.todo_card_container {
   width: 245px;
   border-radius: 1rem;
   background-color: white;
@@ -7,7 +7,7 @@
   align-items: center;
   padding: 0.7rem 0rem;
 }
-.backlog-card-section {
+.todo_card_section {
   width: 225px;
   background-color: white;
   display: flex;
@@ -16,52 +16,54 @@
   row-gap: 1rem;
   align-items: center;
 }
-.backlog-card-container .backlog-card-section-up {
+.todo_card_container .todo_card_section_up {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: start;
 }
-.backlog-card-section-up .sec-left {
+.todo_card_section_up .sec_left {
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
 }
-.sec-left .priority-sec {
+.sec_left .priority_sec {
   display: flex;
   align-items: center;
   justify-content: start;
   column-gap: 0.3rem;
 }
-.sec-left .color {
+.sec_left .color {
   width: 8px;
   height: 8px;
   display: inline-block;
   border-radius: 50%;
 }
-.sec-left .task-priority {
+.sec_left .task_priority {
   font-size: 9px;
   font-weight: 500;
   color: #707070;
+  text-transform: uppercase;
 }
-.sec-left .task-title {
+.todo_card_container .sec_left .task_title {
   font-size: 15px;
   font-weight: 500;
 }
-.backlog-card-container .backlog-card-section-middle {
+
+.todo_card_container .todo_card_section_middle {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   row-gap: 0.5rem;
 }
-.backlog-card-container .backlog-card-section-middle .sec-up {
+.todo_card_container .todo_card_section_middle .sec_up {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.backlog-card-container .backlog-card-section-middle .sec-up .expand {
+.todo_card_container .todo_card_section_middle .sec_up .expand {
   display: flex;
   justify-content: center;
   text-align: center;
@@ -69,18 +71,20 @@
   background-color: #eeecec;
   font-size: 1.4rem;
 }
-.backlog-card-container .backlog-card-section-middle .sec-up .checklist {
+.todo_card_container .todo_card_section_middle .sec_up .checklist {
   font-size: 14px;
 }
-.backlog-card-container .backlog-card-section-down {
+.todo_card_container .todo_card_section_down {
   width: 100%;
+  height: 1.5rem;
+
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
-.backlog-card-container .backlog-card-section-down .btn-left {
-  width: max-content;
+.todo-card-container .todo-card-section-down .btn-left {
 }
-.backlog-card-container .backlog-card-section-down .btn-left > button {
+.todo_card_container .todo_car_section_down .btn_left > button {
   width: max-content;
   padding: 0.4rem 0.5rem;
   background-color: #dbdbdb;
@@ -91,33 +95,31 @@
 
   border: none;
 }
-.backlog-card-container .backlog-card-section-down .btn-right {
+.todo_card_container .todo_card_section_down .btn_right {
   width: 100%;
-
-  margin-top: 0.1rem;
+  margin-bottom: -4px;
   display: flex;
   justify-content: end;
   column-gap: 0.3rem;
-  height: 1.5rem;
 }
-.backlog-card-container .backlog-card-section-down .btn-right > button {
+.todo_card_container .todo_card_section_down .btn_right > button {
   width: max-content;
   padding: 0.4rem 0.5rem;
   background-color: #eeecec;
   color: #5a5a5a;
-  margin-top: 0.1rem;
+  cursor: pointer;
   font-size: 0.5rem;
   border-radius: 0.5rem;
-  cursor: pointer;
+
   border: none;
 }
-.backlog-card-container .sec-down {
+.todo_card_container .sec_down {
   width: 100%;
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
 }
-.backlog-card-container .task-sec {
+.todo_card_container .task_sec {
   width: 90%;
   display: flex;
   border: 1px solid #e2e2e2;
@@ -126,25 +128,25 @@
   align-items: center;
   padding: 0.5rem;
 }
-.backlog-card-container .task-sec .check-box {
+.todo_card_container .task_sec .check_box {
   padding-left: 4rem;
   display: inline-block;
 }
-.backlog-card-container .task-sec .task {
+.todo_card_container .task_sec .task {
   display: inline-block;
   padding-left: 0.5rem;
 }
-.backlog-card-container .check-box-sec {
+.todo_card_container .check_box_sec {
   display: inline-block;
 }
-.backlog-card-container .sec-right {
+.todo_card_container .sec_right {
   position: relative;
 }
 
-.backlog-card-container .sec-right .options-off {
+.todo_card_container .sec_right .options_off {
   display: none;
 }
-.backlog-card-container .sec-right .options-on {
+.todo_card_container .sec_right .options_on {
   top: 70%;
   position: absolute;
   right: 0;
@@ -159,11 +161,11 @@
   justify-content: space-evenly;
   padding: 0.5rem 1rem;
 }
-.backlog-card-container .sec-right .options-on > span {
+.todo_card_container .sec_right .options_on > span {
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
 }
-.backlog-card-container .sec-right .options-on .delete {
+.todo_card_container .sec_right .options_on .delete {
   color: #cf3636;
 }

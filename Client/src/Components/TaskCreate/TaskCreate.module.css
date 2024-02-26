@@ -1,4 +1,4 @@
-.task-container {
+.task_container {
   width: 500px;
   background-color: white;
   display: flex;
@@ -8,14 +8,14 @@
   border-radius: 1rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-.task-container-sec {
+.task_container_sec {
   width: 450px;
   height: 450px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.task-container-sec .task-sec-up {
+.task_container_sec .task_sec_up {
   width: 450px;
 
   display: flex;
@@ -23,41 +23,41 @@
   justify-content: center;
   row-gap: 1rem;
 }
-.task-container .task-sec-up .task-input-sec {
+.task_container .task_sec_up .task_input_sec {
   width: 100%;
   display: flex;
   flex-direction: column;
 }
-.task-container .red-dot {
+.task_container .red_dot {
   color: red;
 }
-.task-container .task-sec-up .task-input-sec > input {
+.task_container .task_sec_up .task_input_sec > input {
   height: 2rem;
   border: 1px solid #4d40551a;
 
   border-radius: 4px;
   padding-left: 0.7rem;
 }
-.task-container .task-input-sec > label {
+.task_container .task_input_sec > label {
   padding-bottom: 0.5rem;
   font-weight: 500;
   font-size: 0.9rem;
 }
-.task-container .select-priority {
+.task_container .select_priority {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
-.task-container .select-opt {
+.task_container .select_opt {
   width: 100%;
   display: flex;
   justify-content: space-between;
   column-gap: 0.3rem;
 }
-.task-container .select-opt .opt .select-text {
+.task_container .select_opt .opt .select_text {
   font-size: 11px;
 }
-.task-container .select-opt .opt {
+.task_container .select_opt .opt {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,59 +68,59 @@
   padding: 0 5px;
   cursor: pointer;
 }
-.task-container .select-opt .opt .red {
+.task_container .select_opt .opt .red {
   display: inline-block;
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background-color: red;
 }
-.task-container .select-opt .opt .blue {
+.task_container .select_opt .opt .blue {
   display: inline-block;
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background-color: blue;
 }
-.task-container .select-opt .opt .green {
+.task_container .select_opt .opt .green {
   display: inline-block;
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background-color: green;
 }
-.task-container .select-priority > div {
+.task_container .select_priority > div {
   width: max-content;
 }
-.task-container .task-title {
+.task_container .task_title {
   font-weight: 500;
   font-size: 0.9rem;
 }
-.task-container .task-box {
+.task_container .task_box {
   position: relative;
   width: max-content;
   margin-bottom: 0.7rem;
 }
-.task-container .task-box .check-box {
+.task_container .task_box .check_box {
   position: absolute;
   top: 7px;
   left: 8px;
 }
-.task-container .task-write > input {
+.task_container .task_write > input {
   height: 2rem;
   width: 400px;
   border-radius: 0.5rem;
   border: 1px solid #e2e2e2;
   padding-left: 2rem;
 }
-.task-container .task-delete {
+.task_container .task_delete {
   position: absolute;
   right: 7px;
   top: 6px;
   cursor: pointer;
   font-size: 1.2rem;
 }
-.task-container .task-add-box {
+.task_container .task_add_box {
   color: #767575;
   display: flex;
   justify-content: start;
@@ -128,17 +128,17 @@
   font-weight: 500;
 }
 
-.task-container .task-add-box .task-add-icon {
+.task_container .task_add_box .task_add_icon {
   font-size: 1.2rem;
 }
 
-.task-container .task-add-box .task-add-text {
+.task_container .task_add_box .task_add_text {
   font-size: 0.9rem;
   padding-bottom: 2px;
   cursor: pointer;
 }
 
-.task-container .task-inputs {
+.task_container .task_inputs {
   width: 470px;
 
   max-height: 220px;
@@ -146,24 +146,24 @@
 
   row-gap: 0.5rem;
 }
-.task-container .checklist-title {
+.task_container .checklist_title {
   font-weight: 500;
   font-size: 0.9rem;
   padding-bottom: 0.5rem;
   display: inline-block;
 }
-.task-container .task-sec-down {
+.task_container .task_sec_down {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
-.task-container .task-sec-down .buttons-right {
+.task_container .task_sec_down .buttons_right {
   width: max-content;
   display: flex;
   justify-content: center;
   column-gap: 0.5rem;
 }
-.task-container .date-btn {
+.task_container .date_btn {
   padding: 0.5rem 1rem;
   background-color: white;
   font-weight: 500;
@@ -171,7 +171,7 @@
   border-radius: 0.6rem;
 }
 
-.task-container .cancel-btn {
+.task_container .cancel_btn {
   width: 5rem;
   color: #cf3636;
   background-color: white;
@@ -181,7 +181,7 @@
   border-radius: 0.6rem;
 }
 
-.task-container .save-btn {
+.task_container .save_btn {
   width: 5rem;
   color: white;
   background-color: #17a2b8;
@@ -193,10 +193,10 @@
   justify-content: center;
   align-items: center;
 }
-.select-priority-on {
+.select_priority_on {
   background: #eeecec;
 }
-.task-container .disable-btn {
+.task_container .disable_btn {
   opacity: 0.4;
   cursor: not-allowed;
 }

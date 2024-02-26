@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Board.css";
+import style from "./Board.module.css";
 import { getCurrentDate } from "../../Utils/Date";
 import { VscCollapseAll } from "react-icons/vsc";
 import { IoIosAdd } from "react-icons/io";
@@ -53,46 +53,46 @@ const Board = () => {
   };
 
   return (
-    <section className="board-container">
-      <div className="borad-sec-1">
-        <span className="board-welcome">Welcome! {userInfo?.name}</span>
-        <span className="board-date">{date}</span>
+    <section className={style.board_container}>
+      <div className={style.borad_sec_1}>
+        <span className={style.board_welcome}>Welcome! {userInfo?.name}</span>
+        <span className={style.board_date}>{date}</span>
       </div>
-      <div className="board-sec-2">
-        <span className="section-title">Board</span>
-        <span className="board-filters">
-          <select className="options">
-            <option value="">Today</option>
-            <option value="">This week</option>
-            <option value="">This month</option>
+      <div className={style.board_sec_2}>
+        <span className={style.section_title}>Board</span>
+        <span className={style.board_filters}>
+          <select className={style.options}>
+            <option value="Today">Today</option>
+            <option value="This week">This week</option>
+            <option value="This month">This month</option>
           </select>
         </span>
       </div>
-      <div className="board-sec-3">
-        <div className="board-box">
-          <div className="board-box-up-sec">
-            <div className="box">
-              <span className="text">Backlogs</span>
+      <div className={style.board_sec_3}>
+        <div className={style.board_box}>
+          <div className={style.board_box_up_sec}>
+            <div className={style.box}>
+              <span className={style.text}>Backlogs</span>
               <span onClick={() => handleCollapseAll(taskBoxes["1"], true)}>
                 <VscCollapseAll size={21} />
               </span>
             </div>
           </div>
-          <div className="tasks-sec">
+          <div className={style.tasks_sec}>
             {userBacklogTasks?.map((task, i) => {
               return (
-                <div key={i} className="task-box">
+                <div key={i} className={style.task_box}>
                   <BacklogCardPage task={task} />
                 </div>
               );
             })}
           </div>
         </div>
-        <div className="board-box">
-          <div className="board-box-up-sec">
-            <div className="box">
-              <span className="text">To do</span>
-              <span className="add-icon">
+        <div className={style.board_box}>
+          <div className={style.board_box_up_sec}>
+            <div className={style.box}>
+              <span className={style.text}>To do</span>
+              <span className={style.add_icon}>
                 <IoIosAdd
                   onClick={() => handleToggleCreateTaskSec()}
                   size={25}
@@ -103,48 +103,48 @@ const Board = () => {
               </span>
             </div>
           </div>
-          <div className="tasks-sec">
+          <div className={style.tasks_sec}>
             {userTodoTasks?.map((task) => {
               return (
-                <div className="task-box">
+                <div className={style.task_box}>
                   <ToDoCardPage task={task} />
                 </div>
               );
             })}
           </div>
         </div>
-        <div className="board-box">
-          <div className="board-box-up-sec">
-            <div className="box">
-              <span className="text">In pogress</span>
+        <div className={style.board_box}>
+          <div className={style.board_box_up_sec}>
+            <div className={style.box}>
+              <span className={style.text}>In pogress</span>
               <span onClick={() => handleCollapseAll(taskBoxes["3"], true)}>
                 <VscCollapseAll size={21} />
               </span>
             </div>
           </div>
-          <div className="tasks-sec">
+          <div className={style.tasks_sec}>
             {userInProgressTasks?.map((task, i) => {
               return (
-                <div key={i} className="task-box">
+                <div key={i} className={style.task_box}>
                   <InProgressCardPage task={task} />
                 </div>
               );
             })}
           </div>
         </div>
-        <div className="board-box">
-          <div className="board-box-up-sec">
-            <div className="box">
-              <span className="text">Done</span>
+        <div className={style.board_box}>
+          <div className={style.board_box_up_sec}>
+            <div className={style.box}>
+              <span className={style.text}>Done</span>
               <span onClick={() => handleCollapseAll(taskBoxes["4"], true)}>
                 <VscCollapseAll size={21} />
               </span>
             </div>
           </div>
-          <div className="tasks-sec">
+          <div className={style.tasks_sec}>
             {userDoneTasks?.map((task) => {
               return (
-                <div className="task-box">
+                <div className={style.task_box}>
                   <DoneCardpage task={task} />
                 </div>
               );

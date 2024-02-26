@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import "./TaskCreate.css";
+import style from "./TaskCreate.module.css";
 import { MdDelete } from "react-icons/md";
 import { IoIosAdd } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
@@ -54,10 +54,10 @@ const TaskCreate = () => {
     const id = await generateUniqueHashedId(title);
     if (date) {
       const monthNumber =
-        date?.split("-")[1][0] === "0"
-          ? date?.split("-")[1][1]
-          : date?.split("-")[1];
-      currDate = date.split("-")[2];
+        date?.split("_")[1][0] === "0"
+          ? date?.split("_")[1][1]
+          : date?.split("_")[1];
+      currDate = date.split("_")[2];
 
       month = date ? getMonth(monthNumber) : "";
     }
@@ -70,9 +70,9 @@ const TaskCreate = () => {
       dueDate: date ? `${month} ${currDate}th` : "",
       pureDate: date,
       colour:
-        priority === "low-priority"
+        priority === "low_priority"
           ? "green"
-          : priority === "high-priority"
+          : priority === "high_priority"
           ? "red"
           : "blue",
     };
@@ -136,12 +136,12 @@ const TaskCreate = () => {
     }
   }, [boardReFatchToggle]);
   return (
-    <section className="task-container">
-      <div className="task-container-sec">
-        <div className="task-sec-up">
-          <div className="task-input-sec">
+    <section className={style.task_container}>
+      <div className={style.task_container_sec}>
+        <div className={style.task_sec_up}>
+          <div className={style.task_input_sec}>
             <label>
-              Title <span className="red-dot">*</span>
+              Title <span className={style.red_dot}>*</span>
             </label>
             <input
               onChange={(e) => handleSetTitle(e.target.value)}
@@ -149,69 +149,69 @@ const TaskCreate = () => {
               placeholder="Enter Task Title"
             />
           </div>
-          <div className="select-priority">
-            <div className="task-title">
+          <div className={style.select_priority}>
+            <div className={style.task_title}>
               <span>
-                Select Priority <span className="red-dot">*</span>
+                Select Priority <span className={style.red_dot}>*</span>
               </span>
             </div>
-            <div className="select-opt">
+            <div className={style.select_opt}>
               <div
                 onClick={() => handleSelectPriority("high-priority")}
-                className={`opt ${
-                  priority === "high-priority" && "select-priority-on"
+                className={` ${style.opt} ${
+                  priority === "high_priority" && "select_priority_on"
                 }`}
               >
-                <span className="red"></span>
-                <span className="select-text">HIGH PRIORITY</span>
+                <span className={style.red}></span>
+                <span className={style.select_text}>HIGH PRIORITY</span>
               </div>
               <div
                 onClick={() => handleSelectPriority("moderate-priority")}
-                className={`opt ${
-                  priority === "moderate-priority" && "select-priority-on"
+                className={`${style.opt} ${
+                  priority === "moderate_priority" && style.select_priority_on
                 }`}
               >
-                <span className="blue"></span>
-                <span className="select-text">MODERATE PRIORITY</span>
+                <span className={style.blue}></span>
+                <span className={style.select_text}>MODERATE PRIORITY</span>
               </div>
               <div
                 onClick={() => handleSelectPriority("low-priority")}
-                className={`opt ${
-                  priority === "low-priority" && "select-priority-on"
+                className={`${style.opt} ${
+                  priority === "low_priority" && style.select_priority_on
                 }`}
               >
-                <span className="green"></span>
-                <span className="select-text"> LOW PRIORITY</span>
+                <span className={style.green}></span>
+                <span className={style.select_text}> LOW PRIORITY</span>
               </div>
             </div>
           </div>
-          <div className="task-section">
+          <div className={style.task_section}>
             <div>
-              <span className="checklist-title">
+              <span className={style.checklist_title}>
                 Checklist {`(${checkList}/${inputValues.length})`}{" "}
-                <span className="red-dot">*</span>
+                <span className={style.red_dot}>*</span>
               </span>
             </div>
-            <div className="task-inputs">
+            <div className={style.task_inputs}>
               {inputValues.map(({ id, text }, i) => {
                 return (
                   <>
-                    <div key={i} className="task-box">
-                      <div className="check-box">
+                    <div key={i} className={style.task_box}>
+                      <div className={style.check_box}>
                         <input
                           onChange={(e) => handleSetTick(id)}
                           checked={inputValues[i].tick}
                           type="checkbox"
                         />
                       </div>
-                      <div className="task-delete">
+                      <div className={style.task_delete}>
                         <MdDelete
                           onClick={() => handleDeleteInput(id)}
                           color="#CF3636"
                         />
                       </div>
 
-                      <div className="task-write">
+                      <div className={style.task_write}>
                         <input
                           onChange={(e) => handleSetText(i, e.target.value)}
                           type="text"
@@ -225,13 +225,13 @@ const TaskCreate = () => {
               })}
             </div>
 
-            <div className="task-add-box">
-              <span className="task-add-icon">
+            <div className={style.task_add_box}>
+              <span className={style.task_add_icon}>
                 <IoIosAdd />
               </span>
               <span
                 onClick={() => handleAddInputBox(inputsCount)}
-                className="task-add-text"
+                className={style.task_add_text}
               >
                 Add New
               </span>
@@ -239,25 +239,27 @@ const TaskCreate = () => {
           </div>
         </div>
 
-        <div className="task-sec-down">
-          <div className="buttons-left">
+        <div className={style.task_sec_down}>
+          <div className={style.buttons_left}>
             <input
               onChange={(e) => setDate(e.target.value)}
-              className="date-btn"
+              className={style.date_btn}
               type="date"
             />
           </div>
-          <div className="buttons-right">
+          <div className={style.buttons_right}>
             <button
               onClick={() => handleToggleCreateTaskSec()}
-              className="cancel-btn"
+              className={style.cancel_btn}
             >
               Cancel
             </button>
             <button
               onClick={() => handleSaveTask()}
               disabled={!enableSaveButton ? true : false}
-              className={`save-btn ${!enableSaveButton && "disable-btn"}`}
+              className={`${style.save_btn} ${
+                !enableSaveButton && style.disable_btn
+              }`}
             >
               {!loader ? "Save" : <BeatLoader size={10} color="white" />}
             </button>

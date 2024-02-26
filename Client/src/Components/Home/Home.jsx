@@ -4,7 +4,7 @@ import { PiLayoutThin } from "react-icons/pi";
 import { GoDatabase } from "react-icons/go";
 import { IoSettingsOutline } from "react-icons/io5";
 import { IoLogOutOutline } from "react-icons/io5";
-import "./Home.css";
+import style from "./Home.module.css";
 import BoardPage from "../../Pages/BoardPage/BoardPage";
 import AnyalyticsPage from "../../Pages/AnyalyticsPage/AnyalyticsPage";
 import SettingsPage from "../../Pages/SettingsPage/SettingsPage";
@@ -14,111 +14,135 @@ import {
   createTask,
   deleteTask,
   editTask,
+  logOut,
+  setUserLogoutTrue,
+  shareTaskLink,
   toggle,
   toggleCreateTask,
 } from "../../Redux/Board/BoardSlice";
 import DeletePopUp from "../DeletePopUp/DeletePopUp";
 import EditTask from "../EditTask/EditTask";
-import { setLogOut } from "../../Redux/User/UserSlice";
+
+import ShareLink from "../ShareLinkPopUp/ShareLinkPopUp";
+import LogoutPopUp from "../LogoutPopUp/LogoutPopUp";
 const Home = () => {
   const [selectSection, setSelectSection] = useState("board");
   const [showCreateTask, setShowCreateTask] = useState(false);
   const taskStatus = useSelector(createTask);
   const userDeleteTask = useSelector(deleteTask);
   const userEditTask = useSelector(editTask);
+  const userShareTaskLink = useSelector(shareTaskLink);
+  const userLogout = useSelector(logOut);
   const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(setUserLogoutTrue());
+  };
   const boardToggle = useSelector(toggle);
   const handleClickSection = (section) => {
     setSelectSection(section);
   };
 
-  const handleLogOut = () => {
-    dispatch(setLogOut());
-  };
   useEffect(() => {
     setShowCreateTask(taskStatus);
   }, [boardToggle]);
 
   return (
     <>
+      {userLogout && (
+        <div className={style.user_logout}>
+          <LogoutPopUp />
+        </div>
+      )}
+      {userShareTaskLink && (
+        <div className={style.share_link_sec}>
+          <ShareLink />
+        </div>
+      )}
       {userEditTask?.task?._id && (
-        <div className="edit-sec">
+        <div className={style.edit_sec}>
           <EditTask />
         </div>
       )}
       {userDeleteTask?.id && (
-        <div className="delete-sec">
+        <div className={style.delete_sec}>
           <DeletePopUp />
         </div>
       )}
       {showCreateTask && (
-        <div className="note-sec">
+        <div className={style.note_sec}>
           <TaskCreate />
         </div>
       )}
       <section
-        className={`home-container ${
-          (showCreateTask || userDeleteTask?.id || userEditTask?.task?._id) &&
-          "crate-task-on"
+        className={`${style.home_container} ${
+          (showCreateTask ||
+            userDeleteTask?.id ||
+            userShareTaskLink ||
+            userLogout ||
+            userEditTask?.task?._id) &&
+          style.crate_task_on
         }`}
       >
-        <div className="left-section">
-          <div className="section-up">
-            <div className="brand-name-section">
-              <div className="brand-name">
-                <span className="brand-icon">
+        <div className={style.left_section}>
+          <div className={style.section_up}>
+            <div className={style.brand_name_section}>
+              <div className={style.brand_name}>
+                <span className={style.brand_icon}>
                   <SiCountingworkspro />
                 </span>
-                <span className="brand-text">Pro Manage</span>
+                <span className={style.brand_text}>Pro Manage</span>
               </div>
             </div>
 
-            <div className="routes-container">
+            <div className={style.routes_container}>
               <div
-                className={`route-section ${
-                  selectSection === "board" && "select-section"
+                className={`${style.route_section} ${
+                  selectSection === "board" && style.select_section
                 }`}
                 onClick={() => handleClickSection("board")}
               >
-                <span className="route-icon">
+                <span className={style.route_icon}>
                   <PiLayoutThin />
                 </span>
-                <span className="route-text">Board</span>
+                <span className={style.route_text}>Board</span>
               </div>
               <div
-                className={`route-section ${
-                  selectSection === "anyalytics" && "select-section"
+                className={`${style.route_section} ${
+                  selectSection === "anyalytics" && style.select_section
                 }`}
                 onClick={() => handleClickSection("anyalytics")}
               >
-                <span className="route-icon">
+                <span className={style.route_icon}>
                   <GoDatabase />
                 </span>
-                <span className="route-text">Anyalytics</span>
+                <span className={style.route_text}>Anyalytics</span>
               </div>
               <div
                 onClick={() => handleClickSection("settings")}
-                className={`route-section ${
-                  selectSection === "settings" && "select-section"
+                className={`${style.route_section} ${
+                  selectSection === "settings" && style.select_section
                 }`}
               >
-                <span className="route-icon">
+                <span className={style.route_icon}>
                   <IoSettingsOutline />
                 </span>
-                <span className="route-text">Settings</span>
+                <span className={style.route_text}>Settings</span>
               </div>
             </div>
           </div>
-          <div className="section-down">
-            <div onClick={() => handleLogOut()} className="logout-section">
-              <span className="logout-icon">
+          <div className={style.section_down}>
+            <div
+              onClick={() => handleLogout()}
+              className={style.logout_section}
+            >
+              <span className={style.logout_icon}>
                 <IoLogOutOutline />
               </span>
-              <span className="logout-text">Logout</span>
+              <span className={style.logout_text}>Logout</span>
             </div>
           </div>
         </div>
-        <div className="right-section">
+        <div className={style.right_section}>
           {selectSection === "board" ? (
             <BoardPage />
           ) : selectSection === "anyalytics" ? (

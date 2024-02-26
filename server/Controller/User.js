@@ -36,6 +36,7 @@ const changeUserPassword = async (req, res) => {
   try {
     const { _id } = req.user;
     const { password } = req.body;
+
     if (_id && password) {
       const count = await bcrypt.genSalt(5);
       const hashedPassword = await bcrypt.hash(password, count);

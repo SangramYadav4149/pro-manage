@@ -1,4 +1,4 @@
-.done-card-container {
+.inprogress_container {
   width: 245px;
   border-radius: 1rem;
   background-color: white;
@@ -7,7 +7,7 @@
   align-items: center;
   padding: 0.7rem 0rem;
 }
-.done-card-section {
+.inprogress_section {
   width: 225px;
   background-color: white;
   display: flex;
@@ -16,53 +16,53 @@
   row-gap: 1rem;
   align-items: center;
 }
-.done-card-container .done-card-section-up {
+.inprogress_container .inprogress_section_up {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: start;
 }
-.done-card-section-up .sec-left {
+.inprogress_section_up .sec_left {
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
 }
-.sec-left .priority-sec {
+.sec_left .priority_sec {
   display: flex;
   align-items: center;
   justify-content: start;
   column-gap: 0.3rem;
 }
-.sec-left .color {
+.sec_left .color {
   width: 8px;
   height: 8px;
   display: inline-block;
   border-radius: 50%;
 }
-.sec-left .task-priority {
+.sec_left .task_priority {
   font-size: 9px;
   font-weight: 500;
   color: #707070;
-}
-.sec-left .task-title {
-  font-size: 15px;
-  font-weight: 500;
   text-transform: uppercase;
 }
-.done-card-container .done-card-section-middle {
+.sec_left .task_title {
+  font-size: 15px;
+  font-weight: 500;
+}
+.inprogress_container .inprogress_section_middle {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   row-gap: 0.5rem;
 }
-.done-card-container .done-card-section-middle .sec-up {
+.inprogress_container .inprogress_section_middle .sec_up {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.done-card-container .done-card-section-middle .sec-up .expand {
+.inprogress_container .inprogress_section_middle .sec_up .expand {
   display: flex;
   justify-content: center;
   text-align: center;
@@ -70,51 +70,53 @@
   background-color: #eeecec;
   font-size: 1.4rem;
 }
-.done-card-container .done-card-section-middle .sec-up .checklist {
+.inprogress_container .inprogress_section_middle .sec_up .checklist {
   font-size: 14px;
 }
-.done-card-container .done-card-section-down {
+.inprogress_container .inprogress_section_down {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
-.done-card-container .done-card-section-down .btn-left {
+.inprogress_container .inprogress_section_down .btn_left {
   width: max-content;
 }
-.done-card-container .done-card-section-down .btn-left > button {
+.inprogress_container .inprogress_section_down .btn_left > button {
   width: max-content;
   padding: 0.4rem 0.5rem;
-  background-color: green;
-  color: white;
+  background-color: #dbdbdb;
+  color: #5a5a5a;
 
   font-size: 0.5rem;
   border-radius: 0.5rem;
 
   border: none;
 }
-.done-card-container .done-card-section-down .btn-right {
+.inprogress_container .inprogress_section_down .btn_right {
   width: 100%;
-  text-align: end;
+  display: flex;
+  column-gap: 0.3rem;
+  justify-content: end;
 }
-
-.done-card-container .done-card-section-down .btn-right > button {
+.inprogress_container .inprogress_section_down .btn_right > button {
   width: max-content;
   padding: 0.4rem 0.5rem;
   background-color: #eeecec;
   color: #5a5a5a;
+  cursor: pointer;
+
   font-size: 0.5rem;
   border-radius: 0.5rem;
+
   border: none;
-  margin-left: 0.2rem;
-  cursor: pointer;
 }
-.done-card-container .sec-down {
+.inprogress_container .sec_down {
   width: 100%;
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
 }
-.done-card-container .task-sec {
+.inprogress_container .task_sec {
   width: 90%;
   display: flex;
   border: 1px solid #e2e2e2;
@@ -123,25 +125,25 @@
   align-items: center;
   padding: 0.5rem;
 }
-.done-card-container .task-sec .check-box {
+.inprogress_container .task_sec .check_box {
   padding-left: 4rem;
   display: inline-block;
 }
-.done-card-container .task-sec .task {
+.inprogress_container .task_sec .task {
   display: inline-block;
   padding-left: 0.5rem;
 }
-.done-card-container .check-box-sec {
+.inprogress_container .check_box_sec {
   display: inline-block;
 }
-.done-card-container .sec-right {
+.inprogress_container .sec_right {
   position: relative;
 }
 
-.done-card-container .sec-right .options-off {
+.inprogress_container .sec_right .options_off {
   display: none;
 }
-.done-card-container .sec-right .options-on {
+.inprogress_container .sec_right .options_on {
   top: 70%;
   position: absolute;
   right: 0;
@@ -156,11 +158,11 @@
   justify-content: space-evenly;
   padding: 0.5rem 1rem;
 }
-.done-card-container .sec-right .options-on > span {
+.inprogress_container .sec_right .options_on > span {
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
 }
-.done-card-container .sec-right .options-on .delete {
+.inprogress_container .sec_right .options_on .delete {
   color: #cf3636;
 }

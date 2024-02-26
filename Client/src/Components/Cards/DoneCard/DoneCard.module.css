@@ -1,4 +1,4 @@
-.inprogress-container {
+.done_card_container {
   width: 245px;
   border-radius: 1rem;
   background-color: white;
@@ -7,7 +7,7 @@
   align-items: center;
   padding: 0.7rem 0rem;
 }
-.inprogress-section {
+.done_card_section {
   width: 225px;
   background-color: white;
   display: flex;
@@ -16,52 +16,53 @@
   row-gap: 1rem;
   align-items: center;
 }
-.inprogress-container .inprogress-section-up {
+.done_card_container .done_card_section_up {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: start;
 }
-.inprogress-section-up .sec-left {
+.done_card_section_up .sec_left {
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
 }
-.sec-left .priority-sec {
+.sec_left .priority_sec {
   display: flex;
   align-items: center;
   justify-content: start;
   column-gap: 0.3rem;
 }
-.sec-left .color {
+.sec_left .color {
   width: 8px;
   height: 8px;
   display: inline-block;
   border-radius: 50%;
 }
-.sec-left .task-priority {
+.sec_left .task_priority {
   font-size: 9px;
   font-weight: 500;
   color: #707070;
+  text-transform: uppercase;
 }
-.sec-left .task-title {
+.sec_left .task_title {
   font-size: 15px;
   font-weight: 500;
 }
-.inprogress-container .inprogress-section-middle {
+.done_card_container .done_card_section_middle {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   row-gap: 0.5rem;
 }
-.inprogress-container .inprogress-section-middle .sec-up {
+.done_card_container .done_card_section_middle .sec_up {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.inprogress-container .inprogress-section-middle .sec-up .expand {
+.done_card_container .done_card_section_middle .sec_up .expand {
   display: flex;
   justify-content: center;
   text-align: center;
@@ -69,53 +70,51 @@
   background-color: #eeecec;
   font-size: 1.4rem;
 }
-.inprogress-container .inprogress-section-middle .sec-up .checklist {
+.done_card_container .done_card_section_middle .sec_up .checklist {
   font-size: 14px;
 }
-.inprogress-container .inprogress-section-down {
+.done_card_container .done_card_section_down {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
-.inprogress-container .inprogress-section-down .btn-left {
+.done_card_container .don_card_section_down .btn_left {
   width: max-content;
 }
-.inprogress-container .inprogress-section-down .btn-left > button {
+.done_card_container .done_card_section_down .btn_left > button {
   width: max-content;
   padding: 0.4rem 0.5rem;
-  background-color: #dbdbdb;
-  color: #5a5a5a;
+  background-color: green;
+  color: white;
 
   font-size: 0.5rem;
   border-radius: 0.5rem;
 
   border: none;
 }
-.inprogress-container .inprogress-section-down .btn-right {
+.done_card_container .done_card_section_down .btn_right {
   width: 100%;
-  display: flex;
-  column-gap: 0.3rem;
-  justify-content: end;
+  text-align: end;
 }
-.inprogress-container .inprogress-section-down .btn-right > button {
+
+.done_card_container .done_card_section_down .btn_right > button {
   width: max-content;
   padding: 0.4rem 0.5rem;
   background-color: #eeecec;
   color: #5a5a5a;
-  cursor: pointer;
-
   font-size: 0.5rem;
   border-radius: 0.5rem;
-
   border: none;
+  margin-left: 0.2rem;
+  cursor: pointer;
 }
-.inprogress-container .sec-down {
+.done_card_container .sec_down {
   width: 100%;
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
 }
-.inprogress-container .task-sec {
+.done_card_container .task_sec {
   width: 90%;
   display: flex;
   border: 1px solid #e2e2e2;
@@ -124,25 +123,25 @@
   align-items: center;
   padding: 0.5rem;
 }
-.inprogress-container .task-sec .check-box {
+.done_card_container .task_sec .check_box {
   padding-left: 4rem;
   display: inline-block;
 }
-.inprogress-container .task-sec .task {
+.done_card_container .task_sec .task {
   display: inline-block;
   padding-left: 0.5rem;
 }
-.inprogress-container .check-box-sec {
+.done_card_container .check_box_sec {
   display: inline-block;
 }
-.inprogress-container .sec-right {
+.done_card_container .sec_right {
   position: relative;
 }
 
-.inprogress-container .sec-right .options-off {
+.done_card_container .sec_right .options_off {
   display: none;
 }
-.inprogress-container .sec-right .options-on {
+.done_card_container .sec_right .options_on {
   top: 70%;
   position: absolute;
   right: 0;
@@ -157,11 +156,11 @@
   justify-content: space-evenly;
   padding: 0.5rem 1rem;
 }
-.inprogress-container .sec-right .options-on > span {
+.done_card_container .sec_right .options_on > span {
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
 }
-.inprogress-container .sec-right .options-on .delete {
+.done_card_container .sec_right .options_on .delete {
   color: #cf3636;
 }

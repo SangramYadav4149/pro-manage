@@ -1,21 +1,20 @@
-.settings-container {
-  width: max-content;
+.register_container {
+  display: flex;
+}
+.right_container {
+  width: 40vw;
   display: flex;
   flex-direction: column;
-  padding-left: 1.8rem;
-  padding-top: 1rem;
-  row-gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  row-gap: 1.4rem;
 }
-
-.settings-container .title-text {
-  font-size: 1.6rem;
+.right_container .title_text {
+  font-size: 1.5rem;
   font-weight: 500;
-  color: black;
+  color: #343434;
 }
-.settings-container .right-container {
-  width: max-content;
-}
-.settings-container .right-container .input-placeholder {
+.input_placeholder {
   top: 13%;
 
   display: flex;
@@ -28,7 +27,7 @@
   left: 3%;
 }
 
-.right-container .container-up {
+.right_container .container_up {
   width: 20rem;
   display: flex;
   flex-direction: column;
@@ -36,7 +35,7 @@
   align-items: center;
   row-gap: 3rem;
 }
-.settings-container .settings-form {
+.register_container .register_form {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -44,22 +43,22 @@
   align-items: center;
   row-gap: 0.2rem;
 }
-.right-container .label {
+.right_container .label {
   width: max-content;
   padding-bottom: 0.3rem;
   font-size: 1rem;
   display: block;
 }
-.settings-container .form {
+.form {
   width: 20rem;
 }
-.settings-container .input {
+.register_container .input {
   height: 2.2rem;
   width: 20rem;
   border: 2px solid gray;
   border-radius: 0.4rem;
 }
-.settings-container .mail-icon {
+.register_container .mail_icon {
   position: absolute;
   font-size: 1.4rem;
   width: max-content;
@@ -67,7 +66,7 @@
   left: 0.5rem;
   top: 0.4rem;
 }
-.settings-container .user-icon {
+.register_container .user_icon {
   position: absolute;
   font-size: 1.4rem;
   width: max-content;
@@ -75,30 +74,30 @@
   left: 0.5rem;
   top: 0.5rem;
 }
-.settings-container .confirmpassword-icon {
+.register_container .confirmpassword_icon {
   position: absolute;
   font-size: 1.4rem;
   width: max-content;
   left: -0.3rem;
   top: -1px;
 }
-.settings-container .password-icon {
+.register_container .password_icon {
   position: absolute;
   font-size: 1.4rem;
   width: max-content;
   left: -0.3rem;
   top: -1px;
 }
-.settings-container .input-box {
+.register_container .input_box {
   position: relative;
 }
-.settings-container .input-box > input {
+.register_container .input_box > input {
   font-size: 1.1rem;
   padding-left: 2rem;
   width: 17.7rem;
 }
 
-.settings-container .left-container {
+.register_container .left_container {
   width: 60vw;
   height: 100vh;
   background-color: #17a2b8;
@@ -109,7 +108,7 @@
 
   row-gap: 1rem;
 }
-.container-down {
+.container_down {
   height: 8rem;
   display: flex;
   flex-direction: column;
@@ -117,7 +116,7 @@
   align-items: center;
   margin-top: -0.5rem;
 }
-.container-down .settings-btn {
+.container_down .register_btn {
   width: 20rem;
   height: 2.5rem;
   background-color: #17a2b8;
@@ -131,7 +130,7 @@
   justify-content: center;
   align-items: center;
 }
-.container-up .eye {
+.container_up .eye {
   position: absolute;
   right: 1rem;
   top: 0.5rem;
@@ -139,7 +138,7 @@
   color: gray;
   cursor: pointer;
 }
-.container-down .login-btn {
+.container_down .login_btn {
   width: 20rem;
   height: 2.5rem;
   color: #17a2b8;
@@ -152,7 +151,7 @@
   font-weight: 500;
   cursor: pointer;
 }
-.container-down .login-btn:hover {
+.container_down .login_btn:hover {
   color: white;
 
   border: none;
@@ -160,32 +159,32 @@
 
   transition: 0.3s all ease-in-out;
 }
-.container-down .no-account {
+.container_down .no_account {
   color: gray;
 }
-.left-container .text-flex {
+.left_container .text_flex {
   display: flex;
   flex-direction: column;
   width: max-content;
   align-items: center;
 }
-.text-flex .big-tag {
+.text_flex .big_tag {
   font-size: 33px;
   color: white;
 }
-.text-flex .small-tag {
+.text_flex .small_tag {
   font-size: 19px;
   color: white;
 }
-.left-container .image {
+.left_container .image {
   width: max-content;
   position: relative;
 }
-.left-container .big-img {
+.left_container .big_img {
   position: relative;
   z-index: 6;
 }
-.left-container .round-background {
+.left_container .round_background {
   top: -10%;
   left: -4%;
   width: 20rem;
@@ -195,7 +194,7 @@
   position: absolute;
   z-index: 1;
 }
-.right-container .input-error-msg {
+.right_container .input_error_msg {
   font-size: 0.8rem;
 
   display: block;

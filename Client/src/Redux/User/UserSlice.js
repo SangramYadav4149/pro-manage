@@ -31,6 +31,7 @@ const initialState = {
   allModeratePriority: 0,
   allLowPriority: 0,
   allDueDateTasks: 0,
+  loginError: false,
 };
 
 export const registerUserAsync = createAsyncThunk(
@@ -66,12 +67,8 @@ export const getUserAsync = createAsyncThunk("user/getUser", async () => {
 });
 
 export const loginUserAsync = createAsyncThunk("user/login", async (data) => {
-  try {
-    const response = await loginUser(data);
-    return response.data;
-  } catch (error) {
-    return Error(error);
-  }
+  const response = await loginUser(data);
+  return response.data;
 });
 
 export const addToBacklogAsync = createAsyncThunk(
@@ -208,10 +205,12 @@ const UserSlice = createSlice({
         state.toggle = state.toggle ? false : true;
       })
       .addCase(registerUserAsync.rejected, (state, action) => {})
-      .addCase(loginUserAsync.pending, (state, action) => {})
+      .addCase(loginUserAsync.pending, (state, action) => {
+        state.loginError = false;
+      })
       .addCase(loginUserAsync.fulfilled, (state, action) => {
         const { token, user } = action.payload;
-
+        state.loginError = false;
         localStorage.setItem("TOKEN", token);
         state.user = user;
         state.toggle = state.toggle ? false : true;
@@ -219,7 +218,10 @@ const UserSlice = createSlice({
           ? false
           : true;
       })
-      .addCase(loginUserAsync.rejected, (state, action) => {})
+      .addCase(loginUserAsync.rejected, (state, action) => {
+        state.loginError = true;
+        state.toggle = state.toggle ? false : true;
+      })
       .addCase(getUserAsync.pending, (state, action) => {})
       .addCase(getUserAsync.fulfilled, (state, action) => {
         const { user } = action.payload;
@@ -325,6 +327,7 @@ const UserSlice = createSlice({
 
 export const { setLogOut } = UserSlice.actions;
 export const allTodo = (state) => state.user.allTodo;
+export const loginError = (state) => state.user.loginError;
 export const allBacklog = (state) => state.user.allBacklog;
 export const allInProgress = (state) => state.user.allInProgress;
 export const allDone = (state) => state.user.allDone;

@@ -1,4 +1,4 @@
-.edit-task {
+.edit_task {
   width: 500px;
   background-color: white;
   display: flex;
@@ -8,14 +8,14 @@
   border-radius: 1rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-.edit-task-sec {
+.edit_task_sec {
   width: 450px;
   height: 450px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.edit-task-sec .task-sec-up {
+.edit_task_sec .task_sec_up {
   width: 450px;
 
   display: flex;
@@ -23,41 +23,41 @@
   justify-content: center;
   row-gap: 1rem;
 }
-.edit-task .task-sec-up .task-input-sec {
+.edit_task .task_sec_up .task_input_sec {
   width: 100%;
   display: flex;
   flex-direction: column;
 }
-.edit-task .red-dot {
+.edit_task .red_dot {
   color: red;
 }
-.edit-task .task-sec-up .task-input-sec > input {
+.edit_task .task_sec_up .task_input_sec > input {
   height: 2rem;
   border: 1px solid #4d40551a;
 
   border-radius: 4px;
   padding-left: 0.7rem;
 }
-.edit-task .task-input-sec > label {
+.edit_task .task_input_sec > label {
   padding-bottom: 0.5rem;
   font-weight: 500;
   font-size: 0.9rem;
 }
-.edit-task .select-priority {
+.edit_task .select_priority {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
-.edit-task .select-opt {
+.edit_task .select_opt {
   width: 100%;
   display: flex;
   justify-content: space-between;
   column-gap: 0.3rem;
 }
-.edit-task .select-opt .opt .select-text {
+.edit_task .select_opt .opt .select_text {
   font-size: 11px;
 }
-.edit-task .select-opt .opt {
+.edit_task .select_opt .opt {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,59 +68,59 @@
   padding: 0 5px;
   cursor: pointer;
 }
-.edit-task .select-opt .opt .red {
+.edit_task .select_opt .opt .red {
   display: inline-block;
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background-color: red;
 }
-.edit-task .select-opt .opt .blue {
+.edit_task .select_opt .opt .blue {
   display: inline-block;
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background-color: blue;
 }
-.edit-task .select-opt .opt .green {
+.edit_task .select_opt .opt .green {
   display: inline-block;
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background-color: green;
 }
-.edit-task .select-priority > div {
+.edit_task .select_priority > div {
   width: max-content;
 }
-.edit-task .task-title {
+.edit_task .task_title {
   font-weight: 500;
   font-size: 0.9rem;
 }
-.edit-task .task-box {
+.edit_task .task_box {
   position: relative;
   width: max-content;
   margin-bottom: 0.7rem;
 }
-.edit-task .task-box .check-box {
+.edit_task .task_box .check_box {
   position: absolute;
   top: 7px;
   left: 8px;
 }
-.edit-task .task-write > input {
+.edit_task .task_write > input {
   height: 2rem;
   width: 400px;
   border-radius: 0.5rem;
   border: 1px solid #e2e2e2;
   padding-left: 2rem;
 }
-.edit-task .task-delete {
+.edit_task .task_delete {
   position: absolute;
   right: 7px;
   top: 6px;
   cursor: pointer;
   font-size: 1.2rem;
 }
-.edit-task .task-add-box {
+.edit_task .task_ad_box {
   color: #767575;
   display: flex;
   justify-content: start;
@@ -128,17 +128,17 @@
   font-weight: 500;
 }
 
-.edit-task .task-add-box .task-add-icon {
+.edit_task .task_add_box .task_add_icon {
   font-size: 1.2rem;
 }
 
-.edit-task .task-add-box .task-add-text {
+.edit_task .task_add_box .task_add_text {
   font-size: 0.9rem;
   padding-bottom: 2px;
   cursor: pointer;
 }
 
-.edit-task .task-inputs {
+.edit_task .task_inputs {
   width: 470px;
 
   max-height: 220px;
@@ -146,24 +146,24 @@
 
   row-gap: 0.5rem;
 }
-.edit-task .checklist-title {
+.edit_task .checklist_title {
   font-weight: 500;
   font-size: 0.9rem;
   padding-bottom: 0.5rem;
   display: inline-block;
 }
-.edit-task .task-sec-down {
+.edit_task .task_sec_down {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
-.edit-task .task-sec-down .buttons-right {
+.edit_task .task_sec_down .buttons_right {
   width: max-content;
   display: flex;
   justify-content: center;
   column-gap: 0.5rem;
 }
-.edit-task .date-btn {
+.edit_task .date_btn {
   padding: 0.5rem 1rem;
   background-color: white;
   font-weight: 500;
@@ -171,7 +171,7 @@
   border-radius: 0.6rem;
 }
 
-.edit-task .cancel-btn {
+.edit_task .cancel_btn {
   width: 5rem;
   color: #cf3636;
   background-color: white;
@@ -181,7 +181,7 @@
   border-radius: 0.6rem;
 }
 
-.edit-task .save-btn {
+.edit_task .save_btn {
   width: 5rem;
   color: white;
   background-color: #17a2b8;
@@ -193,10 +193,10 @@
   justify-content: center;
   align-items: center;
 }
-.select-priority-on {
+.select_priority_on {
   background: #eeecec;
 }
-.edit-task .disable-btn {
+.edit_task .disable_btn {
   opacity: 0.4;
   cursor: not-allowed;
 }

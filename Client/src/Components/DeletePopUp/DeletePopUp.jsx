@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./DeletePopUp.css";
+import style from "./DeletePopUp.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { clearDeleteTask, deleteTask } from "../../Redux/Board/BoardSlice";
 import {
@@ -31,16 +31,19 @@ const DeletePopUp = () => {
     }
   }, [boardReFatchToggle]);
   return (
-    <section className="delete-popup-container">
-      <div className="delete-popup-section">
-        <div className="info">
+    <section className={style.delete_popup_container}>
+      <div className={style.delete_popup_section}>
+        <div className={style.info}>
           <span>Are you sure you want to Delete?</span>
         </div>
-        <div className="buttons">
-          <button onClick={() => handleDeleteTask()} className="delete">
+        <div className={style.buttons}>
+          <button onClick={() => handleDeleteTask()} className={style.delete}>
             {!loader ? "Yes, Delete" : <BeatLoader size={10} color="white" />}
           </button>
-          <button onClick={() => handleClearDeleteTask()} className="cancel">
+          <button
+            onClick={() => handleClearDeleteTask()}
+            className={style.cancel}
+          >
             Cancel
           </button>
         </div>

@@ -13,6 +13,7 @@ import {
 } from "./Redux/User/UserSlice";
 import { useContext, useEffect } from "react";
 import { getUserAllCreatedTasksInfo } from "./Redux/User/UserAPI";
+import ShareTaskPage from "./Pages/ShareTaskPage/ShareTaskPage";
 function App() {
   const dispatch = useDispatch();
   const userToggle = useSelector(reFatchAlltasksToggle);
@@ -28,7 +29,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Homepage />} />
-
+            <Route path="/share/task/:taskId" element={<ShareTaskPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<Register />} />
           </Routes>

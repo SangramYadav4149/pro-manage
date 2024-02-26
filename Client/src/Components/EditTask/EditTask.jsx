@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { BeatLoader } from "react-spinners";
 import { MdDelete } from "react-icons/md";
 import { IoIosAdd } from "react-icons/io";
-import "./EditTask.css";
+import style from "./EditTask.module.css";
 import {
   createTodoAsync,
   editTaskAsync,
@@ -83,7 +83,7 @@ const EditTask = () => {
       dueDate: date ? `${month} ${currDate}th` : "",
       pureDate: date,
       colour:
-        priority === "low-priority"
+        priority === "lo-priority"
           ? "green"
           : priority === "high-priority"
           ? "red"
@@ -159,12 +159,12 @@ const EditTask = () => {
     }
   }, [boardReFatchToggle]);
   return (
-    <section className="edit-task">
-      <div className="edit-task-sec">
-        <div className="task-sec-up">
-          <div className="task-input-sec">
+    <section className={style.edit_task}>
+      <div className={style.edit_task_sec}>
+        <div className={style.task_sec_up}>
+          <div className={style.task_input_sec}>
             <label>
-              Title <span className="red-dot">*</span>
+              Title <span className={style.red_dot}>*</span>
             </label>
             <input
               onChange={(e) => handleSetTitle(e.target.value)}
@@ -173,69 +173,69 @@ const EditTask = () => {
               placeholder="Enter Task Title"
             />
           </div>
-          <div className="select-priority">
-            <div className="task-title">
+          <div className={style.select_priority}>
+            <div className={style.task_title}>
               <span>
-                Select Priority <span className="red-dot">*</span>
+                Select Priority <span className={style.red_dot}>*</span>
               </span>
             </div>
-            <div className="select-opt">
+            <div className={style.select_opt}>
               <div
-                onClick={() => handleSelectPriority("high-priority")}
-                className={`opt ${
-                  priority === "high-priority" && "select-priority-on"
+                onClick={() => handleSelectPriority("high_priority")}
+                className={`${style.opt} ${
+                  priority === "high_priority" && style.select_priority_on
                 }`}
               >
-                <span className="red"></span>
-                <span className="select-text">HIGH PRIORITY</span>
+                <span className={style.red}></span>
+                <span className={style.select_text}>HIGH PRIORITY</span>
               </div>
               <div
-                onClick={() => handleSelectPriority("moderate-priority")}
-                className={`opt ${
-                  priority === "moderate-priority" && "select-priority-on"
+                onClick={() => handleSelectPriority("moderate_priority")}
+                className={`${style.opt} ${
+                  priority === "moderate_priority" && style.select_priority_on
                 }`}
               >
-                <span className="blue"></span>
-                <span className="select-text">MODERATE PRIORITY</span>
+                <span className={style.blue}></span>
+                <span className={style.select_text}>MODERATE PRIORITY</span>
               </div>
               <div
-                onClick={() => handleSelectPriority("low-priority")}
-                className={`opt ${
-                  priority === "low-priority" && "select-priority-on"
+                onClick={() => handleSelectPriority("low_priority")}
+                className={`${style.opt} ${
+                  priority === "low_priority" && style.select_priority_on
                 }`}
               >
-                <span className="green"></span>
-                <span className="select-text"> LOW PRIORITY</span>
+                <span className={style.green}></span>
+                <span className={style.select_text}> LOW PRIORITY</span>
               </div>
             </div>
           </div>
-          <div className="task-section">
+          <div className={style.task_section}>
             <div>
-              <span className="checklist-title">
+              <span className={style.checklist_title}>
                 Checklist {`(${checkList}/${inputValues?.length})`}{" "}
-                <span className="red-dot">*</span>
+                <span className={style.red_dot}>*</span>
               </span>
             </div>
-            <div className="task-inputs">
+            <div className={style.task_inputs}>
               {inputValues?.map(({ id, text }, i) => {
                 return (
                   <>
-                    <div key={i} className="task-box">
-                      <div className="check-box">
+                    <div key={i} className={style.task_box}>
+                      <div className={style.check_box}>
                         <input
                           onChange={(e) => handleSetTick(i)}
                           checked={inputValues[i].tick}
                           type="checkbox"
                         />
                       </div>
-                      <div className="task-delete">
+                      <div className={style.task_delete}>
                         <MdDelete
                           onClick={() => handleDeleteInput(id)}
                           color="#CF3636"
                         />
                       </div>
 
-                      <div className="task-write">
+                      <div className={style.task_write}>
                         <input
                           onChange={(e) => handleSetText(i, e.target.value)}
                           type="text"
@@ -249,13 +249,13 @@ const EditTask = () => {
               })}
             </div>
 
-            <div className="task-add-box">
-              <span className="task-add-icon">
+            <div className={style.task_add_box}>
+              <span className={style.task_add_icon}>
                 <IoIosAdd />
               </span>
               <span
                 onClick={() => handleAddInputBox(inputsCount)}
-                className="task-add-text"
+                className={style.task_add_text}
               >
                 Add New
               </span>
@@ -263,26 +263,28 @@ const EditTask = () => {
           </div>
         </div>
 
-        <div className="task-sec-down">
-          <div className="buttons-left">
+        <div className={style.task_sec_down}>
+          <div className={style.buttons_left}>
             <input
               onChange={(e) => setDate(e.target.value)}
-              className="date-btn"
+              className={style.date_btn}
               value={date}
               type="date"
             />
           </div>
-          <div className="buttons-right">
+          <div className={style.buttons_right}>
             <button
               onClick={() => handleCloseEditTask()}
-              className="cancel-btn"
+              className={style.cancel_btn}
             >
               Cancel
             </button>
             <button
               onClick={() => handleSaveTask()}
               disabled={!enableSaveButton ? true : false}
-              className={`save-btn ${!enableSaveButton && "disable-btn"}`}
+              className={` ${style.save_btn} ${
+                !enableSaveButton && style.disable_btn
+              }`}
             >
               {!loader ? "Save" : <BeatLoader size={10} color="white" />}
             </button>

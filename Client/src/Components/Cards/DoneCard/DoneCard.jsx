@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./DoneCard.css";
+import style from "./DoneCard.module.css";
 import { SlOptions } from "react-icons/sl";
 import { MdExpandMore } from "react-icons/md";
 import { MdExpandLess } from "react-icons/md";
@@ -11,6 +11,7 @@ import {
   doneCollapsee,
   setDeleteTask,
   setEditTask,
+  setShareTaskLink,
   toggle,
 } from "../../../Redux/Board/BoardSlice";
 import {
@@ -21,9 +22,10 @@ import {
 } from "../../../Redux/User/UserSlice";
 
 const DoneCard = ({ task }) => {
-  const { title, checklist, priority, colour, dueDate } = task;
+  const { title, checklist, priority, colour, dueDate, id } = task;
   const [showAllTasks, setShowAllTasks] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
+  const [checkCount, setCheckCount] = useState(0);
   const [loader, setLoader] = useState(0);
   const Toggle = useSelector(doneCollapseToggle);
   const doneStatus = useSelector(doneCollapsee);
@@ -57,7 +59,13 @@ const DoneCard = ({ task }) => {
     dispatch(addToInProgressAsync({ removeFrom: from, task: task }));
   };
 
+  const handleShareTaskLink = (link) => {
+    dispatch(setShareTaskLink({ shareLink: link }));
+  };
+
   useEffect(() => {
+    let checks = checklist?.filter(({ tick }) => tick === true);
+    setCheckCount(checks.length);
     if (doneStatus) {
       setShowAllTasks(false);
     }
@@ -66,37 +74,46 @@ const DoneCard = ({ task }) => {
     }
   }, [Toggle, boardReFatchToggle]);
   return (
-    <section className="done-card-container">
-      <div className="done-card-section">
-        <div className="done-card-section-up">
-          <div className="sec-left">
-            <div className="priority-sec">
+    <section className={style.done_card_container}>
+      <div className={style.done_card_section}>
+        <div className={style.done_card_section_up}>
+          <div className={style.sec_left}>
+            <div className={style.priority_sec}>
               <span
-                className="color"
+                className={style.color}
                 style={{ background: `${colour}` }}
               ></span>
-              <span className="task-priority">{priority}</span>
+              <span className={style.task_priority}>{priority}</span>
             </div>
-            <div className="task-title">{title}</div>
+            <div className={style.task_title}>{title}</div>
           </div>
-          <div className="sec-right">
+          <div className={style.sec_right}>
             <SlOptions onClick={() => handleToggleShowOptions()} />
-            <div className={`${showOptions ? "options-on" : "options-off"}`}>
+            <div
+              className={`${
+                showOptions ? style.options_on : style.options_off
+              }`}
+            >
               <span onClick={() => handeEditTask()}>Edit</span>
-              <span>Share</span>
+              <span onClick={() => handleShareTaskLink(id)}>Share</span>
               <span
                 onClick={() => handleDeleteTask(task._id)}
-                className="delete"
+                className={style.delete}
               >
                 Delete
               </span>
             </div>
           </div>
         </div>
-        <div className="done-card-section-middle">
-          <div className="sec-up">
-            <span className="checklist">Checlist(4/8)</span>
-            <span onClick={() => handleToggleShowAllTasks()} className="expand">
+        <div className={style.done_card_section_middle}>
+          <div className={style.sec_up}>
+            <span className={style.checklist}>
+              Checlist({checkCount}/{checklist.length})
+            </span>
+            <span
+              onClick={() => handleToggleShowAllTasks()}
+              className={style.expand}
+            >
               {!showAllTasks ? (
                 <MdExpandLess color=" #767575" />
               ) : (
@@ -104,28 +121,32 @@ const DoneCard = ({ task }) => {
               )}
             </span>
           </div>
-          <div className="sec-down">
+          <div className={style.sec_down}>
             {showAllTasks &&
               checklist?.map((task, i) => {
                 return (
-                  <div key={i} className="task-sec">
-                    <span className="check-box-sec">
-                      <input className="check-box" type="checkbox" />
+                  <div key={i} className={style.task_sec}>
+                    <span className={style.check_box_sec}>
+                      <input
+                        className={style.check_box}
+                        checked={task?.tick ? true : false}
+                        type="checkbox"
+                      />
                     </span>
-                    <span className="task">{task.text}</span>
+                    <span className={style.task}>{task.text}</span>
                   </div>
                 );
               })}
           </div>
         </div>
 
-        <div className="done-card-section-down">
+        <div className={style.done_card_section_down}>
           {dueDate && (
-            <div className="btn-left">
+            <div className={style.btn_left}>
               <button>{dueDate}</button>
             </div>
           )}
-          <div className="btn-right">
+          <div className={style.btn_right}>
             <button onClick={() => handleAddToBacklog("Done")}>
               {loader !== 1 ? "BACKLOG" : <BeatLoader size={4} color="black" />}
             </button>

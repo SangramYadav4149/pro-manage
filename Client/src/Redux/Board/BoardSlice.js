@@ -8,11 +8,13 @@ const initialState = {
   inProgressCollapseToggle: false,
   doneCollapseToggle: false,
   editTask: {},
+  shareTaskLink: "",
   backlogCollapse: false,
   toDoCollapse: false,
   inProgressCollapse: false,
   doneCollapse: false,
   deleteTask: {},
+  logOut: false,
 };
 
 const BoardSlice = createSlice({
@@ -56,11 +58,27 @@ const BoardSlice = createSlice({
     },
     setDeleteTask: (state, action) => {
       state.deleteTask = action.payload;
-
       state.toggle = state.toggle ? false : true;
     },
     clearDeleteTask: (state) => {
       state.deleteTask = {};
+      state.toggle = state.toggle ? false : true;
+    },
+    setShareTaskLink: (state, action) => {
+      const { shareLink } = action.payload;
+      state.shareTaskLink = shareLink;
+      state.toggle = state.toggle ? false : true;
+    },
+    clearShareLink: (state) => {
+      state.shareTaskLink = "";
+      state.toggle = state.toggle ? false : true;
+    },
+    setUserLogoutTrue: (state) => {
+      state.logOut = true;
+      state.toggle = state.toggle ? false : true;
+    },
+    setUserLogoutfalse: (state) => {
+      state.logOut = false;
       state.toggle = state.toggle ? false : true;
     },
   },
@@ -76,9 +94,15 @@ export const {
   setDoneCollapse,
   setEditTask,
   clearEditTask,
+  setShareTaskLink,
+  clearShareLink,
+  setUserLogoutTrue,
+  setUserLogoutfalse,
 } = BoardSlice.actions;
 export const createTask = (state) => state.board.createTask;
 export const toggle = (state) => state.board.toggle;
+export const logOut = (state) => state.board.logOut;
+export const shareTaskLink = (state) => state.board.shareTaskLink;
 export const toDoCollapseToggle = (state) => state.board.toDoCollapseToggle;
 export const backlogCollapseToggle = (state) =>
   state.board.backlogCollapseToggle;

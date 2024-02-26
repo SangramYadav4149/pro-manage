@@ -8,7 +8,7 @@ import { CiUser } from "react-icons/ci";
 import { BeatLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import "./Register.css";
+import style from "./Register.module.css";
 import { registerUserAsync, toggle, user } from "../../Redux/User/UserSlice";
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -87,28 +87,28 @@ const Register = () => {
     }
   }, [userToggle]);
   return (
-    <section className="register-container">
-      <div className="left-container">
-        <div className="image">
-          <img src={icon} alt="icon" className="big-img" />
-          <div className="round-background"></div>
+    <section className={style.register_container}>
+      <div className={style.left_container}>
+        <div className={style.image}>
+          <img src={icon} alt="icon" className={style.big_img} />
+          <div className={style.round_background}></div>
         </div>
 
-        <div className="text-flex">
-          <span className="big-tag">Welcome aboard my friend</span>
-          <span className="small-tag">
+        <div className={style.text_flex}>
+          <span className={style.big_tag}>Welcome aboard my friend</span>
+          <span className={style.small_tag}>
             {" "}
             just a couple of clicks and we start
           </span>
         </div>
       </div>
-      <div className="right-container">
-        <div className="container-up">
-          <span className="title-text">Register</span>
-          <div className="form">
-            <div className="register-form">
-              <div className="input-box">
-                <span className="user-icon">
+      <div className={style.right_container}>
+        <div className={style.container_up}>
+          <span className={style.title_text}>Register</span>
+          <div className={style.form}>
+            <div className={style.register_form}>
+              <div className={style.input_box}>
+                <span className={style.user_icon}>
                   <CiUser />
                 </span>
 
@@ -116,13 +116,13 @@ const Register = () => {
                   onChange={(e) => handleTypingName(e)}
                   type="text"
                   placeholder="Name"
-                  className="input"
+                  className={style.input}
                   value={name}
                 />
-                <span className="input-error-msg ">{nameErorr}</span>
+                <span className={style.input_error_msg}>{nameErorr}</span>
               </div>
-              <div className="input-box">
-                <span className="mail-icon">
+              <div className={style.input_box}>
+                <span className={style.mail_icon}>
                   <CiMail />
                 </span>
 
@@ -130,66 +130,71 @@ const Register = () => {
                   onChange={(e) => handleTypingMail(e)}
                   type="text"
                   placeholder="Email"
-                  className="input"
+                  className={style.input}
                   value={mail}
                 />
-                <span className="input-error-msg ">{mailError}</span>
+                <span className={style.input_error_msg}>{mailError}</span>
               </div>
-              <div className="input-box">
-                <div className="input-placeholder">
-                  <span className="password-icon">
+              <div className={style.input_box}>
+                <div className={style.input_placeholder}>
+                  <span className={style.password_icon}>
                     <CiLock />
                   </span>
                 </div>
 
                 <span
                   onClick={() => setShowPassword(!showPassword)}
-                  className="eye"
+                  className={style.eye}
                 >
                   {!showPassword ? <FiEyeOff /> : <FiEye />}
                 </span>
                 <input
                   onChange={(e) => handleTypingPassword(e)}
                   type={`${showPassword ? "text" : "password"}`}
-                  className="input"
+                  className={style.input}
                   placeholder="Password"
                   value={password}
                 />
-                <span className="input-error-msg">{passwordError}</span>
+                <span className={style.input_error_msg}>{passwordError}</span>
               </div>
-              <div className="input-box">
-                <div className="input-placeholder">
-                  <span className="confirmpassword-icon">
+              <div className={style.input_box}>
+                <div className={style.input_placeholder}>
+                  <span className={style.confirmpassword_icon}>
                     <CiLock />
                   </span>
                 </div>
 
                 <span
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="eye"
+                  className={style.eye}
                 >
                   {!showConfirmPassword ? <FiEyeOff /> : <FiEye />}
                 </span>
                 <input
                   onChange={(e) => handleTypingConfirmPassword(e)}
                   type={`${showConfirmPassword ? "text" : "password"}`}
-                  className="input"
+                  className={style.input}
                   placeholder="Confirm Password"
                   value={confirmPassword}
                 />
-                <span className="input-error-msg">{confirmPasswordError}</span>
+                <span className={style.input_error_msg}>
+                  {confirmPasswordError}
+                </span>
               </div>
             </div>
           </div>
         </div>
-        <div className="container-down">
-          <button onClick={() => handleRegister()} className="register-btn">
+        <div className={style.container_down}>
+          <button
+            onClick={() => handleRegister()}
+            className={style.register_btn}
+          >
             {!loader ? "Register" : <BeatLoader size={13} color="white" />}
           </button>
-          <span className="no-account">Have an account?</span>
+          <span className={style.no_account}>Have an account?</span>
           <button
             onClick={() => handleNavigateToLoinPage("/login")}
-            className="login-btn"
+            className={style.login_btn}
           >
             Login
           </button>

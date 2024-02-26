@@ -1,4 +1,4 @@
-.delete-popup-container {
+.logout_popup_container {
   width: 20rem;
   height: 12rem;
   background-color: white;
@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
 }
-.delete-popup-section {
+.logout_popup_section {
   width: 17rem;
   height: 10rem;
   display: flex;
@@ -18,7 +18,7 @@
   justify-content: space-between;
   align-items: center;
 }
-.delete-popup-section .buttons {
+.logout_popup_section .buttons {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -26,7 +26,7 @@
   align-items: center;
   row-gap: 0.5rem;
 }
-.delete-popup-section .buttons .delete {
+.logout_popup_section .buttons > button {
   background: #17a2b8;
   width: 100%;
   border-radius: 1rem;
@@ -36,7 +36,7 @@
   cursor: pointer;
   color: white;
 }
-.delete-popup-section .buttons .cancel {
+.logout_popup_section .buttons .cancel {
   border: 1px solid #cf3636;
   width: 100%;
   background-color: white;
@@ -46,7 +46,7 @@
   font-weight: 600;
   cursor: pointer;
 }
-.delete-popup-container .info {
+.logout_popup_container .info {
   width: 100%;
   font-weight: 500;
 }

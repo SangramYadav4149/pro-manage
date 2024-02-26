@@ -1,20 +1,20 @@
-.login-container {
+.login_container {
   display: flex;
 }
-.right-container {
-  width: 45vw;
+.right_container {
+  width: 40vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   row-gap: 1.4rem;
 }
-.right-container .title-text {
+.right_container .title_text {
   font-size: 1.5rem;
   font-weight: 500;
   color: #343434;
 }
-.input-placeholder {
+.input_placeholder {
   top: 13%;
   display: flex;
   justify-content: start;
@@ -24,7 +24,7 @@
   position: absolute;
   left: 3%;
 }
-.right-container .container-up {
+.right_container .container_up {
   width: 20rem;
   display: flex;
   flex-direction: column;
@@ -32,7 +32,7 @@
   align-items: center;
   row-gap: 3rem;
 }
-.login-container .login-form {
+.login_container .login_form {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -47,34 +47,34 @@
 .form {
   width: 20rem;
 }
-.login-container .input {
+.login_container .input {
   height: 2.2rem;
   width: 18rem;
   border: 2px solid gray;
   border-radius: 0.4rem;
 }
-.login-container .mail-icon {
+.login_container .mail_icon {
   position: absolute;
   font-size: 1.4rem;
   width: max-content;
   left: 0rem;
   top: -1px;
 }
-.login-container .lock-icon {
+.login_container .lock_icon {
   position: absolute;
   font-size: 1.4rem;
   width: max-content;
   left: 0.5rem;
   top: 0.3rem;
 }
-.login-container .input-box {
+.login_container .input_box {
   position: relative;
 }
-.login-container .input {
+.login_container .input {
   padding-left: 2rem;
   font-size: 1rem;
 }
-.login-container .left-container {
+.login_container .left_container {
   width: 60vw;
   height: 100vh;
   background-color: #17a2b8;
@@ -85,7 +85,7 @@
 
   row-gap: 1rem;
 }
-.container-down {
+.container_down {
   height: 8rem;
   display: flex;
   flex-direction: column;
@@ -93,7 +93,7 @@
   align-items: center;
   margin-top: -0.5rem;
 }
-.login-container .container-down .login-btn {
+.login_container .container_down .login_btn {
   width: 20rem;
   height: 2.5rem;
   background-color: #17a2b8;
@@ -107,7 +107,7 @@
   justify-content: center;
   align-items: center;
 }
-.container-up .eye {
+.container_up .eye {
   position: absolute;
   right: 1rem;
   top: 0.5rem;
@@ -115,7 +115,7 @@
   color: gray;
   cursor: pointer;
 }
-.login-container .container-down .register-btn {
+.login_container .container_down .register_btn {
   width: 20rem;
   height: 2.5rem;
   color: #17a2b8;
@@ -128,7 +128,7 @@
   font-weight: 500;
   cursor: pointer;
 }
-.container-down .register-btn:hover {
+.container_down .register_btn:hover {
   color: white;
 
   border: none;
@@ -136,32 +136,32 @@
 
   transition: 0.3s all ease-in-out;
 }
-.container-down .no-account {
+.container_down .no_account {
   color: gray;
 }
-.left-container .text-flex {
+.left_container .text_flex {
   display: flex;
   flex-direction: column;
   width: max-content;
   align-items: center;
 }
-.text-flex .big-tag {
+.text_flex .big_tag {
   font-size: 33px;
   color: white;
 }
-.text-flex .small-tag {
+.text_flex .small_tag {
   font-size: 19px;
   color: white;
 }
-.left-container .image {
+.left_container .image {
   width: max-content;
   position: relative;
 }
-.left-container .big-img {
+.left_container .big_img {
   position: relative;
   z-index: 6;
 }
-.left-container .round-background {
+.left_container .round_background {
   top: -10%;
   left: -4%;
   width: 20rem;
@@ -171,7 +171,7 @@
   position: absolute;
   z-index: 1;
 }
-.right-container .input-error-msg {
+.right_container .input_error_msg {
   font-size: 0.8rem;
   color: red;
   display: block;

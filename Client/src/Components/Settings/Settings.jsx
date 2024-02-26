@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   changeUserPasswordAsync,
   reFatchAlltasksToggle,
@@ -12,55 +14,65 @@ import { CiLock } from "react-icons/ci";
 import { FiEyeOff } from "react-icons/fi";
 import { CiUser } from "react-icons/ci";
 import { BeatLoader } from "react-spinners";
-import "./Settings.css";
+import style from "./Settings.module.css";
 const Settings = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [shownewPassword, setShownewPassword] = useState(false);
   const [passwordError, setPasswordError] = useState("");
-  const [mail, setMail] = useState("");
   const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [confirmPasswordError, setConfirmPasswordError] = useState("");
-
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setnewPassword] = useState("");
+  const [newPasswordError, setnewPasswordError] = useState("");
   const [loader, setLoader] = useState(false);
-
   const dispatch = useDispatch();
   const boardReFatchToggle = useSelector(reFatchAlltasksToggle);
   const userInfo = useSelector(user);
+
+  const handleNotifyUser = () => {
+    toast.success("Password changed succesfully!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   const handleTypingName = (e) => {
     setName(e.target.value);
   };
 
-  const handleTypingConfirmPassword = (event) => {
-    setConfirmPassword(event.target.value);
+  const handleTypingnewPassword = (event) => {
+    setnewPassword(event.target.value);
   };
   const handleTypingPassword = (event) => {
-    setPassword(event.target.value);
+    setOldPassword(event.target.value);
   };
 
-  const handleRegister = async () => {
+  const handleChangePassword = async () => {
     try {
       setPasswordError("");
-      setConfirmPasswordError("");
+      setnewPasswordError("");
 
-      if (!password && !confirmPassword) {
+      if (!oldPassword && !newPassword) {
         setPasswordError("Please insert a valid password!");
-        setConfirmPasswordError("Please insert a valid confirm password!");
-      } else if (!password) {
+        setnewPasswordError("Please insert a valid new password!");
+      } else if (!oldPassword) {
         setPasswordError("Please insert a valid password!");
-      } else if (password !== confirmPassword) {
-        setConfirmPasswordError(
-          "Confirm password doesn't match with password!"
-        );
+      } else if (!newPassword) {
+        setnewPasswordError("Please insert a valid new password!");
       } else {
-        setLoader(true);
-        const userInfo = {
-          name: name,
-          password: password,
-        };
-        dispatch(changeUserPasswordAsync(userInfo));
+        {
+          setLoader(true);
+          const userInfo = {
+            name: name,
+            password: newPassword,
+          };
+          dispatch(changeUserPasswordAsync(userInfo));
+        }
       }
     } catch (error) {
       console.log(error);
@@ -69,18 +81,20 @@ const Settings = () => {
 
   useEffect(() => {
     if (loader) {
+      handleNotifyUser();
       setLoader(false);
     }
   }, [boardReFatchToggle]);
   return (
-    <section className="settings-container">
-      <span className="title-text">Settings</span>
-      <div className="right-container">
-        <div className="container-up">
-          <div className="form">
-            <div className="register-form">
-              <div className="input-box">
-                <span className="user-icon">
+    <section className={style.settings_container}>
+      <ToastContainer />
+      <span className={style.title_text}>Settings</span>
+      <div className={style.right_container}>
+        <div className={style.container_up}>
+          <div className={style.form}>
+            <div className={style.register_form}>
+              <div className={style.input_box}>
+                <span className={style.user_icon}>
                   <CiUser />
                 </span>
 
@@ -88,61 +102,66 @@ const Settings = () => {
                   onChange={(e) => handleTypingName(e)}
                   type="text"
                   placeholder="Name"
-                  className="input"
+                  className={style.input}
                   value={name}
                 />
-                <span className="input-error-msg "></span>
+                <span className={style.input_error_msg}></span>
               </div>
 
-              <div className="input-box">
-                <div className="input-placeholder">
-                  <span className="password-icon">
+              <div className={style.input_box}>
+                <div className={style.input_placeholder}>
+                  <span className={style.password_icon}>
                     <CiLock />
                   </span>
                 </div>
 
                 <span
                   onClick={() => setShowPassword(!showPassword)}
-                  className="eye"
+                  className={style.eye}
                 >
                   {!showPassword ? <FiEyeOff /> : <FiEye />}
                 </span>
                 <input
                   onChange={(e) => handleTypingPassword(e)}
                   type={`${showPassword ? "text" : "password"}`}
-                  className="input"
-                  placeholder="Password"
-                  value={password}
+                  className={style.input}
+                  placeholder=" Old Password"
+                  value={oldPassword}
                 />
-                <span className="input-error-msg">{passwordError}</span>
+                <span className={style.input_error_msg}>{passwordError}</span>
               </div>
-              <div className="input-box">
-                <div className="input-placeholder">
-                  <span className="confirmpassword-icon">
+              <div className={style.input_box}>
+                <div className={style.input_placeholder}>
+                  <span className={style.newPassword_icon}>
                     <CiLock />
                   </span>
                 </div>
 
                 <span
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="eye"
+                  onClick={() => setShownewPassword(!shownewPassword)}
+                  className={style.eye}
                 >
-                  {!showConfirmPassword ? <FiEyeOff /> : <FiEye />}
+                  {!shownewPassword ? <FiEyeOff /> : <FiEye />}
                 </span>
                 <input
-                  onChange={(e) => handleTypingConfirmPassword(e)}
-                  type={`${showConfirmPassword ? "text" : "password"}`}
-                  className="input"
-                  placeholder="Confirm Password"
-                  value={confirmPassword}
+                  onChange={(e) => handleTypingnewPassword(e)}
+                  type={`${shownewPassword ? "text" : "password"}`}
+                  className={style.input}
+                  placeholder="New Password"
+                  value={newPassword}
                 />
-                <span className="input-error-msg">{confirmPasswordError}</span>
+                <span className={style.input_error_msg}>
+                  {newPasswordError}
+                </span>
               </div>
             </div>
           </div>
         </div>
-        <div className="container-down">
-          <button onClick={() => handleRegister()} className="register-btn">
+        <div className={style.container_down}>
+          <button
+            onClick={() => handleChangePassword()}
+            className={style.submit_btn}
+          >
             {!loader ? "Update" : <BeatLoader size={13} color="white" />}
           </button>
         </div>

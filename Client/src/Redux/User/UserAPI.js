@@ -12,15 +12,10 @@ export const registerUser = async (data) => {
   }
 };
 export const loginUser = async (data) => {
-  console.log(data);
-  try {
-    return await axios.post(
-      "http://localhost:5000/promaneger/api/user/login",
-      data
-    );
-  } catch (error) {
-    console.log(error.message);
-  }
+  return await axios.post(
+    "http://localhost:5000/promaneger/api/user/login",
+    data
+  );
 };
 export const getUser = async () => {
   try {
@@ -151,8 +146,8 @@ export const changeUserPassword = async (data) => {
   try {
     const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
     return await axios.post(
-      `http://localhost:5000/promaneger/api/getuser/change/password`,
-
+      `http://localhost:5000/promaneger/api/get/user/change/password`,
+      data,
       config
     );
   } catch (error) {

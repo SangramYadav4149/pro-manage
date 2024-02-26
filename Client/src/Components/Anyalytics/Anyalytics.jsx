@@ -1,5 +1,5 @@
 import React from "react";
-import "./Anyalytics.css";
+import style from "./Anyalytics.module.css";
 import { useSelector } from "react-redux";
 import {
   allBacklog,
@@ -22,16 +22,16 @@ const Anyalytics = () => {
   const userAllLowPriorityTasks = useSelector(allLowPriority);
   const userAllDueDateTasks = useSelector(allDueDateTasks);
   return (
-    <section className="anyalytics-container">
-      <span className="section-title">Anyalytics</span>
-      <div className="anyalytics-section">
-        <div className="anyalytics-box">
-          <div className="detail-sec">
-            <div className="detail-box">
-              <span className="dot"></span>
-              <span className="task-title">Backlog Tasks</span>
+    <section className={style.anyalytics_container}>
+      <span className={style.section_title}>Anyalytics</span>
+      <div className={style.anyalytics_section}>
+        <div className={style.anyalytics_box}>
+          <div className={style.detail_sec}>
+            <div className={style.detail_box}>
+              <span className={style.dot}></span>
+              <span className={style.task_title}>Backlog Tasks</span>
             </div>
-            <div className="anyalytics-info">
+            <div className={style.anyalytics_info}>
               {userAllBacklog >= 10
                 ? userAllBacklog
                 : userAllBacklog === 0
@@ -39,12 +39,12 @@ const Anyalytics = () => {
                 : `0${userAllBacklog}`}
             </div>
           </div>
-          <div className="detail-sec">
-            <div className="detail-box">
-              <span className="dot"></span>
-              <span className="task-title">To-do Tasks</span>
+          <div className={style.detail_sec}>
+            <div className={style.detail_box}>
+              <span className={style.dot}></span>
+              <span className={style.task_title}>To-do Tasks</span>
             </div>
-            <div className="anyalytics-info">
+            <div className={style.anyalytics_info}>
               {userAllTodo >= 10
                 ? userAllTodo
                 : userAllTodo === 0
@@ -52,12 +52,12 @@ const Anyalytics = () => {
                 : `0${userAllTodo}`}
             </div>
           </div>
-          <div className="detail-sec">
-            <div className="detail-box">
-              <span className="dot"></span>
-              <span className="task-title">In-progress Tasks</span>
+          <div className={style.detail_sec}>
+            <div className={style.detail_box}>
+              <span className={style.dot}></span>
+              <span className={style.task_title}>In-progress Tasks</span>
             </div>
-            <div className="anyalytics-info">
+            <div className={style.anyalytics_info}>
               {" "}
               {userAllInProgress >= 10
                 ? userAllInProgress
@@ -66,12 +66,12 @@ const Anyalytics = () => {
                 : `0${userAllInProgress}`}
             </div>
           </div>
-          <div className="detail-sec">
-            <div className="detail-box">
-              <span className="dot"></span>
-              <span className="task-title">Completed Tasks</span>
+          <div className={style.detail_sec}>
+            <div className={style.detail_box}>
+              <span className={style.dot}></span>
+              <span className={style.task_title}>Completed Tasks</span>
             </div>
-            <div className="anyalytics-info">
+            <div className={style.anyalytics_info}>
               {userAllDone >= 10
                 ? userAllDone
                 : userAllDone === 0
@@ -80,13 +80,13 @@ const Anyalytics = () => {
             </div>
           </div>
         </div>
-        <div className="anyalytics-box">
-          <div className="detail-sec">
-            <div className="detail-box">
-              <span className="dot"></span>
-              <span className="task-title">Low Priority</span>
+        <div className={style.anyalytics_box}>
+          <div className={style.detail_sec}>
+            <div className={style.detail_box}>
+              <span className={style.dot}></span>
+              <span className={style.task_title}>Low Priority</span>
             </div>
-            <div className="anyalytics-info">
+            <div className={style.anyalytics_info}>
               {userAllLowPriorityTasks >= 10
                 ? userAllLowPriorityTasks
                 : userAllLowPriorityTasks === 0
@@ -94,12 +94,12 @@ const Anyalytics = () => {
                 : `0${userAllLowPriorityTasks}`}
             </div>
           </div>
-          <div className="detail-sec">
-            <div className="detail-box">
-              <span className="dot"></span>
-              <span className="task-title">Moderate Priority</span>
+          <div className={style.detail_sec}>
+            <div className={style.detail_box}>
+              <span className={style.dot}></span>
+              <span className={style.task_title}>Moderate Priority</span>
             </div>
-            <div className="anyalytics-info">
+            <div className={style.anyalytics_info}>
               {userAllModeratePriorityTasks >= 10
                 ? userAllModeratePriorityTasks
                 : userAllModeratePriorityTasks === 0
@@ -107,12 +107,12 @@ const Anyalytics = () => {
                 : `0${userAllModeratePriorityTasks}`}
             </div>
           </div>
-          <div className="detail-sec">
-            <div className="detail-box">
-              <span className="dot"></span>
-              <span className="task-title">High Priority</span>
+          <div className={style.detail_sec}>
+            <div className={style.detail_box}>
+              <span className={style.dot}></span>
+              <span className={style.task_title}>High Priority</span>
             </div>
-            <div className="anyalytics-info">
+            <div className={style.anyalytics_info}>
               {userAllHighPriorityTasks >= 10
                 ? userAllHighPriorityTasks
                 : userAllHighPriorityTasks === 0
@@ -120,12 +120,12 @@ const Anyalytics = () => {
                 : `0${userAllHighPriorityTasks}`}
             </div>
           </div>
-          <div className="detail-sec">
-            <div className="detail-box">
-              <span className="dot"></span>
-              <span className="task-title">Due-date Tasks</span>
+          <div className={style.detail_sec}>
+            <div className={style.detail_box}>
+              <span className={style.dot}></span>
+              <span className={style.task_title}>Due-date Tasks</span>
             </div>
-            <div className="anyalytics-info">
+            <div className={style.anyalytics_info}>
               {" "}
               {userAllDueDateTasks >= 10
                 ? userAllDueDateTasks

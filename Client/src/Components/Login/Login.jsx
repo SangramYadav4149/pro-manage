@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Login.css";
+import style from "./Login.module.css";
 import icon from "../../Images/Login/Art.png";
 import { FiEye } from "react-icons/fi";
 import { CiMail } from "react-icons/ci";
@@ -8,7 +8,14 @@ import { FiEyeOff } from "react-icons/fi";
 import { BeatLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUserAsync, toggle, user } from "../../Redux/User/UserSlice";
+import {
+  loginError,
+  loginUserAsync,
+  toggle,
+  user,
+} from "../../Redux/User/UserSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [mailError, setMailError] = useState("");
@@ -16,11 +23,12 @@ const Login = () => {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [loader, setLoader] = useState(false);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userToggle = useSelector(toggle);
+  const error = useSelector(loginError);
   const userInfo = useSelector(user);
+
   const handleTypingMail = (event) => {
     setMail(event.target.value);
   };
@@ -62,31 +70,47 @@ const Login = () => {
       setLoader(false);
       navigate("/");
     }
+    if (error) {
+      setLoader(false);
+      setMail("");
+      setPassword("");
+      toast.error("Password or email is not correct!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   }, [userToggle]);
   return (
-    <section className="login-container">
-      <div className="left-container">
-        <div className="image">
-          <img src={icon} alt="icon" className="big-img" />
-          <div className="round-background"></div>
+    <section className={style.login_container}>
+      <ToastContainer />
+      <div className={style.left_container}>
+        <div className={style.image}>
+          <img src={icon} alt="icon" className={style.big_img} />
+          <div className={style.round_background}></div>
         </div>
 
-        <div className="text-flex">
-          <span className="big-tag">Welcome aboard my friend</span>
-          <span className="small-tag">
+        <div className={style.text_flex}>
+          <span className={style.big_tag}>Welcome aboard my friend</span>
+          <span className={style.small_tag}>
             {" "}
             just a couple of clicks and we start
           </span>
         </div>
       </div>
-      <div className="right-container">
-        <div className="container-up">
-          <span className="title-text">Login</span>
-          <div className="form">
-            <div className="login-form">
-              <div className="input-box">
-                <div className="input-placeholder">
-                  <span className="mail-icon">
+      <div className={style.right_container}>
+        <div className={style.container_up}>
+          <span className={style.title_text}>Login</span>
+          <div className={style.form}>
+            <div className={style.login_form}>
+              <div className={style.input_box}>
+                <div className={style.input_placeholder}>
+                  <span className={style.mail_icon}>
                     <CiMail />
                   </span>
                 </div>
@@ -94,43 +118,43 @@ const Login = () => {
                 <input
                   onChange={(e) => handleTypingMail(e)}
                   type="mail"
-                  className="input"
+                  className={style.input}
                   placeholder="Email"
                   value={mail}
                 />
-                <span className="input-error-msg ">{mailError}</span>
+                <span className={style.input_error_msg}>{mailError}</span>
               </div>
-              <div className="input-box">
-                <span className="lock-icon">
+              <div className={style.input_box}>
+                <span className={style.lock_icon}>
                   <CiLock />
                 </span>
 
                 <span
                   onClick={() => setShowPassword(!showPassword)}
-                  className="eye"
+                  className={style.eye}
                 >
                   {!showPassword ? <FiEyeOff /> : <FiEye />}
                 </span>
                 <input
                   onChange={(e) => handleTypingPassword(e)}
                   type={`${showPassword ? "text" : "password"}`}
-                  className="input"
+                  className={style.input}
                   placeholder="Password"
                   value={password}
                 />
-                <span className="input-error-msg">{passwordError}</span>
+                <span className={style.input_error_msg}>{passwordError}</span>
               </div>
             </div>
           </div>
         </div>
-        <div className="container-down">
-          <button onClick={() => handleLogin()} className="login-btn">
+        <div className={style.container_down}>
+          <button onClick={() => handleLogin()} className={style.login_btn}>
             {!loader ? "Login" : <BeatLoader size={13} color="white" />}
           </button>
-          <span className="no-account">have no account yet?</span>
+          <span className={style.no_account}>have no account yet?</span>
           <button
             onClick={() => handleNavigateToSignUpPage("/register")}
-            className="register-btn"
+            className={style.register_btn}
           >
             Register
           </button>

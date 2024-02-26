@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   setDeleteTask,
   setEditTask,
+  setShareTaskLink,
   toDoCollapse,
   toDoCollapseToggle,
 } from "../../../Redux/Board/BoardSlice";
@@ -10,7 +11,7 @@ import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { SlOptions } from "react-icons/sl";
 import { BeatLoader } from "react-spinners";
 
-import "./ToDoCard.css";
+import style from "./ToDoCard.module.css";
 import {
   addToBacklogAsync,
   addToDoneAsync,
@@ -18,11 +19,12 @@ import {
   reFatchAlltasksToggle,
 } from "../../../Redux/User/UserSlice";
 const ToDoCard = ({ task }) => {
-  const { title, checklist, priority, colour, dueDate } = task;
+  const { title, checklist, priority, colour, dueDate, id } = task;
 
   const [showAllTasks, setShowAllTasks] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
-  let [checkListCheckCount, setCheckListCheckCount] = useState(0);
+
+  const [checkCount, setCheckCount] = useState(0);
   const [loader, setloader] = useState(0);
   const toggle = useSelector(toDoCollapseToggle);
   const boardReFatchToggle = useSelector(reFatchAlltasksToggle);
@@ -55,7 +57,13 @@ const ToDoCard = ({ task }) => {
     dispatch(addToDoneAsync({ removeFrom: from, task: task }));
   };
 
+  const handleShareTaskLink = (link) => {
+    dispatch(setShareTaskLink({ shareLink: link }));
+  };
+
   useEffect(() => {
+    let checks = checklist?.filter(({ tick }) => tick === true);
+    setCheckCount(checks.length);
     if (toDoStatus) {
       setShowAllTasks(false);
     }
@@ -64,39 +72,46 @@ const ToDoCard = ({ task }) => {
     }
   }, [toggle, boardReFatchToggle]);
   return (
-    <section className="todo-card-container">
-      <div className="todo-card-section">
-        <div className="todo-card-section-up">
-          <div className="sec-left">
-            <div className="priority-sec">
+    <section className={style.todo_card_container}>
+      <div className={style.todo_card_section}>
+        <div className={style.todo_card_section_up}>
+          <div className={style.sec_left}>
+            <div className={style.priority_sec}>
               <span
-                className="color"
+                className={style.color}
                 style={{ background: `${colour}` }}
               ></span>
-              <span className="task-priority">{priority}</span>
+              <span className={style.task_priority}>{priority}</span>
             </div>
-            <div className="task-title">{title}</div>
+            <div className={style.task_title}>{title}</div>
           </div>
-          <div className="sec-right">
+          <div className={style.sec_right}>
             <SlOptions onClick={() => handleToggleShowOptions()} />
-            <div className={`${showOptions ? "options-on" : "options-off"}`}>
+            <div
+              className={`${
+                showOptions ? style.options_on : style.options_off
+              }`}
+            >
               <span onClick={() => handeEditTask()}>Edit</span>
-              <span>Share</span>
+              <span onClick={() => handleShareTaskLink(id)}>Share</span>
               <span
                 onClick={() => handleDeleteTask(task?._id)}
-                className="delete"
+                className={style.delete}
               >
                 Delete
               </span>
             </div>
           </div>
         </div>
-        <div className="todo-card-section-middle">
-          <div className="sec-up">
-            <span className="checklist">
-              Checlist( {checkListCheckCount}/{checklist.length})
+        <div className={style.todo_card_section_middle}>
+          <div className={style.sec_up}>
+            <span className={style.checklist}>
+              Checlist( {checkCount}/{checklist.length})
             </span>
-            <span onClick={() => handleToggleShowAllTasks()} className="expand">
+            <span
+              onClick={() => handleToggleShowAllTasks()}
+              className={style.expand}
+            >
               {!showAllTasks ? (
                 <MdExpandLess color=" #767575" />
               ) : (
@@ -104,7 +119,7 @@ const ToDoCard = ({ task }) => {
               )}
             </span>
           </div>
-          <div className="sec-down">
+          <div className={style.sec_down}>
             {showAllTasks &&
               checklist.map((note, i) => {
                 /* if (note.tick) {
@@ -112,29 +127,29 @@ const ToDoCard = ({ task }) => {
                 } */
 
                 return (
-                  <div key={i} className="task-sec">
-                    <span className="check-box-sec">
+                  <div key={i} className={style.task_sec}>
+                    <span className={style.check_box_sec}>
                       {" "}
                       <input
-                        className="check-box"
+                        className={style.check_box}
                         //onChange={(e) => handleSetTick(e)}
                         type="checkbox"
                       />
                     </span>
-                    <span className="task">{note.text}</span>
+                    <span className={style.task}>{note.text}</span>
                   </div>
                 );
               })}
           </div>
         </div>
 
-        <div className="todo-card-section-down">
+        <div className={style.todo_card_section_down}>
           {dueDate && (
-            <div className="btn-left">
+            <div className={style.btn_left}>
               <button>{dueDate}</button>
             </div>
           )}
-          <div className="btn-right">
+          <div className={style.btn_right}>
             <button onClick={() => handleAddToBacklog("TODO")}>
               {loader !== 1 ? "BACKLOG" : <BeatLoader size={4} color="black" />}
             </button>

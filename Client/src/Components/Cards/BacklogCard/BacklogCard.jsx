@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./BacklogCard.css";
+import style from "./BacklogCard.module.css";
 import { SlOptions } from "react-icons/sl";
 import { MdExpandMore } from "react-icons/md";
 import { MdExpandLess } from "react-icons/md";
@@ -10,6 +10,7 @@ import {
   backlogCollapseToggle,
   setDeleteTask,
   setEditTask,
+  setShareTaskLink,
 } from "../../../Redux/Board/BoardSlice";
 import { useSelector } from "react-redux";
 import {
@@ -20,8 +21,9 @@ import {
 } from "../../../Redux/User/UserSlice";
 import { addToInProgress } from "../../../Redux/User/UserAPI";
 const BacklogCard = ({ task }) => {
-  const { title, checklist, priority, colour, dueDate } = task;
+  const { title, checklist, priority, colour, dueDate, id } = task;
   const [showAllTasks, setShowAllTasks] = useState(false);
+  const [checkCount, setCheckCount] = useState(0);
   const [showOptions, setShowOptions] = useState(false);
   const toggle = useSelector(backlogCollapseToggle);
   const backLogsStatus = useSelector(backlogCollapse);
@@ -57,7 +59,13 @@ const BacklogCard = ({ task }) => {
     dispatch(setEditTask({ task: task, from: "BACKLOG" }));
   };
 
+  const handleShareTaskLink = (link) => {
+    dispatch(setShareTaskLink({ shareLink: link }));
+  };
+
   useEffect(() => {
+    let checks = checklist?.filter(({ tick }) => tick === true);
+    setCheckCount(checks.length);
     if (backLogsStatus) {
       setShowAllTasks(false);
     }
@@ -65,38 +73,48 @@ const BacklogCard = ({ task }) => {
       setLoader(0);
     }
   }, [toggle, boardReFatchToggle]);
+
   return (
-    <section className="backlog-card-container">
-      <div className="backlog-card-section">
-        <div className="backlog-card-section-up">
-          <div className="sec-left">
-            <div className="priority-sec">
+    <section className={style.backlog_card_container}>
+      <div className={style.backlog_card_section}>
+        <div className={style.backlog_card_section_up}>
+          <div className={style.sec_left}>
+            <div className={style.priority_sec}>
               <span
-                className="color"
+                className={style.color}
                 style={{ background: `${colour}` }}
               ></span>
-              <span className="task-priority">{priority}</span>
+              <span className={style.task_priority}>{priority}</span>
             </div>
-            <div className="task-title">{title}</div>
+            <div className={style.task_title}>{title}</div>
           </div>
-          <div className="sec-right">
+          <div className={style.sec_right}>
             <SlOptions onClick={() => handleToggleShowOptions()} />
-            <div className={`${showOptions ? "options-on" : "options-off"}`}>
+            <div
+              className={`${
+                showOptions ? style.options_on : style.options_off
+              }`}
+            >
               <span onClick={() => handeEditTask()}>Edit</span>
-              <span>Share</span>
+              <span onClick={() => handleShareTaskLink(id)}>Share</span>
               <span
                 onClick={() => handleDeleteTask(task._id)}
-                className="delete"
+                className={style.delete}
               >
                 Delete
               </span>
             </div>
           </div>
         </div>
-        <div className="backlog-card-section-middle">
-          <div className="sec-up">
-            <span className="checklist">Checlist(4/8)</span>
-            <span onClick={() => handleToggleShowAllTasks()} className="expand">
+        <div className={style.backlog_card_section_middle}>
+          <div className={style.sec_up}>
+            <span className={style.checklist}>
+              Checlist({checkCount}/{checklist.length})
+            </span>
+            <span
+              onClick={() => handleToggleShowAllTasks()}
+              className={style.expand}
+            >
               {!showAllTasks ? (
                 <MdExpandLess color=" #767575" />
               ) : (
@@ -104,28 +122,32 @@ const BacklogCard = ({ task }) => {
               )}
             </span>
           </div>
-          <div className="sec-down">
+          <div className={style.sec_down}>
             {showAllTasks &&
               checklist?.map((task, i) => {
                 return (
-                  <div key={i} className="task-sec">
-                    <span className="check-box-sec">
-                      <input className="check-box" type="checkbox" />
+                  <div key={i} className={style.task_sec}>
+                    <span className={style.check_box_sec}>
+                      <input
+                        className={style.check_box}
+                        checked={task?.tick ? true : false}
+                        type="checkbox"
+                      />
                     </span>
-                    <span className="task">{task.text}</span>
+                    <span className={style.task}>{task.text}</span>
                   </div>
                 );
               })}
           </div>
         </div>
 
-        <div className="backlog-card-section-down">
+        <div className={style.backlog_card_section_down}>
           {dueDate && (
-            <div className="btn-left">
+            <div className={style.btn_left}>
               <button>{dueDate}</button>
             </div>
           )}
-          <div className="btn-right">
+          <div className={style.btn_right}>
             <button onClick={() => handleAddToToDo("BACKLOG")}>
               {loader !== 1 ? "TODO" : <BeatLoader size={4} color="black" />}
             </button>
