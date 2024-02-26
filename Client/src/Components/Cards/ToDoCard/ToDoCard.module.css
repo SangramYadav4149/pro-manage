@@ -84,7 +84,7 @@
 }
 .todo-card-container .todo-card-section-down .btn-left {
 }
-.todo_card_container .todo_car_section_down .btn_left > button {
+.todo_card_container .btn_left > button {
   width: max-content;
   padding: 0.4rem 0.5rem;
   background-color: #dbdbdb;

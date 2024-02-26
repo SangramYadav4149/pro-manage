@@ -54,10 +54,10 @@ const TaskCreate = () => {
     const id = await generateUniqueHashedId(title);
     if (date) {
       const monthNumber =
-        date?.split("_")[1][0] === "0"
-          ? date?.split("_")[1][1]
-          : date?.split("_")[1];
-      currDate = date.split("_")[2];
+        date?.split("-")[1][0] === "0"
+          ? date?.split("-")[1][1]
+          : date?.split("-")[1];
+      currDate = date.split("-")[2];
 
       month = date ? getMonth(monthNumber) : "";
     }
@@ -159,7 +159,7 @@ const TaskCreate = () => {
               <div
                 onClick={() => handleSelectPriority("high-priority")}
                 className={` ${style.opt} ${
-                  priority === "high_priority" && "select_priority_on"
+                  priority === "high-priority" && style.select_priority_on
                 }`}
               >
                 <span className={style.red}></span>
@@ -168,7 +168,7 @@ const TaskCreate = () => {
               <div
                 onClick={() => handleSelectPriority("moderate-priority")}
                 className={`${style.opt} ${
-                  priority === "moderate_priority" && style.select_priority_on
+                  priority === "moderate-priority" && style.select_priority_on
                 }`}
               >
                 <span className={style.blue}></span>
@@ -177,7 +177,7 @@ const TaskCreate = () => {
               <div
                 onClick={() => handleSelectPriority("low-priority")}
                 className={`${style.opt} ${
-                  priority === "low_priority" && style.select_priority_on
+                  priority === "low-priority" && style.select_priority_on
                 }`}
               >
                 <span className={style.green}></span>

@@ -181,27 +181,27 @@ const EditTask = () => {
             </div>
             <div className={style.select_opt}>
               <div
-                onClick={() => handleSelectPriority("high_priority")}
+                onClick={() => handleSelectPriority("high-priority")}
                 className={`${style.opt} ${
-                  priority === "high_priority" && style.select_priority_on
+                  priority === "high-priority" && style.select_priority_on
                 }`}
               >
                 <span className={style.red}></span>
                 <span className={style.select_text}>HIGH PRIORITY</span>
               </div>
               <div
-                onClick={() => handleSelectPriority("moderate_priority")}
+                onClick={() => handleSelectPriority("moderate-priority")}
                 className={`${style.opt} ${
-                  priority === "moderate_priority" && style.select_priority_on
+                  priority === "moderate-priority" && style.select_priority_on
                 }`}
               >
                 <span className={style.blue}></span>
                 <span className={style.select_text}>MODERATE PRIORITY</span>
               </div>
               <div
-                onClick={() => handleSelectPriority("low_priority")}
+                onClick={() => handleSelectPriority("low-priority")}
                 className={`${style.opt} ${
-                  priority === "low_priority" && style.select_priority_on
+                  priority === "low-priority" && style.select_priority_on
                 }`}
               >
                 <span className={style.green}></span>

@@ -121,22 +121,18 @@ const ToDoCard = ({ task }) => {
           </div>
           <div className={style.sec_down}>
             {showAllTasks &&
-              checklist.map((note, i) => {
-                /* if (note.tick) {
-                  setCheckListCheckCount(checkListCheckCount + 1);
-                } */
-
+              checklist.map((task, i) => {
                 return (
                   <div key={i} className={style.task_sec}>
                     <span className={style.check_box_sec}>
                       {" "}
                       <input
                         className={style.check_box}
-                        //onChange={(e) => handleSetTick(e)}
+                        checked={task.tick ? true : false}
                         type="checkbox"
                       />
                     </span>
-                    <span className={style.task}>{note.text}</span>
+                    <span className={style.task}>{task.text}</span>
                   </div>
                 );
               })}

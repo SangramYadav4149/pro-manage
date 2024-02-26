@@ -26,7 +26,6 @@ const Settings = () => {
   const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
   const boardReFatchToggle = useSelector(reFatchAlltasksToggle);
-  const userInfo = useSelector(user);
 
   const handleNotifyUser = () => {
     toast.success("Password changed succesfully!", {

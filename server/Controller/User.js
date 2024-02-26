@@ -35,20 +35,36 @@ const getUserAllTasks = async (req, res) => {
 const changeUserPassword = async (req, res) => {
   try {
     const { _id } = req.user;
-    const { password } = req.body;
+    const { password, name } = req.body;
 
-    if (_id && password) {
+    if (_id && password && name) {
       const count = await bcrypt.genSalt(5);
       const hashedPassword = await bcrypt.hash(password, count);
       const user = await User.findByIdAndUpdate(
         _id,
         {
           password: hashedPassword,
+          name: name,
         },
         { new: true }
       );
 
       res.status(201).json({ user: user });
+    } else if (_id && password) {
+      const count = await bcrypt.genSalt(5);
+      const hashedPassword = await bcrypt.hash(password, count);
+      const user = await User.findByIdAndUpdate(
+        _id,
+        {
+          password: hashedPassword,
+          name: name,
+        },
+        { new: true }
+      );
+
+      res.status(201).json({ user: user });
+    } else {
+      res.status(400).json({ message: "All inputs are required!" });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });

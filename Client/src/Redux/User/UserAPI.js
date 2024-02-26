@@ -3,8 +3,9 @@ import { getAxiosConfigToken } from "../../Utils/AxiosConfigToken";
 
 export const registerUser = async (data) => {
   try {
+    console.log(data);
     return await axios.post(
-      "http://localhost:5000/promaneger/api/user/register",
+      "https://backend-r1sv.onrender.com/promaneger/api/user/register",
       data
     );
   } catch (error) {
@@ -22,7 +23,7 @@ export const getUser = async () => {
     const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
 
     return await axios.get(
-      "http://localhost:5000/promaneger/api/get/user",
+      "https://backend-r1sv.onrender.com/promaneger/api/get/user",
 
       config
     );
@@ -34,7 +35,7 @@ export const createTodo = async (data) => {
   try {
     const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
     return await axios.post(
-      "http://localhost:5000/promaneger/api/tasks/createTodo",
+      "https://backend-r1sv.onrender.com/promaneger/api/tasks/createTodo",
       data,
       config
     );
@@ -47,7 +48,7 @@ export const getUserAllTasks = async () => {
   try {
     const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
     return await axios.get(
-      "http://localhost:5000/promaneger/api/get/user/alltasks",
+      "https://backend-r1sv.onrender.com/promaneger/api/get/user/alltasks",
 
       config
     );
@@ -60,7 +61,7 @@ export const addToBacklog = async (data) => {
   try {
     const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
     return await axios.post(
-      `http://localhost:5000/promaneger/api/tasks/add/backlog/${data.task._id}`,
+      `https://backend-r1sv.onrender.com/promaneger/api/tasks/add/backlog/${data.task._id}`,
       data,
       config
     );
@@ -72,7 +73,7 @@ export const addToToDo = async (data) => {
   try {
     const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
     return await axios.post(
-      `http://localhost:5000/promaneger/api/tasks/add/todo/${data.task._id}`,
+      `https://backend-r1sv.onrender.com/promaneger/api/tasks/add/todo/${data.task._id}`,
       data,
       config
     );
@@ -84,7 +85,7 @@ export const addToInProgress = async (data) => {
   try {
     const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
     return await axios.post(
-      `http://localhost:5000/promaneger/api/tasks/add/inprogress/${data.task._id}`,
+      `https://backend-r1sv.onrender.com/promaneger/api/tasks/add/inprogress/${data.task._id}`,
       data,
       config
     );
@@ -96,7 +97,7 @@ export const addToDone = async (data) => {
   try {
     const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
     return await axios.post(
-      `http://localhost:5000/promaneger/api/tasks/add/done/${data.task._id}`,
+      `https://backend-r1sv.onrender.com/promaneger/api/tasks/add/done/${data.task._id}`,
       data,
       config
     );
@@ -110,7 +111,7 @@ export const editTask = async (data) => {
     const { task } = data;
     const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
     return await axios.post(
-      `http://localhost:5000/promaneger/api/tasks/edit/task/${task._id}`,
+      `https://backend-r1sv.onrender.com/promaneger/api/tasks/edit/task/${task._id}`,
       data,
       config
     );
@@ -122,7 +123,7 @@ export const deleteTask = async (data) => {
   try {
     const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
     return await axios.post(
-      `http://localhost:5000/promaneger/api/tasks/delete/task/${data.id}`,
+      `https://backend-r1sv.onrender.com/promaneger/api/tasks/delete/task/${data.id}`,
       data,
       config
     );
@@ -134,7 +135,7 @@ export const getUserAllCreatedTasksInfo = async () => {
   try {
     const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
     return await axios.get(
-      `http://localhost:5000/promaneger/api/tasks/get/user/alltasksinfo/`,
+      `https://backend-r1sv.onrender.com/promaneger/api/tasks/get/user/alltasksinfo/`,
 
       config
     );
