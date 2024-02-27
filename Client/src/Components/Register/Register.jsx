@@ -55,7 +55,12 @@ const Register = () => {
         setMailError("Please insert a valid email!");
         setPasswordError("Please insert a valid password!");
         setConfirmPasswordError("Please insert a valid confirm password!");
-      } else if (!mail) {
+      } else if (
+        !mail ||
+        !mail.match(
+          /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )
+      ) {
         setMailError("Please insert a valid email!");
       } else if (!password) {
         setPasswordError("Please insert a valid password!");
