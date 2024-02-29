@@ -1,8 +1,21 @@
-.board_container {
-  width: 72rem;
-  max-width: 1200px;
-  padding: 0.5rem 1.5rem;
+.board_main_box {
+  width: 85vw;
+  height: 100vh;
+
   display: flex;
+  justify-content: center;
+
+  align-items: center;
+
+  position: relative;
+}
+
+.board_container {
+  width: 82vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
   row-gap: 1rem;
@@ -39,15 +52,17 @@
   font-size: 1rem;
 }
 .board_container .board_sec_3 {
-  width: 100%;
+  width: 82vw;
   display: flex;
-  justify-content: center;
   column-gap: 1rem;
+  overflow-x: scroll;
 }
 .board_container .board_sec_3 .board_box {
-  width: 360px;
+  border-radius: 0.8rem;
+  min-width: 270px;
+  width: 20vw;
 
-  height: 79vh;
+  height: 77vh;
   background-color: #eef2f5;
   display: flex;
   flex-direction: column;

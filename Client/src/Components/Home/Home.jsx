@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { SiCountingworkspro } from "react-icons/si";
 import { PiLayoutThin } from "react-icons/pi";
+import { PiCodesandboxLogoLight } from "react-icons/pi";
 import { GoDatabase } from "react-icons/go";
 import { IoSettingsOutline } from "react-icons/io5";
 import { IoLogOutOutline } from "react-icons/io5";
@@ -88,7 +89,7 @@ const Home = () => {
             <div className={style.brand_name_section}>
               <div className={style.brand_name}>
                 <span className={style.brand_icon}>
-                  <SiCountingworkspro />
+                  <PiCodesandboxLogoLight size={25} />
                 </span>
                 <span className={style.brand_text}>Pro Manage</span>
               </div>
@@ -102,7 +103,7 @@ const Home = () => {
                 onClick={() => handleClickSection("board")}
               >
                 <span className={style.route_icon}>
-                  <PiLayoutThin />
+                  <PiLayoutThin size={25} />
                 </span>
                 <span className={style.route_text}>Board</span>
               </div>
@@ -113,7 +114,7 @@ const Home = () => {
                 onClick={() => handleClickSection("anyalytics")}
               >
                 <span className={style.route_icon}>
-                  <GoDatabase />
+                  <GoDatabase size={25} />
                 </span>
                 <span className={style.route_text}>Anyalytics</span>
               </div>
@@ -124,7 +125,7 @@ const Home = () => {
                 }`}
               >
                 <span className={style.route_icon}>
-                  <IoSettingsOutline />
+                  <IoSettingsOutline size={25} />
                 </span>
                 <span className={style.route_text}>Settings</span>
               </div>

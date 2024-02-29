@@ -128,11 +128,7 @@ const BacklogCard = ({ task }) => {
                 return (
                   <div key={i} className={style.task_sec}>
                     <span className={style.check_box_sec}>
-                      <input
-                        className={style.check_box}
-                        checked={task?.tick ? true : false}
-                        type="checkbox"
-                      />
+                      <input className={style.check_box} type="checkbox" />
                     </span>
                     <span className={style.task}>{task.text}</span>
                   </div>

@@ -4,7 +4,7 @@ import {
   addToDone,
   addToInProgress,
   addToToDo,
-  changeUserPassword,
+  changeUserInfo,
   createTodo,
   deleteTask,
   editTask,
@@ -166,11 +166,11 @@ export const getUserAllCreatedTasksInfoAsync = createAsyncThunk(
   }
 );
 
-export const changeUserPasswordAsync = createAsyncThunk(
+export const changeUserInfoAsync = createAsyncThunk(
   "user/changePassword",
   async (data) => {
     try {
-      const response = await changeUserPassword(data);
+      const response = await changeUserInfo(data);
       return response.data;
     } catch (error) {
       return Error(error);
@@ -390,15 +390,15 @@ const UserSlice = createSlice({
       .addCase(getUserAllCreatedTasksInfoAsync.rejected, (state, action) => {
         state.fetching = false;
       })
-      .addCase(changeUserPasswordAsync.pending, (state, action) => {})
-      .addCase(changeUserPasswordAsync.fulfilled, (state, action) => {
+      .addCase(changeUserInfoAsync.pending, (state, action) => {})
+      .addCase(changeUserInfoAsync.fulfilled, (state, action) => {
         const { user } = action.payload;
         state.user = user;
         state.reFatchAlltasksToggle = state.reFatchAlltasksToggle
           ? false
           : true;
       })
-      .addCase(changeUserPasswordAsync.rejected, (state, action) => {})
+      .addCase(changeUserInfoAsync.rejected, (state, action) => {})
       .addCase(getUserAllTodayTasksAsync.pending, (state, action) => {
         state.fetching = true;
       })

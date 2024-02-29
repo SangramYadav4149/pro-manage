@@ -142,11 +142,11 @@ export const getUserAllCreatedTasksInfo = async () => {
     console.log(error.message);
   }
 };
-export const changeUserPassword = async (data) => {
+export const changeUserInfo = async (data) => {
   try {
     const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
     return await axios.post(
-      `https://backend-r1sv.onrender.com/promaneger/api/get/user/change/password`,
+      `https://backend-r1sv.onrender.com/promaneger/api/get/user/change/userInfo`,
       data,
       config
     );

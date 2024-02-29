@@ -1,9 +1,9 @@
 .anyalytics_container {
-  width: 100%;
+  width: max-content;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding-left: 1.8rem;
+  padding-left: 1.3rem;
   padding-top: 1rem;
   row-gap: 2rem;
 }

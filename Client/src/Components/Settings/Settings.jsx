@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
-  changeUserPasswordAsync,
+  changeUserInfoAsync,
   reFatchAlltasksToggle,
   toggle,
   user,
@@ -23,12 +23,13 @@ const Settings = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setnewPassword] = useState("");
   const [newPasswordError, setnewPasswordError] = useState("");
+  const [nameError, setNameError] = useState("");
   const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
   const boardReFatchToggle = useSelector(reFatchAlltasksToggle);
 
   const handleNotifyUser = () => {
-    toast.success("Password changed succesfully!", {
+    toast.success("User Information changed succesfully!", {
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -51,26 +52,29 @@ const Settings = () => {
     setOldPassword(event.target.value);
   };
 
-  const handleChangePassword = async () => {
+  const handleChangeUserInfo = async () => {
     try {
       setPasswordError("");
       setnewPasswordError("");
+      setNameError("");
 
-      if (!oldPassword && !newPassword) {
+      if (!oldPassword && !newPassword && !name) {
         setPasswordError("Please insert a valid old  password!");
         setnewPasswordError("Please insert a valid new password!");
-      } else if (!oldPassword) {
+        setNameError("Please insert a valid name");
+      } else if (!oldPassword && newPassword) {
         setPasswordError("Please insert a valid old password!");
-      } else if (!newPassword) {
+      } else if (!newPassword && oldPassword) {
         setnewPasswordError("Please insert a valid new password!");
       } else {
         {
           setLoader(true);
           const userInfo = {
             name: name,
-            password: newPassword,
+            oldPassword: oldPassword,
+            newPassword: newPassword,
           };
-          dispatch(changeUserPasswordAsync(userInfo));
+          dispatch(changeUserInfoAsync(userInfo));
         }
       }
     } catch (error) {
@@ -104,7 +108,7 @@ const Settings = () => {
                   className={style.input}
                   value={name}
                 />
-                <span className={style.input_error_msg}></span>
+                <span className={style.input_error_msg}>{nameError}</span>
               </div>
 
               <div className={style.input_box}>
@@ -158,7 +162,7 @@ const Settings = () => {
         </div>
         <div className={style.container_down}>
           <button
-            onClick={() => handleChangePassword()}
+            onClick={() => handleChangeUserInfo()}
             className={style.submit_btn}
           >
             {!loader ? "Update" : <BeatLoader size={13} color="white" />}

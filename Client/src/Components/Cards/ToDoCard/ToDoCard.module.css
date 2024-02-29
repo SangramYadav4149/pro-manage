@@ -1,5 +1,6 @@
 .todo_card_container {
-  width: 245px;
+  min-width: 245px;
+  width: 18vw;
   border-radius: 1rem;
   background-color: white;
   display: flex;
@@ -8,7 +9,8 @@
   padding: 0.7rem 0rem;
 }
 .todo_card_section {
-  width: 225px;
+  min-width: 225px;
+  width: 16.7vw;
   background-color: white;
   display: flex;
   flex-direction: column;

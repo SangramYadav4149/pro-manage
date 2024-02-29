@@ -83,130 +83,132 @@ const Board = () => {
   };
 
   return (
-    <section className={style.board_container}>
-      <div className={style.borad_sec_1}>
-        <span className={style.board_welcome}>Welcome! {userInfo?.name}</span>
-        <span className={style.board_date}>{date}</span>
-      </div>
-      <div className={style.board_sec_2}>
-        <span className={style.section_title}>Board</span>
-        <span className={style.board_filters}>
-          <select
-            onChange={(e) => handleGetUserAllTodayTasks(e.target.value)}
-            className={style.options}
-          >
-            <option value="today">Today</option>
-            <option value="week">This Week</option>
-            <option value="month">This Month</option>
-            <option value="year">This Year</option>
-          </select>
-        </span>
-      </div>
-      <div className={style.board_sec_3}>
-        <div className={style.board_box}>
-          <div className={style.board_box_up_sec}>
-            <div className={style.box}>
-              <span className={style.text}>Backlogs</span>
-              <span onClick={() => handleCollapseAll(taskBoxes["1"], true)}>
-                <VscCollapseAll size={21} />
-              </span>
-            </div>
-          </div>
-          <div className={style.tasks_sec}>
-            {!fetchingData ? (
-              userBacklogTasks?.map((task, i) => {
-                return (
-                  <div key={i} className={style.task_box}>
-                    <BacklogCardPage task={task} />
-                  </div>
-                );
-              })
-            ) : (
-              <div className={style.loading}>
-                <HashLoader color="#17a2b8" />
-              </div>
-            )}
-          </div>
+    <section className={style.board_main_box}>
+      <div className={style.board_container}>
+        <div className={style.borad_sec_1}>
+          <span className={style.board_welcome}>Welcome! {userInfo?.name}</span>
+          <span className={style.board_date}>{date}</span>
         </div>
-        <div className={style.board_box}>
-          <div className={style.board_box_up_sec}>
-            <div className={style.box}>
-              <span className={style.text}>To do</span>
-              <span className={style.add_icon}>
-                <IoIosAdd
-                  onClick={() => handleToggleCreateTaskSec()}
-                  size={25}
-                />
-                <span onClick={() => handleCollapseAll(taskBoxes["2"], true)}>
+        <div className={style.board_sec_2}>
+          <span className={style.section_title}>Board</span>
+          <span className={style.board_filters}>
+            <select
+              onChange={(e) => handleGetUserAllTodayTasks(e.target.value)}
+              className={style.options}
+            >
+              <option value="today">Today</option>
+              <option value="week">This Week</option>
+              <option value="month">This Month</option>
+              <option value="year">This Year</option>
+            </select>
+          </span>
+        </div>
+        <div className={style.board_sec_3}>
+          <div className={style.board_box}>
+            <div className={style.board_box_up_sec}>
+              <div className={style.box}>
+                <span className={style.text}>Backlogs</span>
+                <span onClick={() => handleCollapseAll(taskBoxes["1"], true)}>
                   <VscCollapseAll size={21} />
                 </span>
-              </span>
+              </div>
+            </div>
+            <div className={style.tasks_sec}>
+              {!fetchingData ? (
+                userBacklogTasks?.map((task, i) => {
+                  return (
+                    <div key={i} className={style.task_box}>
+                      <BacklogCardPage task={task} />
+                    </div>
+                  );
+                })
+              ) : (
+                <div className={style.loading}>
+                  <HashLoader color="#17a2b8" />
+                </div>
+              )}
             </div>
           </div>
-          <div className={style.tasks_sec}>
-            {!fetchingData ? (
-              userTodoTasks?.map((task) => {
-                return (
-                  <div className={style.task_box}>
-                    <ToDoCardPage task={task} />
-                  </div>
-                );
-              })
-            ) : (
-              <div className={style.loading}>
-                <HashLoader color="#17a2b8" />
+          <div className={style.board_box}>
+            <div className={style.board_box_up_sec}>
+              <div className={style.box}>
+                <span className={style.text}>To do</span>
+                <span className={style.add_icon}>
+                  <IoIosAdd
+                    onClick={() => handleToggleCreateTaskSec()}
+                    size={25}
+                  />
+                  <span onClick={() => handleCollapseAll(taskBoxes["2"], true)}>
+                    <VscCollapseAll size={21} />
+                  </span>
+                </span>
               </div>
-            )}
-          </div>
-        </div>
-        <div className={style.board_box}>
-          <div className={style.board_box_up_sec}>
-            <div className={style.box}>
-              <span className={style.text}>In pogress</span>
-              <span onClick={() => handleCollapseAll(taskBoxes["3"], true)}>
-                <VscCollapseAll size={21} />
-              </span>
+            </div>
+            <div className={style.tasks_sec}>
+              {!fetchingData ? (
+                userTodoTasks?.map((task) => {
+                  return (
+                    <div className={style.task_box}>
+                      <ToDoCardPage task={task} />
+                    </div>
+                  );
+                })
+              ) : (
+                <div className={style.loading}>
+                  <HashLoader color="#17a2b8" />
+                </div>
+              )}
             </div>
           </div>
-          <div className={style.tasks_sec}>
-            {!fetchingData ? (
-              userInProgressTasks?.map((task, i) => {
-                return (
-                  <div key={i} className={style.task_box}>
-                    <InProgressCardPage task={task} />
-                  </div>
-                );
-              })
-            ) : (
-              <div className={style.loading}>
-                <HashLoader color="#17a2b8" />
+          <div className={style.board_box}>
+            <div className={style.board_box_up_sec}>
+              <div className={style.box}>
+                <span className={style.text}>In pogress</span>
+                <span onClick={() => handleCollapseAll(taskBoxes["3"], true)}>
+                  <VscCollapseAll size={21} />
+                </span>
               </div>
-            )}
-          </div>
-        </div>
-        <div className={style.board_box}>
-          <div className={style.board_box_up_sec}>
-            <div className={style.box}>
-              <span className={style.text}>Done</span>
-              <span onClick={() => handleCollapseAll(taskBoxes["4"], true)}>
-                <VscCollapseAll size={21} />
-              </span>
+            </div>
+            <div className={style.tasks_sec}>
+              {!fetchingData ? (
+                userInProgressTasks?.map((task, i) => {
+                  return (
+                    <div key={i} className={style.task_box}>
+                      <InProgressCardPage task={task} />
+                    </div>
+                  );
+                })
+              ) : (
+                <div className={style.loading}>
+                  <HashLoader color="#17a2b8" />
+                </div>
+              )}
             </div>
           </div>
-          <div className={style.tasks_sec}>
-            {!fetchingData ? (
-              userDoneTasks?.map((task) => {
-                return (
-                  <div className={style.task_box}>
-                    <DoneCardpage task={task} />
-                  </div>
-                );
-              })
-            ) : (
-              <div className={style.loading}>
-                <HashLoader color="#17a2b8" />
+          <div className={style.board_box}>
+            <div className={style.board_box_up_sec}>
+              <div className={style.box}>
+                <span className={style.text}>Done</span>
+                <span onClick={() => handleCollapseAll(taskBoxes["4"], true)}>
+                  <VscCollapseAll size={21} />
+                </span>
               </div>
-            )}
+            </div>
+            <div className={style.tasks_sec}>
+              {!fetchingData ? (
+                userDoneTasks?.map((task) => {
+                  return (
+                    <div className={style.task_box}>
+                      <DoneCardpage task={task} />
+                    </div>
+                  );
+                })
+              ) : (
+                <div className={style.loading}>
+                  <HashLoader color="#17a2b8" />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

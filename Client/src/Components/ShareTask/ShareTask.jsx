@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import style from "./ShareTask.module.css";
-import { SiCountingworkspro } from "react-icons/si";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { HashLoader } from "react-spinners";
@@ -10,6 +10,7 @@ import {
   task,
   toggle,
 } from "../../Redux/ShareTask/ShareTaskSlice";
+import { PiCodesandboxLogoLight } from "react-icons/pi";
 const ShareTask = () => {
   const [shareTask, setShareTask] = useState({});
   let [checkCount, setCheckCount] = useState(0);
@@ -36,7 +37,7 @@ const ShareTask = () => {
     <section className={style.share_task_container}>
       <div className={style.section_left}>
         <div className={style.brand_title}>
-          <SiCountingworkspro />
+          <PiCodesandboxLogoLight size={25} />
           Pro Manage
         </div>
       </div>
