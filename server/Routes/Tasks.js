@@ -7,6 +7,10 @@ import {
   createTodo,
   deleteTask,
   editTask,
+  filterAllTasksByMonth,
+  filterAllTasksByToday,
+  filterAllTasksByWeek,
+  filterAllTasksByYear,
   getShareTask,
   getUserAllCreatedTasksInfo,
 } from "../Controller/Tasks.js";
@@ -15,8 +19,12 @@ import { varifyToken } from "../MiddleWare/Authentication.js";
 const router = express.Router();
 
 router
-  .get("/get/user/alltasksinfo", varifyToken, getUserAllCreatedTasksInfo)
   .get("/get/share/task/:id", getShareTask)
+  .get("/get/user/alltasksinfo", varifyToken, getUserAllCreatedTasksInfo)
+  .get("/get/today/tasks", varifyToken, filterAllTasksByToday)
+  .get("/get/month/tasks", varifyToken, filterAllTasksByMonth)
+  .get("/get/week/tasks", varifyToken, filterAllTasksByWeek)
+  .get("/get/year/tasks", varifyToken, filterAllTasksByYear)
   .post("/createTodo", varifyToken, createTodo)
   .post("/add/backlog/:id", varifyToken, addToBacklog)
   .post("/add/todo/:id", varifyToken, addToToDo)

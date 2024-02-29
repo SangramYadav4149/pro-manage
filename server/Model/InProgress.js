@@ -11,6 +11,7 @@ const inProgressSchema = new Schema(
     pureDate: { type: String },
     creater: { type: String, required: true },
     colour: { type: String, required: true },
+    createDate: { type: String, required: true },
   },
   { timestamps: true }
 );

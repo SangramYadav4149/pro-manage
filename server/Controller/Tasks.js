@@ -2,7 +2,6 @@ import Backlog from "../Model/Backlog.js";
 import Done from "../Model/Done.js";
 import InProgress from "../Model/InProgress.js";
 import Todo from "../Model/ToDo.js";
-
 const getShareTask = async (req, res) => {
   try {
     const { id } = req.params;
@@ -31,8 +30,356 @@ const getShareTask = async (req, res) => {
     console.log(`Error : ${error.message}`);
   }
 };
+
+const filterAllTasksByYear = async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const currentDate = new Date();
+
+    let nextYear = "";
+    let prevYear = "";
+    let weekNum = 0;
+    const localDate = currentDate.toISOString().split("T")[0].split("-");
+    localDate[2] = parseInt(localDate[2]) + 0;
+
+    const prevYearDate = currentDate.toISOString().split("T")[0].split("-");
+    prevYearDate[0] = parseInt(prevYearDate[0]) - 1;
+    prevYearDate[1] = parseInt(prevYearDate[1]) + 0;
+
+    const nextYearDate = currentDate.toISOString().split("T")[0].split("-");
+    nextYearDate[0] = parseInt(nextYearDate[0]) + 1;
+    nextYearDate[1] = parseInt(nextYearDate[1]) + 0;
+
+    if (parseInt(localDate[2]) + 0 <= 7) {
+      weekNum = 1;
+    } else if (parseInt(localDate[2]) + 0 <= 14) {
+      weekNum = 2;
+    } else if (parseInt(localDate[2]) + 0 <= 21) {
+      weekNum = 3;
+    } else if (parseInt(localDate[2]) + 0 <= 28) {
+      weekNum = 4;
+    } else {
+      weekNum = 5;
+    }
+
+    prevYearDate.splice(2, 0, weekNum);
+    nextYearDate.splice(2, 0, weekNum);
+
+    prevYearDate.forEach((num) => {
+      prevYear += String(num);
+    });
+    nextYearDate.forEach((num) => {
+      nextYear += String(num);
+    });
+
+    const todo = await Todo.find({
+      $and: [
+        { createDate: { $gt: parseInt(prevYear) } },
+        { createDate: { $lt: parseInt(nextYear) } },
+        { creater: { $eq: _id } },
+      ],
+    });
+
+    const backlog = await Backlog.find({
+      $and: [
+        { createDate: { $gt: parseInt(prevYear) } },
+        { createDate: { $lt: parseInt(nextYear) } },
+        { creater: { $eq: _id } },
+      ],
+    });
+    const inProgress = await InProgress.find({
+      $and: [
+        { createDate: { $gt: parseInt(prevYear) } },
+        { createDate: { $lt: parseInt(nextYear) } },
+        { creater: { $eq: _id } },
+      ],
+    });
+    const done = await Done.find({
+      $and: [
+        { createDate: { $gt: parseInt(prevYear) } },
+        { createDate: { $lt: parseInt(nextYear) } },
+        { creater: { $eq: _id } },
+      ],
+    });
+
+    res.status(200).json({
+      todo: todo,
+      backlog: backlog,
+      inProgress: inProgress,
+      done: done,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+    console.log(`Error : ${error.message}`);
+  }
+};
+
+const filterAllTasksByMonth = async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const currentDate = new Date();
+
+    let nextMonth = "";
+    let prevMonth = "";
+    let weekNum = 0;
+    const localDate = currentDate.toISOString().split("T")[0].split("-");
+
+    localDate[2] = parseInt(localDate[2]) + 0;
+
+    const prevMonthDate = currentDate.toISOString().split("T")[0].split("-");
+    prevMonthDate[1] = parseInt(prevMonthDate[1]) - 1;
+
+    const nextMonthDate = currentDate.toISOString().split("T")[0].split("-");
+    nextMonthDate[1] = parseInt(nextMonthDate[1]) + 1;
+
+    if (parseInt(localDate[2]) + 0 <= 7) {
+      weekNum = 1;
+    } else if (parseInt(localDate[2]) + 0 <= 14) {
+      weekNum = 2;
+    } else if (parseInt(localDate[2]) + 0 <= 21) {
+      weekNum = 3;
+    } else if (parseInt(localDate[2]) + 0 <= 28) {
+      weekNum = 4;
+    } else {
+      weekNum = 5;
+    }
+
+    prevMonthDate.splice(2, 0, weekNum);
+    nextMonthDate.splice(2, 0, weekNum);
+
+    prevMonthDate.forEach((num) => {
+      prevMonth += String(num);
+    });
+    nextMonthDate.forEach((num) => {
+      nextMonth += String(num);
+    });
+
+    const todo = await Todo.find({
+      $and: [
+        { createDate: { $gt: parseInt(prevMonth) } },
+        { createDate: { $lt: parseInt(nextMonth) } },
+        { creater: { $eq: _id } },
+      ],
+    });
+    const backlog = await Backlog.find({
+      $and: [
+        { createDate: { $gt: parseInt(prevMonth) } },
+        { createDate: { $lt: parseInt(nextMonth) } },
+        { creater: { $eq: _id } },
+      ],
+    });
+    const inProgress = await InProgress.find({
+      $and: [
+        { createDate: { $gt: parseInt(prevMonth) } },
+        { createDate: { $lt: parseInt(nextMonth) } },
+        { creater: { $eq: _id } },
+      ],
+    });
+    const done = await Done.find({
+      $and: [
+        { createDate: { $gt: parseInt(prevMonth) } },
+        { createDate: { $lt: parseInt(nextMonth) } },
+        { creater: { $eq: _id } },
+      ],
+    });
+
+    res.status(200).json({
+      todo: todo,
+      backlog: backlog,
+      inProgress: inProgress,
+      done: done,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+    console.log(`Error : ${error.message}`);
+  }
+};
+
+const filterAllTasksByWeek = async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const currentDate = new Date();
+    let nextWeek = "";
+    let prevWeek = "";
+    let weekNum = 0;
+
+    const localDate = currentDate.toISOString().split("T")[0].split("-");
+
+    localDate[2] = parseInt(localDate[2]) + 0;
+
+    const prevWeekDate = currentDate.toISOString().split("T")[0].split("-");
+    prevWeekDate[1] = parseInt(prevWeekDate[1]) + 0;
+
+    const nextWeekDate = currentDate.toISOString().split("T")[0].split("-");
+    nextWeekDate[1] = parseInt(nextWeekDate[1]) + 0;
+
+    if (parseInt(localDate[2]) + 0 <= 7) {
+      weekNum = 1;
+    } else if (parseInt(localDate[2]) + 0 <= 14) {
+      weekNum = 2;
+    } else if (parseInt(localDate[2]) + 0 <= 21) {
+      weekNum = 3;
+    } else if (parseInt(localDate[2]) + 0 <= 28) {
+      weekNum = 4;
+    } else {
+      weekNum = 5;
+    }
+
+    if (weekNum === 1) {
+      prevWeekDate[1] = parseInt(prevWeekDate[1]) - 1;
+      prevWeekDate.splice(2, 0, 5);
+      nextWeekDate.splice(2, 0, weekNum + 1);
+    } else if (weekNum === 5) {
+      nextWeekDate[1] = parseInt(prevWeekDate[1]) + 1;
+      nextWeekDate.splice(2, 0, 1);
+      nextWeekDate[3] = "01";
+      prevWeekDate.splice(2, 0, weekNum - 1);
+    } else {
+      prevWeekDate.splice(2, 0, weekNum - 1);
+      nextWeekDate.splice(2, 0, weekNum + 1);
+    }
+
+    prevWeekDate.forEach((num) => {
+      prevWeek += String(num);
+    });
+    nextWeekDate.forEach((num) => {
+      nextWeek += String(num);
+    });
+
+    const todo = await Todo.find({
+      $and: [
+        { createDate: { $gt: parseInt(prevWeek) } },
+        { createDate: { $lt: parseInt(nextWeek) } },
+        { creater: { $eq: _id } },
+      ],
+    });
+    const backlog = await Backlog.find({
+      $and: [
+        { createDate: { $gt: parseInt(prevWeek) } },
+        { createDate: { $lt: parseInt(nextWeek) } },
+        { creater: { $eq: _id } },
+      ],
+    });
+    const inProgress = await InProgress.find({
+      $and: [
+        { createDate: { $gt: parseInt(prevWeek) } },
+        { createDate: { $lt: parseInt(nextWeek) } },
+        { creater: { $eq: _id } },
+      ],
+    });
+    const done = await Done.find({
+      $and: [
+        { createDate: { $gt: parseInt(prevWeek) } },
+        { createDate: { $lt: parseInt(nextWeek) } },
+        { creater: { $eq: _id } },
+      ],
+    });
+
+    res.status(200).json({
+      todo: todo,
+      backlog: backlog,
+      inProgress: inProgress,
+      done: done,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+    console.log(`Error : ${error.message}`);
+  }
+};
+
+const filterAllTasksByToday = async (req, res) => {
+  try {
+    const { _id } = req.user;
+    let dateNum = "";
+    let weekNum = 0;
+
+    const currentDate = new Date();
+    const localDate = currentDate.toISOString().split("T")[0].split("-");
+    localDate[1] = parseInt(localDate[1]) + 0;
+    localDate[2] = parseInt(localDate[2]) + 0;
+
+    if (parseInt(localDate[2]) + 0 <= 7) {
+      weekNum = 1;
+    } else if (parseInt(localDate[2]) + 0 <= 14) {
+      weekNum = 2;
+    } else if (parseInt(localDate[2]) + 0 <= 21) {
+      weekNum = 3;
+    } else if (parseInt(localDate[2]) + 0 <= 28) {
+      weekNum = 4;
+    } else {
+      weekNum = 5;
+    }
+
+    localDate.splice(2, 0, weekNum);
+
+    localDate.forEach((num) => {
+      dateNum += String(num);
+    });
+
+    const todo = await Todo.find({
+      $and: [
+        { createDate: { $eq: parseInt(dateNum) } },
+        { creater: { $eq: _id } },
+      ],
+    });
+    const backlog = await Backlog.find({
+      $and: [
+        { createDate: { $eq: parseInt(dateNum) } },
+        { creater: { $eq: _id } },
+      ],
+    });
+    const inProgress = await InProgress.find({
+      $and: [
+        { createDate: { $eq: parseInt(dateNum) } },
+        { creater: { $eq: _id } },
+      ],
+    });
+    const done = await Done.find({
+      $and: [
+        { createDate: { $eq: parseInt(dateNum) } },
+        { creater: { $eq: _id } },
+      ],
+    });
+
+    res.status(200).json({
+      todo: todo,
+      backlog: backlog,
+      inProgress: inProgress,
+      done: done,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+    console.log(`Error : ${error.message}`);
+  }
+};
 const createTodo = async (req, res) => {
   try {
+    let dateNum = "";
+    let weekNum = 0;
+
+    const currentDate = new Date();
+    const localDate = currentDate.toISOString().split("T")[0].split("-");
+    localDate[1] = parseInt(localDate[1]) + 0;
+    localDate[2] = parseInt(localDate[2]) + 0;
+
+    if (parseInt(localDate[2]) + 0 <= 7) {
+      weekNum = 1;
+    } else if (parseInt(localDate[2]) + 0 <= 14) {
+      weekNum = 2;
+    } else if (parseInt(localDate[2]) + 0 <= 21) {
+      weekNum = 3;
+    } else if (parseInt(localDate[2]) + 0 <= 28) {
+      weekNum = 4;
+    } else {
+      weekNum = 5;
+    }
+
+    localDate.splice(2, 0, weekNum);
+
+    localDate.forEach((num) => {
+      dateNum += String(num);
+    });
+
     const { _id } = req.user;
     const { title, checklist, priority, dueDate, colour, pureDate, id } =
       req.body;
@@ -47,8 +394,10 @@ const createTodo = async (req, res) => {
         dueDate,
         pureDate,
         colour,
+        createDate: parseInt(dateNum),
       });
       await createTodo.save();
+
       res.status(201).json(createTodo);
     } else {
       res.status(400).json({ message: "All fields are required!" });
@@ -78,6 +427,7 @@ const addToBacklog = async (req, res) => {
         dueDate: task.dueDate ? task.dueDate : "",
         pureDate: task.pureDate,
         colour: task.colour,
+        createDate: task.createDate,
         creater: _id,
       });
       await createBacklog.save();
@@ -118,6 +468,7 @@ const addToToDo = async (req, res) => {
         dueDate: task.dueDate ? task.dueDate : "",
         pureDate: task.pureDate,
         colour: task.colour,
+        createDate: task.createDate,
         creater: _id,
       });
       await createTodo.save();
@@ -157,6 +508,7 @@ const addToInProgress = async (req, res) => {
         dueDate: task.dueDate ? task.dueDate : "",
         pureDate: task.pureDate,
         colour: task.colour,
+        createDate: task.createDate,
         creater: _id,
       });
       await createInProgress.save();
@@ -197,6 +549,7 @@ const addToDone = async (req, res) => {
         dueDate: task.dueDate ? task.dueDate : "",
         pureDate: task.pureDate,
         colour: task.colour,
+        createDate: task.createDate,
         creater: _id,
       });
       await createDone.save();
@@ -242,6 +595,7 @@ const editTask = async (req, res) => {
             dueDate: task.dueDate ? task.dueDate : "",
             pureDate: task.pureDate,
             colour: task.colour,
+
             creater: _id,
           },
           { new: true }
@@ -458,4 +812,8 @@ export {
   deleteTask,
   getUserAllCreatedTasksInfo,
   getShareTask,
+  filterAllTasksByMonth,
+  filterAllTasksByWeek,
+  filterAllTasksByToday,
+  filterAllTasksByYear,
 };

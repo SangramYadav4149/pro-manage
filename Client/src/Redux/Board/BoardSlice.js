@@ -15,6 +15,7 @@ const initialState = {
   doneCollapse: false,
   deleteTask: {},
   logOut: false,
+  
 };
 
 const BoardSlice = createSlice({

@@ -3,7 +3,6 @@ import { getAxiosConfigToken } from "../../Utils/AxiosConfigToken";
 
 export const registerUser = async (data) => {
   try {
-    console.log(data);
     return await axios.post(
       "https://backend-r1sv.onrender.com/promaneger/api/user/register",
       data
@@ -156,4 +155,50 @@ export const changeUserPassword = async (data) => {
   }
 };
 
-////promaneger/api/get
+export const getUserAllTodayTasks = async () => {
+  try {
+    const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
+    return await axios.get(
+      `https://backend-r1sv.onrender.com/promaneger/api/tasks/get/today/tasks`,
+
+      config
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const getUserAllThisWeekTasks = async () => {
+  try {
+    const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
+    return await axios.get(
+      `https://backend-r1sv.onrender.com/promaneger/api/tasks/get/week/tasks`,
+
+      config
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const getUserAllThisMonthTasks = async () => {
+  try {
+    const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
+    return await axios.get(
+      `https://backend-r1sv.onrender.com/promaneger/api/tasks/get/month/tasks`,
+      config
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const getUserAllThisYearTasks = async () => {
+  try {
+    const config = getAxiosConfigToken(localStorage.getItem("TOKEN"));
+    return await axios.get(
+      `https://backend-r1sv.onrender.com/promaneger/api/tasks/get/year/tasks`,
+
+      config
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
+};

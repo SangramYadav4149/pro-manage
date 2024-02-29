@@ -11,6 +11,10 @@ import {
   getUser,
   getUserAllCreatedTasksInfo,
   getUserAllTasks,
+  getUserAllThisMonthTasks,
+  getUserAllThisWeekTasks,
+  getUserAllThisYearTasks,
+  getUserAllTodayTasks,
   loginUser,
   registerUser,
 } from "./UserAPI";
@@ -27,6 +31,7 @@ const initialState = {
   allInProgress: 0,
   allDone: 0,
   reFatchAlltasksToggle: false,
+  fetching: false,
   allHighPriority: 0,
   allModeratePriority: 0,
   allLowPriority: 0,
@@ -162,10 +167,54 @@ export const getUserAllCreatedTasksInfoAsync = createAsyncThunk(
 );
 
 export const changeUserPasswordAsync = createAsyncThunk(
-  "user/cahngePassword",
+  "user/changePassword",
   async (data) => {
     try {
       const response = await changeUserPassword(data);
+      return response.data;
+    } catch (error) {
+      return Error(error);
+    }
+  }
+);
+export const getUserAllTodayTasksAsync = createAsyncThunk(
+  "user/getTodayTasks",
+  async (data) => {
+    try {
+      const response = await getUserAllTodayTasks();
+      return response.data;
+    } catch (error) {
+      return Error(error);
+    }
+  }
+);
+export const getUserAllThisWeekTasksAsync = createAsyncThunk(
+  "user/getThisWeekTasks",
+  async (data) => {
+    try {
+      const response = await getUserAllThisWeekTasks();
+      return response.data;
+    } catch (error) {
+      return Error(error);
+    }
+  }
+);
+export const getUserAllThisMonthTasksAsync = createAsyncThunk(
+  "user/getThisMonthTasks",
+  async (data) => {
+    try {
+      const response = await getUserAllThisMonthTasks();
+      return response.data;
+    } catch (error) {
+      return Error(error);
+    }
+  }
+);
+export const getUserAllThisYearTasksAsync = createAsyncThunk(
+  "user/getThisYearTasks",
+  async (data) => {
+    try {
+      const response = await getUserAllThisYearTasks();
       return response.data;
     } catch (error) {
       return Error(error);
@@ -222,24 +271,35 @@ const UserSlice = createSlice({
         state.loginError = true;
         state.toggle = state.toggle ? false : true;
       })
-      .addCase(getUserAsync.pending, (state, action) => {})
+      .addCase(getUserAsync.pending, (state, action) => {
+        state.fetching = true;
+      })
       .addCase(getUserAsync.fulfilled, (state, action) => {
         const { user } = action.payload;
-
+        state.fetching = false;
         state.user = user;
         state.toggle = state.toggle ? false : true;
       })
       .addCase(getUserAsync.rejected, (state, action) => {})
-      .addCase(createTodoAsync.pending, (state, action) => {})
+      .addCase(createTodoAsync.pending, (state, action) => {
+        state.fetching = true;
+      })
       .addCase(createTodoAsync.fulfilled, (state, action) => {
+        state.fetching = false;
+
         state.reFatchAlltasksToggle = state.reFatchAlltasksToggle
           ? false
           : true;
       })
-      .addCase(createTodoAsync.rejected, (state, action) => {})
-      .addCase(getUserAllTasksAsync.pending, (state, action) => {})
+      .addCase(createTodoAsync.rejected, (state, action) => {
+        state.fetching = false;
+      })
+      .addCase(getUserAllTasksAsync.pending, (state, action) => {
+        state.fetching = true;
+      })
       .addCase(getUserAllTasksAsync.fulfilled, (state, action) => {
         const { backlog, todo, inProgress, done } = action.payload;
+        state.fetching = false;
         state.backlog = backlog;
         state.todo = todo;
         state.inProgress = inProgress;
@@ -248,7 +308,9 @@ const UserSlice = createSlice({
           ? true
           : false;
       })
-      .addCase(getUserAllTasksAsync.rejected, (state, action) => {})
+      .addCase(getUserAllTasksAsync.rejected, (state, action) => {
+        state.fetching = false;
+      })
       .addCase(addToBacklogAsync.pending, (state, action) => {})
       .addCase(addToBacklogAsync.fulfilled, (state, action) => {
         state.reFatchAlltasksToggle = state.reFatchAlltasksToggle
@@ -277,21 +339,33 @@ const UserSlice = createSlice({
           : true;
       })
       .addCase(addToInProgressAsync.rejected, (state, action) => {})
-      .addCase(editTaskAsync.pending, (state, action) => {})
+      .addCase(editTaskAsync.pending, (state, action) => {
+        state.fetching = true;
+      })
       .addCase(editTaskAsync.fulfilled, (state, action) => {
+        state.fetching = false;
         state.reFatchAlltasksToggle = state.reFatchAlltasksToggle
           ? false
           : true;
       })
-      .addCase(editTaskAsync.rejected, (state, action) => {})
-      .addCase(deleteTaskAsync.pending, (state, action) => {})
+      .addCase(editTaskAsync.rejected, (state, action) => {
+        state.fetching = false;
+      })
+      .addCase(deleteTaskAsync.pending, (state, action) => {
+        state.fetching = true;
+      })
       .addCase(deleteTaskAsync.fulfilled, (state, action) => {
+        state.fetching = false;
         state.reFatchAlltasksToggle = state.reFatchAlltasksToggle
           ? false
           : true;
       })
-      .addCase(deleteTaskAsync.rejected, (state, action) => {})
-      .addCase(getUserAllCreatedTasksInfoAsync.pending, (state, action) => {})
+      .addCase(deleteTaskAsync.rejected, (state, action) => {
+        state.fetching = false;
+      })
+      .addCase(getUserAllCreatedTasksInfoAsync.pending, (state, action) => {
+        state.fetching = true;
+      })
       .addCase(getUserAllCreatedTasksInfoAsync.fulfilled, (state, action) => {
         const {
           backlog,
@@ -303,6 +377,7 @@ const UserSlice = createSlice({
           lowPriority,
           dueDate,
         } = action.payload;
+        state.fetching = false;
         state.allBacklog = backlog;
         state.allTodo = todo;
         state.allInProgress = inProgress;
@@ -312,7 +387,9 @@ const UserSlice = createSlice({
         state.allLowPriority = lowPriority;
         state.allDueDateTasks = dueDate;
       })
-      .addCase(getUserAllCreatedTasksInfoAsync.rejected, (state, action) => {})
+      .addCase(getUserAllCreatedTasksInfoAsync.rejected, (state, action) => {
+        state.fetching = false;
+      })
       .addCase(changeUserPasswordAsync.pending, (state, action) => {})
       .addCase(changeUserPasswordAsync.fulfilled, (state, action) => {
         const { user } = action.payload;
@@ -321,12 +398,72 @@ const UserSlice = createSlice({
           ? false
           : true;
       })
-      .addCase(changeUserPasswordAsync.rejected, (state, action) => {});
+      .addCase(changeUserPasswordAsync.rejected, (state, action) => {})
+      .addCase(getUserAllTodayTasksAsync.pending, (state, action) => {
+        state.fetching = true;
+      })
+      .addCase(getUserAllTodayTasksAsync.fulfilled, (state, action) => {
+        const { todo, backlog, inProgress, done } = action.payload;
+        state.fetching = false;
+        state.todo = todo;
+        state.backlog = backlog;
+        state.inProgress = inProgress;
+        state.done = done;
+      })
+      .addCase(getUserAllTodayTasksAsync.rejected, (state, action) => {
+        state.fetching = false;
+      })
+
+      .addCase(getUserAllThisWeekTasksAsync.pending, (state, action) => {
+        state.fetching = true;
+      })
+      .addCase(getUserAllThisWeekTasksAsync.fulfilled, (state, action) => {
+        const { todo, backlog, inProgress, done } = action.payload;
+        state.fetching = false;
+        state.todo = todo;
+        state.backlog = backlog;
+        state.inProgress = inProgress;
+        state.done = done;
+      })
+      .addCase(getUserAllThisWeekTasksAsync.rejected, (state, action) => {
+        state.fetching = false;
+      })
+
+      .addCase(getUserAllThisMonthTasksAsync.pending, (state, action) => {
+        state.fetching = true;
+      })
+      .addCase(getUserAllThisMonthTasksAsync.fulfilled, (state, action) => {
+        const { todo, backlog, inProgress, done } = action.payload;
+        state.fetching = false;
+        state.todo = todo;
+        state.backlog = backlog;
+        state.inProgress = inProgress;
+        state.done = done;
+      })
+      .addCase(getUserAllThisMonthTasksAsync.rejected, (state, action) => {
+        state.fetching = false;
+      })
+
+      .addCase(getUserAllThisYearTasksAsync.pending, (state, action) => {
+        state.fetching = true;
+      })
+      .addCase(getUserAllThisYearTasksAsync.fulfilled, (state, action) => {
+        const { todo, backlog, inProgress, done } = action.payload;
+        state.fetching = false;
+        state.todo = todo;
+        state.backlog = backlog;
+        state.inProgress = inProgress;
+        state.done = done;
+      })
+      .addCase(getUserAllThisYearTasksAsync.rejected, (state, action) => {
+        state.fetching = false;
+      });
   },
 });
 
 export const { setLogOut } = UserSlice.actions;
 export const allTodo = (state) => state.user.allTodo;
+export const fetching = (state) => state.user.fetching;
 export const loginError = (state) => state.user.loginError;
 export const allBacklog = (state) => state.user.allBacklog;
 export const allInProgress = (state) => state.user.allInProgress;

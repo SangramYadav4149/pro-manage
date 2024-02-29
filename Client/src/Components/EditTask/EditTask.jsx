@@ -83,13 +83,12 @@ const EditTask = () => {
       dueDate: date ? `${month} ${currDate}th` : "",
       pureDate: date,
       colour:
-        priority === "lo-priority"
+        priority === "low-priority"
           ? "green"
           : priority === "high-priority"
           ? "red"
           : "blue",
     };
-    console.log({ task: editTaskInfo, from: userEditTask.from });
 
     dispatch(editTaskAsync({ task: editTaskInfo, from: userEditTask.from }));
   };
@@ -144,6 +143,11 @@ const EditTask = () => {
     setInputsCount(count + 1);
   };
   const handleSetText = (index, text) => {
+    if (priority && title && text) {
+      setEnableSaveButton(true);
+    } else {
+      setEnableSaveButton(false);
+    }
     let task = { ...inputValues[index] };
     task.text = text;
     let allTasks = [...inputValues];

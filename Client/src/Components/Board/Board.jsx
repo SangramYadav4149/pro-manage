@@ -4,6 +4,7 @@ import { getCurrentDate } from "../../Utils/Date";
 import { VscCollapseAll } from "react-icons/vsc";
 import { IoIosAdd } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
+import { HashLoader } from "react-spinners";
 import {
   setBackLogCollapse,
   setDoneCollapse,
@@ -19,6 +20,11 @@ import InProgressCardPage from "../../Pages/CardsPage/InProgressCardPage/InProgr
 import {
   backlog,
   done,
+  fetching,
+  getUserAllThisMonthTasksAsync,
+  getUserAllThisWeekTasksAsync,
+  getUserAllThisYearTasksAsync,
+  getUserAllTodayTasksAsync,
   inProgress,
   todo,
   user,
@@ -30,7 +36,9 @@ const Board = () => {
     3: "inprogress",
     4: "done",
   };
+
   const userTodoTasks = useSelector(todo);
+  const fetchingData = useSelector(fetching);
   const userBacklogTasks = useSelector(backlog);
   const userInProgressTasks = useSelector(inProgress);
   const userDoneTasks = useSelector(done);
@@ -39,6 +47,28 @@ const Board = () => {
   const date = getCurrentDate();
   const handleToggleCreateTaskSec = () => {
     dispatch(toggleCreateTask());
+  };
+  const handleGetUserAllTodayTasks = (date) => {
+    try {
+      const timeZoneVal = {
+        1: "today",
+        2: "week",
+        3: "month",
+        4: "year",
+      };
+
+      if (date === timeZoneVal[1]) {
+        dispatch(getUserAllTodayTasksAsync());
+      } else if (date === timeZoneVal[2]) {
+        dispatch(getUserAllThisWeekTasksAsync());
+      } else if (date === timeZoneVal[3]) {
+        dispatch(getUserAllThisMonthTasksAsync());
+      } else {
+        dispatch(getUserAllThisYearTasksAsync());
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleCollapseAll = (taskBoxNumber, value) => {
     if (taskBoxNumber === taskBoxes["1"]) {
@@ -61,10 +91,14 @@ const Board = () => {
       <div className={style.board_sec_2}>
         <span className={style.section_title}>Board</span>
         <span className={style.board_filters}>
-          <select className={style.options}>
-            <option value="Today">Today</option>
-            <option value="This week">This week</option>
-            <option value="This month">This month</option>
+          <select
+            onChange={(e) => handleGetUserAllTodayTasks(e.target.value)}
+            className={style.options}
+          >
+            <option value="today">Today</option>
+            <option value="week">This Week</option>
+            <option value="month">This Month</option>
+            <option value="year">This Year</option>
           </select>
         </span>
       </div>
@@ -79,13 +113,19 @@ const Board = () => {
             </div>
           </div>
           <div className={style.tasks_sec}>
-            {userBacklogTasks?.map((task, i) => {
-              return (
-                <div key={i} className={style.task_box}>
-                  <BacklogCardPage task={task} />
-                </div>
-              );
-            })}
+            {!fetchingData ? (
+              userBacklogTasks?.map((task, i) => {
+                return (
+                  <div key={i} className={style.task_box}>
+                    <BacklogCardPage task={task} />
+                  </div>
+                );
+              })
+            ) : (
+              <div className={style.loading}>
+                <HashLoader color="#17a2b8" />
+              </div>
+            )}
           </div>
         </div>
         <div className={style.board_box}>
@@ -104,13 +144,19 @@ const Board = () => {
             </div>
           </div>
           <div className={style.tasks_sec}>
-            {userTodoTasks?.map((task) => {
-              return (
-                <div className={style.task_box}>
-                  <ToDoCardPage task={task} />
-                </div>
-              );
-            })}
+            {!fetchingData ? (
+              userTodoTasks?.map((task) => {
+                return (
+                  <div className={style.task_box}>
+                    <ToDoCardPage task={task} />
+                  </div>
+                );
+              })
+            ) : (
+              <div className={style.loading}>
+                <HashLoader color="#17a2b8" />
+              </div>
+            )}
           </div>
         </div>
         <div className={style.board_box}>
@@ -123,13 +169,19 @@ const Board = () => {
             </div>
           </div>
           <div className={style.tasks_sec}>
-            {userInProgressTasks?.map((task, i) => {
-              return (
-                <div key={i} className={style.task_box}>
-                  <InProgressCardPage task={task} />
-                </div>
-              );
-            })}
+            {!fetchingData ? (
+              userInProgressTasks?.map((task, i) => {
+                return (
+                  <div key={i} className={style.task_box}>
+                    <InProgressCardPage task={task} />
+                  </div>
+                );
+              })
+            ) : (
+              <div className={style.loading}>
+                <HashLoader color="#17a2b8" />
+              </div>
+            )}
           </div>
         </div>
         <div className={style.board_box}>
@@ -142,13 +194,19 @@ const Board = () => {
             </div>
           </div>
           <div className={style.tasks_sec}>
-            {userDoneTasks?.map((task) => {
-              return (
-                <div className={style.task_box}>
-                  <DoneCardpage task={task} />
-                </div>
-              );
-            })}
+            {!fetchingData ? (
+              userDoneTasks?.map((task) => {
+                return (
+                  <div className={style.task_box}>
+                    <DoneCardpage task={task} />
+                  </div>
+                );
+              })
+            ) : (
+              <div className={style.loading}>
+                <HashLoader color="#17a2b8" />
+              </div>
+            )}
           </div>
         </div>
       </div>

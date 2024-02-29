@@ -91,3 +91,13 @@
   width: max-content;
   padding-bottom: 0.7rem;
 }
+.board_container .loading {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 23rem;
+}
+.board_container .loading > svg {
+  color: red;
+}

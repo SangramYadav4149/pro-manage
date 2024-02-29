@@ -11,6 +11,7 @@ const toDoSchema = new Schema(
     pureDate: { type: String },
     creater: { type: String, required: true },
     colour: { type: String, required: true },
+    createDate: { type: Number, required: true },
   },
   { timestamps: true }
 );

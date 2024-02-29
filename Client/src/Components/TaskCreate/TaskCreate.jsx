@@ -70,9 +70,9 @@ const TaskCreate = () => {
       dueDate: date ? `${month} ${currDate}th` : "",
       pureDate: date,
       colour:
-        priority === "low_priority"
+        priority === "low-priority"
           ? "green"
-          : priority === "high_priority"
+          : priority === "high-priority"
           ? "red"
           : "blue",
     };
@@ -109,7 +109,7 @@ const TaskCreate = () => {
     setInputValues([...filterInputValues]);
   };
   const handleAddInputBox = (count) => {
-    if (title && priority) {
+    if (title && inputValues[0]?.text && priority) {
       setEnableSaveButton(true);
     } else {
       setEnableSaveButton(false);
@@ -125,6 +125,11 @@ const TaskCreate = () => {
     setInputsCount(count + 1);
   };
   const handleSetText = (index, text) => {
+    if (priority && title && text) {
+      setEnableSaveButton(true);
+    } else {
+      setEnableSaveButton(false);
+    }
     inputValues[index].text = text;
     setTaskToggle(!taskToggle);
   };
