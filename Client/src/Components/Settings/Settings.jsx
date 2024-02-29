@@ -57,10 +57,10 @@ const Settings = () => {
       setnewPasswordError("");
 
       if (!oldPassword && !newPassword) {
-        setPasswordError("Please insert a valid password!");
+        setPasswordError("Please insert a valid old  password!");
         setnewPasswordError("Please insert a valid new password!");
       } else if (!oldPassword) {
-        setPasswordError("Please insert a valid password!");
+        setPasswordError("Please insert a valid old password!");
       } else if (!newPassword) {
         setnewPasswordError("Please insert a valid new password!");
       } else {
